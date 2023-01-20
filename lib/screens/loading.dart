@@ -1,5 +1,6 @@
 
 import 'package:flutter/material.dart';
+import 'package:loading_animation_widget/loading_animation_widget.dart';
 import 'package:svd_doc/gloabal_const.dart';
 
 class Loading extends StatefulWidget{
@@ -24,7 +25,15 @@ class LoadingState extends State<Loading>{
               child: DecorRight()
           ),
           Center(child:
-          SizedBox(height: 200, width: 200, child: Image.asset("assets/big_icons/main_logo.png"))
+          SizedBox(height: 250, width: 200, child: Column(
+            children: [
+              Image.asset("assets/big_icons/main_logo.png"),
+              LoadingAnimationWidget.prograssiveDots(
+                color: mySet.input,
+                size: 50,
+              ),
+            ],
+          ))
             ),
           const Positioned(
               left: 0,
