@@ -2,8 +2,15 @@
 import 'package:flutter/material.dart';
 import '../../global_const.dart';
 
-class BottomText extends StatelessWidget {
+class BottomText extends StatefulWidget {
   const BottomText({super.key});
+
+  @override
+  State<BottomText> createState() => _BottomTextState();
+}
+
+class _BottomTextState extends State<BottomText> {
+  bool pres = false;
 
   @override
   Widget build(BuildContext context) {
@@ -62,17 +69,27 @@ class BottomText extends StatelessWidget {
               const SizedBox(
                 width: 5,
               ),
-              TextButton(
-                onPressed: () {},
-
-                child: Text(
-                  'Зарегистрируйтесь',
-                  style: TextStyle(
-                      color: mySet.main,
-                      fontSize: 18,
-                      fontFamily: "Italic",
-                      fontWeight: FontWeight.w500,
-                      decoration: TextDecoration.underline
+              GestureDetector(
+                onTapDown: (tap) {
+                  pres = true; setState(() { });
+                },
+                onTapUp: (tap) {
+                  pres = false; setState(() { });
+                },
+                onTapCancel: () {
+                  pres = false; setState(() { });
+                },
+                child: Container(
+                  color: pres ? mySet.shadow : Colors.transparent,
+                  child: Text(
+                    'Зарегистрируйтесь',
+                    style: TextStyle(
+                        color: mySet.main,
+                        fontSize: 18,
+                        fontFamily: "Italic",
+                        fontWeight: FontWeight.w500,
+                        decoration: TextDecoration.underline
+                    ),
                   ),
                 ),
               )
