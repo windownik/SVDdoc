@@ -80,6 +80,7 @@ class _BottomTextState extends State<BottomText> {
                   pres = false; setState(() { });
                 },
                 child: Container(
+                  height: 25,
                   color: pres ? mySet.shadow : Colors.transparent,
                   child: Text(
                     'Зарегистрируйтесь',
