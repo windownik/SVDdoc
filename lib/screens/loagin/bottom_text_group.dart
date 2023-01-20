@@ -10,43 +10,44 @@ class BottomText extends StatelessWidget {
     var screenSize = MediaQuery.of(context).size.width;
     return Container(
       alignment: Alignment.center,
-      padding: const EdgeInsets.only(left: 25, right: 25),
+      // padding: const EdgeInsets.only(left: 25, right: 25),
       child: Column(
         children: [
-          SizedBox(
-            height: 22,
-            child: Row(
-              children: [
-                Container(
-                  color: mySet.main,
-                  height: 1,
-                  width: screenSize * 0.35,
-                ),
-                const SizedBox(
-                  width: 17,
-                ),
-                Text(
-                  'или',
-                  style: TextStyle(
-                      color: mySet.main,
-                      fontSize: 18,
-                      fontFamily: "Italic",
-                      fontWeight: FontWeight.w500,
-                      decoration: null),
-                ),
-                const SizedBox(
-                  width: 17,
-                ),
-                Container(
-                  color: mySet.main,
-                  height: 1,
-                  width: screenSize * 0.35,
-                ),
-              ],
-            ),
+            SizedBox(width: screenSize,
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Container(
+                    color: mySet.main,
+                    height: 1,
+                    width: screenSize * 0.35,
+                  ),
+                  const SizedBox(
+                    width: 17,
+                  ),
+                  Text(
+                    'или',
+                    style: TextStyle(
+                        color: mySet.main,
+                        fontSize: 18,
+                        fontFamily: "Italic",
+                        fontWeight: FontWeight.w500,
+                        decoration: null),
+                  ),
+                  const SizedBox(
+                    width: 17,
+                  ),
+                  Container(
+                    color: mySet.main,
+                    height: 1,
+                    width: screenSize * 0.35,
+                  ),
+                ],
+
           ),
+            ),
           const SizedBox(
-            height: 25,
+            height: 15,
           ),
           Row(
             children: [
@@ -63,6 +64,7 @@ class BottomText extends StatelessWidget {
               ),
               TextButton(
                 onPressed: () {},
+
                 child: Text(
                   'Зарегистрируйтесь',
                   style: TextStyle(
@@ -77,7 +79,7 @@ class BottomText extends StatelessWidget {
             ],
           ),
           const SizedBox(
-            height: 50,
+            height: 30,
           ),
         ],
       ),
