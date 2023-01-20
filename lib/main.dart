@@ -2,6 +2,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:svd_doc/screens/loading.dart';
+import 'package:svd_doc/screens/loagin/login_main.dart';
 
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
@@ -26,6 +27,7 @@ class MyApp extends StatelessWidget {
       initialRoute: '/',
       routes: {
         '/': (context) => const Loading(),
+        '/login': (context) => const LoginScreen(),
       },
     );
   }

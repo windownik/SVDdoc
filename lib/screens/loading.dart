@@ -1,7 +1,9 @@
 
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:loading_animation_widget/loading_animation_widget.dart';
-import 'package:svd_doc/gloabal_const.dart';
+import 'package:svd_doc/global_const.dart';
 
 class Loading extends StatefulWidget{
   const Loading({super.key});
@@ -14,9 +16,12 @@ class LoadingState extends State<Loading>{
 
   @override
   Widget build(BuildContext context) {
-    return GestureDetector(
-      onTap: () { },
-      child: Container(
+    Timer(const Duration(seconds: 1), () {
+      Navigator.pushNamedAndRemoveUntil(
+          context, '/login', (route) => false);
+    });
+
+    return Container(
         color: Colors.white,
         child: Stack(children: [
           const Positioned(
@@ -41,8 +46,7 @@ class LoadingState extends State<Loading>{
               child: DecorLeft()
           ),
         ],)
-      ),
-    );
+      );
   }
 }
 

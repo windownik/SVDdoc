@@ -1,7 +1,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.svd_doc">
    <application
-        android:label="svd_doc"
+        android:label="SVDdoc"
         android:name="${applicationName}"
         android:icon="@mipmap/ic_launcher">
         <activity
