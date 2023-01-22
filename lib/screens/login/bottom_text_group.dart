@@ -32,7 +32,7 @@ class _BottomTextState extends State<BottomText> {
                   const SizedBox(
                     width: 17,
                   ),
-                  Text(
+                  const Text(
                     'или',
                     style: TextStyle(
                         color: mySet.main,
@@ -58,7 +58,7 @@ class _BottomTextState extends State<BottomText> {
           ),
           Row(
             children: [
-              Text(
+              const Text(
                 'Вы администратор?',
                 style: TextStyle(
                     color: mySet.input,
@@ -70,6 +70,9 @@ class _BottomTextState extends State<BottomText> {
                 width: 5,
               ),
               GestureDetector(
+                onTap: () {
+                  Navigator.of(context).pushNamed('/sign_up');
+                },
                 onTapDown: (tap) {
                   pres = true; setState(() { });
                 },
@@ -82,7 +85,7 @@ class _BottomTextState extends State<BottomText> {
                 child: Container(
                   height: 25,
                   color: pres ? mySet.shadow : Colors.transparent,
-                  child: Text(
+                  child: const Text(
                     'Зарегистрируйтесь',
                     style: TextStyle(
                         color: mySet.main,

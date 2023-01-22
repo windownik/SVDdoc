@@ -1,7 +1,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:svd_doc/global_const.dart';
-import 'package:svd_doc/screens/loagin/sign_up_button.dart';
+import 'package:svd_doc/screens/login/sign_up_button.dart';
 
 import 'bottom_text_group.dart';
 import 'login_button.dart';
@@ -12,7 +12,7 @@ class LoginScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.white,
+      backgroundColor: mySet.background,
       body: Stack(
         children: [
           Center(
@@ -21,7 +21,7 @@ class LoginScreen extends StatelessWidget {
                 const SizedBox(height: 117,),
                 Image.asset('assets/big_icons/main_logo_border.png', height: 137, width: 163,),
                 const SizedBox(height: 61,),
-                Text(
+                const Text(
                     'Пожалуйста, войдите или',
                     style: TextStyle(
                         color: mySet.input,
@@ -29,7 +29,7 @@ class LoginScreen extends StatelessWidget {
                         fontFamily: "Italic",
                         fontWeight: FontWeight.w400),
                   ),
-                Text(
+                const Text(
                   'зарегистрируйтесь, чтобы',
                   style: TextStyle(
                       color: mySet.input,
@@ -37,7 +37,7 @@ class LoginScreen extends StatelessWidget {
                       fontFamily: "Italic",
                       fontWeight: FontWeight.w400),
                 ),
-                Text(
+                const Text(
                   'продолжить',
                   style: TextStyle(
                       color: mySet.input,
@@ -48,7 +48,8 @@ class LoginScreen extends StatelessWidget {
                 const SizedBox(height: 50,),
                 const LoginButton(),
                 const SizedBox(height: 20,),
-                const SignUpButton()
+                const SignUpButton(),
+                const SizedBox(height: 20,),
               ],
             ),
           ),

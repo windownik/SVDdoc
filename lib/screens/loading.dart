@@ -22,7 +22,7 @@ class LoadingState extends State<Loading>{
     });
 
     return Container(
-        color: Colors.white,
+        color: mySet.background,
         child: Stack(children: [
           const Positioned(
             right: 0,

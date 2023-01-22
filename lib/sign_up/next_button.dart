@@ -3,14 +3,14 @@
 import 'package:flutter/cupertino.dart';
 import '../../global_const.dart';
 
-class SignUpButton extends StatefulWidget{
-  const SignUpButton({super.key});
+class FirstNextSignUpButton extends StatefulWidget{
+  const FirstNextSignUpButton({super.key});
 
   @override
-  State<StatefulWidget> createState() => SignUpButtonState();
+  State<StatefulWidget> createState() => FirstNextSignUpButtonState();
 }
 
-class SignUpButtonState extends State<SignUpButton>{
+class FirstNextSignUpButtonState extends State<FirstNextSignUpButton>{
   bool pres = false;
 
   @override
@@ -30,8 +30,8 @@ class SignUpButtonState extends State<SignUpButton>{
         margin: const EdgeInsets.only(left: 20, right: 20),
         height: 44,
         decoration: BoxDecoration(
-            color: pres ? mySet.shadow : mySet.white,
-            boxShadow: [BoxShadow(
+            color: pres ? mySet.second : mySet.main,
+            boxShadow: const [BoxShadow(
               color: mySet.input,
               blurRadius: 4.0,
               spreadRadius: 4.0,
@@ -39,10 +39,10 @@ class SignUpButtonState extends State<SignUpButton>{
             )]
         ),
         // decoration: ,
-        child: Text(
-          'Регистрация',
+        child: const Text(
+          'Далее',
           style: TextStyle(
-              color: mySet.main,
+              color: mySet.white,
               fontSize: 16,
               fontFamily: "Italic",
               fontWeight: FontWeight.w400),
