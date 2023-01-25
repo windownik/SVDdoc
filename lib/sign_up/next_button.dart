@@ -27,12 +27,13 @@ class FirstNextSignUpButtonState extends State<FirstNextSignUpButton>{
       },
       child: Container(
         alignment: Alignment.center,
-        margin: const EdgeInsets.only(left: 20, right: 20),
-        height: 44,
+        // margin: const EdgeInsets.only(left: 20, right: 20),
+        height: 47,
         decoration: BoxDecoration(
             color: pres ? mySet.second : mySet.main,
             boxShadow: const [BoxShadow(
-              color: mySet.input,
+              offset: Offset(-3.0, 3.0),
+              color: mySet.shadow,
               blurRadius: 4.0,
               spreadRadius: 4.0,
               // offset: const Offset(-5, 5),
@@ -43,7 +44,7 @@ class FirstNextSignUpButtonState extends State<FirstNextSignUpButton>{
           'Далее',
           style: TextStyle(
               color: mySet.white,
-              fontSize: 16,
+              fontSize: 14,
               fontFamily: "Italic",
               fontWeight: FontWeight.w400),
         ),

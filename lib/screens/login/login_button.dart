@@ -27,10 +27,10 @@ class LoginButtonState extends State<LoginButton>{
       child: Container(
         alignment: Alignment.center,
         margin: const EdgeInsets.only(left: 20, right: 20),
-        height: 44,
+        height: 47,
         decoration: BoxDecoration(
             color: pres ? mySet.second : mySet.main,
-            boxShadow: [BoxShadow(
+            boxShadow: const [BoxShadow(
               color: mySet.input,
               blurRadius: 4.0,
               spreadRadius: 4.0,
@@ -38,11 +38,11 @@ class LoginButtonState extends State<LoginButton>{
             )]
         ),
         // decoration: ,
-        child: Text(
+        child: const Text(
           'Вход',
           style: TextStyle(
               color: mySet.white,
-              fontSize: 16,
+              fontSize: 14,
               fontFamily: "Italic",
               fontWeight: FontWeight.w400),
         ),

@@ -11,6 +11,7 @@ class LoginScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    FocusManager.instance.primaryFocus?.unfocus();
     return Scaffold(
       backgroundColor: mySet.background,
       body: Stack(
@@ -25,15 +26,15 @@ class LoginScreen extends StatelessWidget {
                     'Пожалуйста, войдите или',
                     style: TextStyle(
                         color: mySet.input,
-                        fontSize: 20,
+                        fontSize: 18,
                         fontFamily: "Italic",
                         fontWeight: FontWeight.w400),
                   ),
                 const Text(
-                  'зарегистрируйтесь, чтобы',
+                  'зарегистрируйтесь, что бы',
                   style: TextStyle(
                       color: mySet.input,
-                      fontSize: 20,
+                      fontSize: 18,
                       fontFamily: "Italic",
                       fontWeight: FontWeight.w400),
                 ),
@@ -41,7 +42,7 @@ class LoginScreen extends StatelessWidget {
                   'продолжить',
                   style: TextStyle(
                       color: mySet.input,
-                      fontSize: 20,
+                      fontSize: 18,
                       fontFamily: "Italic",
                       fontWeight: FontWeight.w400),
                 ),

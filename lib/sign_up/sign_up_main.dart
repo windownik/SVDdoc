@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:svd_doc/sign_up/sign_up_input.dart';
+import 'package:svd_doc/sign_up/sign_up_validation.dart';
 
 import '../global_const.dart';
 import 'next_button.dart';
@@ -20,10 +21,14 @@ class _SignUpFirstState extends State<SignUpFirst> {
       erText: 'Обязательно для ввода', hintText: 'Введите имя', ifError: false);
 
   final SignUpInput _inputSurName = SignUpInput(
-      erText: 'Обязательно для ввода', hintText: 'Введите фамилию', ifError: false);
+      erText: 'Обязательно для ввода',
+      hintText: 'Введите фамилию',
+      ifError: false);
 
-  final SignUpInput _inputPhone = SignUpInput(
-      erText: 'Обязательно для ввода', hintText: 'Введите номер телефона', ifError: false);
+  SignUpInput _inputPhone = SignUpInput(
+      erText: 'Обязательно для ввода',
+      hintText: 'Введите номер телефона',
+      ifError: false);
 
   @override
   Widget build(BuildContext context) {
@@ -31,7 +36,6 @@ class _SignUpFirstState extends State<SignUpFirst> {
       backgroundColor: mySet.white,
       body: Stack(
         children: [
-
           SingleChildScrollView(
             child: Container(
               alignment: Alignment.center,
@@ -83,26 +87,43 @@ class _SignUpFirstState extends State<SignUpFirst> {
                     height: 30,
                   ),
                   TextField(
-                      controller: _contName,
-                      decoration: _inputName.inputDecor,
-                      cursorColor: mySet.main,
-                    ),
+                    controller: _contName,
+                    decoration: _inputName.inputDecor,
+                    cursorColor: mySet.main,
+                  ),
                   const SizedBox(
                     height: 18,
                   ),
                   TextField(
-                      controller: _contSurName,
-                      decoration: _inputSurName.inputDecor,
-                      cursorColor: mySet.main,
-                    ),
+                    controller: _contSurName,
+                    decoration: _inputSurName.inputDecor,
+                    cursorColor: mySet.main,
+                  ),
                   const SizedBox(
                     height: 18,
                   ),
                   TextField(
-                      controller: _contPhone,
-                      decoration: _inputPhone.inputDecor,
-                      cursorColor: mySet.main,
-                    ),
+                    onTap: () {
+                      if (_contPhone.text.isEmpty) {
+                        _contPhone.text = '+';
+                      }
+                    },
+                    keyboardType:
+                        const TextInputType.numberWithOptions(decimal: true),
+                    onChanged: (phone) {
+                      List<dynamic> resp = phoneValidation(phone);
+                      _inputPhone = resp[0];
+                      _contPhone.text = resp[1];
+                      _contPhone.selection =
+                          TextSelection.fromPosition(
+                              TextPosition(
+                                  offset: _contPhone.text.length));
+                      setState(() {});
+                    },
+                    controller: _contPhone,
+                    decoration: _inputPhone.inputDecor,
+                    cursorColor: mySet.main,
+                  ),
                   const SizedBox(
                     height: 35,
                   ),
@@ -112,11 +133,17 @@ class _SignUpFirstState extends State<SignUpFirst> {
             ),
           ),
           Positioned(
-              left: 10, top: 66,
-              child: IconButton(onPressed: () {
-                Navigator.of(context).pop();
-              },
-                icon: const Icon(Icons.arrow_back_ios, color: mySet.main,),)),
+              left: 10,
+              top: 66,
+              child: IconButton(
+                onPressed: () {
+                  Navigator.of(context).pop();
+                },
+                icon: const Icon(
+                  Icons.arrow_back_ios,
+                  color: mySet.main,
+                ),
+              )),
         ],
       ),
     );

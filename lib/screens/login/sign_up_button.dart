@@ -30,7 +30,7 @@ class SignUpButtonState extends State<SignUpButton>{
       child: Container(
         alignment: Alignment.center,
         margin: const EdgeInsets.only(left: 20, right: 20),
-        height: 44,
+        height: 47,
         decoration: BoxDecoration(
             color: pres ? mySet.shadow : mySet.white,
             boxShadow: const [BoxShadow(

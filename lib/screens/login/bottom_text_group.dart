@@ -36,7 +36,7 @@ class _BottomTextState extends State<BottomText> {
                     'или',
                     style: TextStyle(
                         color: mySet.main,
-                        fontSize: 18,
+                        fontSize: 14,
                         fontFamily: "Italic",
                         fontWeight: FontWeight.w500,
                         decoration: null),
@@ -62,7 +62,7 @@ class _BottomTextState extends State<BottomText> {
                 'Вы администратор?',
                 style: TextStyle(
                     color: mySet.input,
-                    fontSize: 18,
+                    fontSize: 14,
                     fontFamily: "Italic",
                     fontWeight: FontWeight.w500),
               ),
@@ -83,13 +83,14 @@ class _BottomTextState extends State<BottomText> {
                   pres = false; setState(() { });
                 },
                 child: Container(
-                  height: 25,
+                  alignment: Alignment.center,
+                  height: 20,
                   color: pres ? mySet.shadow : Colors.transparent,
                   child: const Text(
                     'Зарегистрируйтесь',
                     style: TextStyle(
                         color: mySet.main,
-                        fontSize: 18,
+                        fontSize: 14,
                         fontFamily: "Italic",
                         fontWeight: FontWeight.w500,
                         decoration: TextDecoration.underline
