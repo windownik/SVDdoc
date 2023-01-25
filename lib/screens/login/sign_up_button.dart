@@ -45,7 +45,7 @@ class SignUpButtonState extends State<SignUpButton>{
           'Регистрация',
           style: TextStyle(
               color: mySet.main,
-              fontSize: 16,
+              fontSize: 14,
               fontFamily: "Italic",
               fontWeight: FontWeight.w400),
         ),

@@ -1,6 +1,7 @@
 
 
 import 'package:flutter/cupertino.dart';
+import 'package:svd_doc/screens/sign_up/sign_up_inherith.dart';
 import '../../global_const.dart';
 
 class FirstNextSignUpButton extends StatefulWidget{
@@ -12,12 +13,29 @@ class FirstNextSignUpButton extends StatefulWidget{
 
 class FirstNextSignUpButtonState extends State<FirstNextSignUpButton>{
   bool pres = false;
+  String name = '', surname = '', phone = '';
+
+
+  @override
+  void didChangeDependencies() {
+    // TODO: implement didChangeDependencies
+    super.didChangeDependencies();
+    final model = SignUpFirstInherited.of(context);
+    model?.addListener(() {
+      name = model.name;
+      surname = model.surname;
+      phone = model.phone;
+      setState(() {});
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
       onTapDown: (tap) {
-        pres = true; setState(() { });
+        SignUpFirstInherited.of(context)?.check();
+        pres = true;
+        setState(() { });
       },
       onTapUp: (tap) {
         pres = false; setState(() { });

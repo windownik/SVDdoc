@@ -1,14 +1,16 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:hive_flutter/adapters.dart';
 import 'package:svd_doc/screens/loading.dart';
 import 'package:svd_doc/screens/login/login_main.dart';
-import 'package:svd_doc/sign_up/sign_up_main.dart';
+import 'package:svd_doc/screens/sign_up/sign_up_main.dart';
 
-void main() {
+
+void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-
-
+  await Hive.initFlutter();
+  var box = await Hive.openBox('user');
   runApp(const MyApp());
 }
 
