@@ -25,7 +25,7 @@ class _CustomInputBarState extends State<SignUpSecondInputBar> {
   bool visibilityPas= true;
   bool visibilityRepPas= true;
 
-  String erTextEmail = '';
+  String erTextEmail = 'Не верный формат email';
   String erTexPassword = 'Обязательно для ввода';
   String erTextRepPassword = 'Обязательно для ввода';
 
@@ -111,7 +111,7 @@ class _CustomInputBarState extends State<SignUpSecondInputBar> {
             ),
           ),
           const SizedBox(
-            height: 3,
+            height: 10,
           ),
           TextField(
             controller: _contEmail,
@@ -132,7 +132,7 @@ class _CustomInputBarState extends State<SignUpSecondInputBar> {
             obscureText: visibilityPas,
             controller: _contPassword,
             decoration: PasswordInput(
-                erText: erTexPassword,
+                erText: SignUpSecondInherited.of(context)?.erTextPassword ?? erTexPassword,
                 hintText: 'Введите пароль',
                 ifError: SignUpSecondInherited.of(context)?.erPassword ?? false,
                 icon: Icon(visibilityPas
@@ -152,7 +152,9 @@ class _CustomInputBarState extends State<SignUpSecondInputBar> {
             height: 18,
           ),
           TextField(
-            onChanged: (phone) {
+            onChanged: (repPassword) {
+              SignUpSecondInherited.of(context)?.putRepPassword(repPassword: repPassword);
+              setState(() {});
             },
             obscureText: visibilityRepPas,
             controller: _contRepPassword,

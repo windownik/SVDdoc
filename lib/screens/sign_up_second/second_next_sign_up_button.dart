@@ -2,6 +2,7 @@
 
 import 'package:flutter/cupertino.dart';
 import 'package:svd_doc/screens/sign_up/sign_up_inherith.dart';
+import 'package:svd_doc/screens/sign_up_second/sign_up_second_inherit.dart';
 
 import '../../global_const.dart';
 
@@ -38,6 +39,11 @@ class SecondNextSignUpButtonState extends State<SecondNextSignUpButton>{
         setState(() { });
       },
       onTapUp: (tap) {
+        bool status = SignUpSecondInherited.of(context)?.check() ?? false;
+        print(status);
+        if (status) {
+
+        }
         pres = false;
         setState(() { });
       },
