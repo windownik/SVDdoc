@@ -22,6 +22,8 @@ class _CustomInputBarState extends State<SignUpSecondInputBar> {
   bool erEmail= false;
   bool erPassword= false;
   bool erRepPassword= false;
+  bool visibilityPas= true;
+  bool visibilityRepPas= true;
 
   String erTextEmail = '';
   String erTexPassword = 'Обязательно для ввода';
@@ -70,7 +72,7 @@ class _CustomInputBarState extends State<SignUpSecondInputBar> {
             'шаг 2 из 2',
             style: TextStyle(
                 color: mySet.input,
-                fontSize: 20,
+                fontSize: 18,
                 fontFamily: "Italic",
                 fontWeight: FontWeight.w400),
           ),
@@ -96,6 +98,21 @@ class _CustomInputBarState extends State<SignUpSecondInputBar> {
           const SizedBox(
             height: 30,
           ),
+          Container(
+            padding: const EdgeInsets.only(right: 0, left: 0),
+            alignment: Alignment.centerLeft,
+            child: const Text(
+              'Поле не обязательно для заполнения',
+              style: TextStyle(
+                  color: mySet.input,
+                  fontSize: 14,
+                  fontFamily: "Italic",
+                  fontWeight: FontWeight.w400),
+            ),
+          ),
+          const SizedBox(
+            height: 3,
+          ),
           TextField(
             controller: _contEmail,
             decoration: SignUpInput(
@@ -112,11 +129,19 @@ class _CustomInputBarState extends State<SignUpSecondInputBar> {
             height: 18,
           ),
           TextField(
+            obscureText: visibilityPas,
             controller: _contPassword,
-            decoration: SignUpInput(
+            decoration: PasswordInput(
                 erText: erTexPassword,
                 hintText: 'Введите пароль',
-                ifError: SignUpSecondInherited.of(context)?.erPassword ?? false).inputDecor,
+                ifError: SignUpSecondInherited.of(context)?.erPassword ?? false,
+                icon: Icon(visibilityPas
+                    ? Icons.visibility_off
+                    : Icons.visibility, color: mySet.input),
+                onPressed: () {
+                  visibilityPas = !visibilityPas;
+                  setState(() {});
+                }).inputDecor,
             cursorColor: mySet.main,
             onChanged: (password){
               SignUpSecondInherited.of(context)?.putPassword(password: password);
@@ -127,18 +152,23 @@ class _CustomInputBarState extends State<SignUpSecondInputBar> {
             height: 18,
           ),
           TextField(
-            keyboardType:
-            const TextInputType.numberWithOptions(decimal: true),
-
             onChanged: (phone) {
-
             },
+            obscureText: visibilityRepPas,
             controller: _contRepPassword,
-            decoration: SignUpInput(
+            decoration: PasswordInput(
                 erText: SignUpSecondInherited.of(context)?.erTextRepPassword ?? erTextRepPassword,
                 hintText: 'Подтвердите пароль',
-                ifError: SignUpSecondInherited.of(context)?.erRepPassword ?? false).inputDecor,
+                ifError: SignUpSecondInherited.of(context)?.erRepPassword ?? false,
+                icon: Icon(visibilityRepPas
+                    ? Icons.visibility_off
+                    : Icons.visibility, color: mySet.input,),
+                onPressed: () {
+                  visibilityRepPas = !visibilityRepPas;
+                  setState(() {});
+                }).inputDecor,
             cursorColor: mySet.main,
+
           ),
           const SizedBox(
             height: 35,

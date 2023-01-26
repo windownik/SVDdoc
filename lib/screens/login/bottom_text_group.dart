@@ -20,6 +20,7 @@ class _BottomTextState extends State<BottomText> {
       // padding: const EdgeInsets.only(left: 25, right: 25),
       child: Column(
         children: [
+          const SizedBox(height: 100,),
             SizedBox(width: screenSize,
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.center,

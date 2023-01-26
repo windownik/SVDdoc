@@ -21,6 +21,7 @@ class _SignUpSecondState extends State<SignUpSecond> {
       body: Stack(
         children: [
           SingleChildScrollView(
+            keyboardDismissBehavior: ScrollViewKeyboardDismissBehavior.onDrag,
             child: SignUpSecondInherited(
               model: model,
               child: const SignUpSecondInputBar(),

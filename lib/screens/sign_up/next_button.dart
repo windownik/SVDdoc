@@ -1,5 +1,4 @@
 
-
 import 'package:flutter/cupertino.dart';
 import 'package:svd_doc/screens/sign_up/sign_up_inherith.dart';
 import 'package:svd_doc/screens/sign_up/sign_up_validation.dart';

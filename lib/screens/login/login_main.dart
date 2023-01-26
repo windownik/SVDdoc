@@ -11,52 +11,52 @@ class LoginScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    FocusManager.instance.primaryFocus?.unfocus();
+
     return Scaffold(
       backgroundColor: mySet.background,
       body: Stack(
-        children: [
-          Center(
-            child: Column(
-              children: [
-                const SizedBox(height: 117,),
-                Image.asset('assets/big_icons/main_logo_border.png', height: 137, width: 163,),
-                const SizedBox(height: 61,),
-                const Text(
-                    'Пожалуйста, войдите или',
-                    style: TextStyle(
-                        color: mySet.input,
-                        fontSize: 18,
-                        fontFamily: "Italic",
-                        fontWeight: FontWeight.w400),
-                  ),
-                const Text(
-                  'зарегистрируйтесь, что бы',
-                  style: TextStyle(
-                      color: mySet.input,
-                      fontSize: 18,
-                      fontFamily: "Italic",
-                      fontWeight: FontWeight.w400),
+            children: [
+              Center(
+                child: Column(
+                  children: [
+                    const SizedBox(height: 117,),
+                    Image.asset('assets/big_icons/main_logo_border.png', height: 137, width: 163,),
+                    const SizedBox(height: 61,),
+                    const Text(
+                        'Пожалуйста, войдите или',
+                        style: TextStyle(
+                            color: mySet.input,
+                            fontSize: 18,
+                            fontFamily: "Italic",
+                            fontWeight: FontWeight.w400),
+                      ),
+                    const Text(
+                      'зарегистрируйтесь, что бы',
+                      style: TextStyle(
+                          color: mySet.input,
+                          fontSize: 18,
+                          fontFamily: "Italic",
+                          fontWeight: FontWeight.w400),
+                    ),
+                    const Text(
+                      'продолжить',
+                      style: TextStyle(
+                          color: mySet.input,
+                          fontSize: 18,
+                          fontFamily: "Italic",
+                          fontWeight: FontWeight.w400),
+                    ),
+                    const SizedBox(height: 50,),
+                    const LoginButton(),
+                    const SizedBox(height: 20,),
+                    const SignUpButton(),
+                    const SizedBox(height: 20,),
+                  ],
                 ),
-                const Text(
-                  'продолжить',
-                  style: TextStyle(
-                      color: mySet.input,
-                      fontSize: 18,
-                      fontFamily: "Italic",
-                      fontWeight: FontWeight.w400),
-                ),
-                const SizedBox(height: 50,),
-                const LoginButton(),
-                const SizedBox(height: 20,),
-                const SignUpButton(),
-                const SizedBox(height: 20,),
-              ],
-            ),
+              ),
+              const Positioned(bottom: 0, child: BottomText()),
+            ],
           ),
-          const Positioned(bottom: 0, child: BottomText()),
-        ],
-      ),
     );
   }
 }

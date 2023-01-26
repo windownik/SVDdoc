@@ -20,6 +20,7 @@ class _SignUpFirstState extends State<SignUpFirst> {
       body: Stack(
         children: [
           SingleChildScrollView(
+            keyboardDismissBehavior: ScrollViewKeyboardDismissBehavior.onDrag,
             child: SignUpFirstInherited(
               model: model,
               child: const SignUpFirstInputBar(),

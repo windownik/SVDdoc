@@ -39,7 +39,9 @@ class _CustomInputBarState extends State<SignUpFirstInputBar> {
 
   @override
   Widget build(BuildContext context) {
+    var screenSize = MediaQuery.of(context).size.height;
     return Container(
+      height: screenSize,
       alignment: Alignment.center,
       padding: const EdgeInsets.only(right: 20, left: 20),
       child: Column(
@@ -70,7 +72,7 @@ class _CustomInputBarState extends State<SignUpFirstInputBar> {
             'шаг 1 из 2',
             style: TextStyle(
                 color: mySet.input,
-                fontSize: 20,
+                fontSize: 18,
                 fontFamily: "Italic",
                 fontWeight: FontWeight.w400),
           ),
@@ -81,7 +83,7 @@ class _CustomInputBarState extends State<SignUpFirstInputBar> {
             'Пожалуйста, введите свои данные',
             style: TextStyle(
                 color: mySet.input,
-                fontSize: 20,
+                fontSize: 18,
                 fontFamily: "Italic",
                 fontWeight: FontWeight.w400),
           ),
