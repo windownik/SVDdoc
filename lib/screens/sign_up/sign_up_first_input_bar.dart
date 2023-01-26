@@ -126,18 +126,19 @@ class _CustomInputBarState extends State<SignUpFirstInputBar> {
             },
             keyboardType:
             const TextInputType.numberWithOptions(decimal: true),
+
             onChanged: (phone) {
-              List<dynamic> resp = phoneValidation(phone);
-              erTextPhone = resp[0];
-              _contPhone.text = resp[1];
+              phoneValidation(phone, context);
+              phone = SignUpFirstInherited.of(context)?.phone ?? '';
+              _contPhone.text = phone;
               _contPhone.selection = TextSelection.fromPosition(
-                  TextPosition(offset: _contPhone.text.length));
-              SignUpFirstInherited.of(context)?.putUserPhone(phone: phone);
+                  TextPosition(offset: phone.length));
+
               setState(() {});
             },
             controller: _contPhone,
             decoration: SignUpInput(
-                erText: erTextPhone,
+                erText: SignUpFirstInherited.of(context)?.erTextPhone ?? erTextPhone,
                 hintText: 'Введите номер телефона',
                 ifError: SignUpFirstInherited.of(context)?.erPhone ?? false).inputDecor,
             cursorColor: mySet.main,

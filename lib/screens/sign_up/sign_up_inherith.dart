@@ -11,19 +11,37 @@ class SignUpFirstModel extends ChangeNotifier {
   }) {
     erPhone = false;
     this.phone = phone;
+    notifyListeners();
+  }
+  void putErPhone({
+    required bool erPhone,
+  }) {
+    this.erPhone = erPhone;
+    notifyListeners();
   }
   void putUserName({
     required String name,
   }) {
     erName = false;
     this.name = name;
+    notifyListeners();
   }
   void putUserSurname({
     required String surname,
   }) {
     erSurname = false;
     this.surname = surname;
+    notifyListeners();
   }
+
+  void putErTextPhone({
+    required String erTextPhone,
+  }) {
+    erPhone = true;
+    this.erTextPhone = erTextPhone;
+    notifyListeners();
+  }
+
   void check() {
     if (name.isEmpty) {
       erName = true;
@@ -40,6 +58,7 @@ class SignUpFirstModel extends ChangeNotifier {
     } else {
       erPhone = false;
     }
+
     notifyListeners();
   }
 }

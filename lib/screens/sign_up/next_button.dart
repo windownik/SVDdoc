@@ -2,6 +2,7 @@
 
 import 'package:flutter/cupertino.dart';
 import 'package:svd_doc/screens/sign_up/sign_up_inherith.dart';
+import 'package:svd_doc/screens/sign_up/sign_up_validation.dart';
 import '../../global_const.dart';
 
 class FirstNextSignUpButton extends StatefulWidget{
@@ -33,12 +34,24 @@ class FirstNextSignUpButtonState extends State<FirstNextSignUpButton>{
   Widget build(BuildContext context) {
     return GestureDetector(
       onTapDown: (tap) {
-        SignUpFirstInherited.of(context)?.check();
         pres = true;
         setState(() { });
       },
       onTapUp: (tap) {
-        pres = false; setState(() { });
+        String name = SignUpFirstInherited.of(context)?.name ?? '';
+        String surName = SignUpFirstInherited.of(context)?.surname ?? '';
+        String phone = SignUpFirstInherited.of(context)?.phone ?? '';
+        SignUpFirstInherited.of(context)?.check();
+        bool status = signUpFirstValidation(
+            context,
+            name: name,
+            surName: surName,
+            phone: phone);
+        pres = false;
+        setState(() { });
+        if (status) {
+          // Navigator.
+        }
       },
       onTapCancel: () {
         pres = false; setState(() { });
