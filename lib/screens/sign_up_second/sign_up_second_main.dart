@@ -1,28 +1,29 @@
 import 'package:flutter/material.dart';
 import 'package:svd_doc/global_const.dart';
-import 'package:svd_doc/screens/sign_up/sign_up_first_input_bar.dart';
-import 'package:svd_doc/screens/sign_up/sign_up_inherith.dart';
+import 'package:svd_doc/screens/sign_up_second/sign_up_second_inherit.dart';
+import 'package:svd_doc/screens/sign_up_second/sign_up_second_input_bar.dart';
 
-class SignUpFirst extends StatefulWidget {
-  const SignUpFirst({super.key});
+
+class SignUpSecond extends StatefulWidget {
+  const SignUpSecond({super.key});
 
   @override
-  State<SignUpFirst> createState() => _SignUpFirstState();
+  State<SignUpSecond> createState() => _SignUpSecondState();
 }
 
-class _SignUpFirstState extends State<SignUpFirst> {
+class _SignUpSecondState extends State<SignUpSecond> {
 
   @override
   Widget build(BuildContext context) {
-    SignUpFirstModel model = SignUpFirstModel();
+    SignUpSecondModel model = SignUpSecondModel();
     return Scaffold(
       backgroundColor: mySet.white,
       body: Stack(
         children: [
           SingleChildScrollView(
-            child: SignUpFirstInherited(
+            child: SignUpSecondInherited(
               model: model,
-              child: const SignUpFirstInputBar(),
+              child: const SignUpSecondInputBar(),
             ),
           ),
           Positioned(

@@ -5,6 +5,7 @@ import 'package:hive_flutter/adapters.dart';
 import 'package:svd_doc/screens/loading.dart';
 import 'package:svd_doc/screens/login/login_main.dart';
 import 'package:svd_doc/screens/sign_up/sign_up_main.dart';
+import 'package:svd_doc/screens/sign_up_second/sign_up_second_main.dart';
 
 
 void main() async {
@@ -32,6 +33,7 @@ class MyApp extends StatelessWidget {
         '/': (context) => const Loading(),
         '/login': (context) => const LoginScreen(),
         '/sign_up': (context) => const SignUpFirst(),
+        '/sign_up_next': (context) => const SignUpSecond(),
       },
     );
   }

@@ -2,17 +2,17 @@
 
 import 'package:flutter/cupertino.dart';
 import 'package:svd_doc/screens/sign_up/sign_up_inherith.dart';
-import 'package:svd_doc/screens/sign_up/sign_up_validation.dart';
+
 import '../../global_const.dart';
 
-class FirstNextSignUpButton extends StatefulWidget{
-  const FirstNextSignUpButton({super.key});
+class SecondNextSignUpButton extends StatefulWidget{
+  const SecondNextSignUpButton({super.key});
 
   @override
-  State<StatefulWidget> createState() => FirstNextSignUpButtonState();
+  State<StatefulWidget> createState() => SecondNextSignUpButtonState();
 }
 
-class FirstNextSignUpButtonState extends State<FirstNextSignUpButton>{
+class SecondNextSignUpButtonState extends State<SecondNextSignUpButton>{
   bool pres = false;
   String name = '', surname = '', phone = '';
 
@@ -38,20 +38,8 @@ class FirstNextSignUpButtonState extends State<FirstNextSignUpButton>{
         setState(() { });
       },
       onTapUp: (tap) {
-        String name = SignUpFirstInherited.of(context)?.name ?? '';
-        String surName = SignUpFirstInherited.of(context)?.surname ?? '';
-        String phone = SignUpFirstInherited.of(context)?.phone ?? '';
-        SignUpFirstInherited.of(context)?.check();
-        bool status = signUpFirstValidation(
-            context,
-            name: name,
-            surName: surName,
-            phone: phone);
         pres = false;
         setState(() { });
-        if (status) {
-          Navigator.of(context).pushNamed('/sign_up_next');
-        }
       },
       onTapCancel: () {
         pres = false; setState(() { });
@@ -72,7 +60,7 @@ class FirstNextSignUpButtonState extends State<FirstNextSignUpButton>{
         ),
         // decoration: ,
         child: const Text(
-          'Далее',
+          'Зарегистрироваться',
           style: TextStyle(
               color: mySet.white,
               fontSize: 14,
