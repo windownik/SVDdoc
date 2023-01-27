@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:svd_doc/global_const.dart';
-import 'package:svd_doc/screens/sign_up_second/sign_up_second_inherit.dart';
-import 'package:svd_doc/screens/sign_up_second/sign_up_second_input_bar.dart';
+import 'package:svd_doc/logic/global_const.dart';
+import 'package:svd_doc/screens/auth_registration/sign_up_second/sign_up_second_inherit.dart';
+import 'package:svd_doc/screens/auth_registration/sign_up_second/sign_up_second_input_bar.dart';
 
 
 class SignUpSecond extends StatefulWidget {

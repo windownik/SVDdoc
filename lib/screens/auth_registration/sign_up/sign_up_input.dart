@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:svd_doc/global_const.dart';
+import 'package:svd_doc/logic/global_const.dart';
 
 class SignUpInput {
   TextStyle style = const TextStyle(color: mySet.main);

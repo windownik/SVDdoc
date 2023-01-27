@@ -1,6 +1,6 @@
 
 import 'package:flutter/material.dart';
-import '../../global_const.dart';
+import 'package:svd_doc/logic/global_const.dart';
 
 class BottomText extends StatefulWidget {
   const BottomText({super.key});

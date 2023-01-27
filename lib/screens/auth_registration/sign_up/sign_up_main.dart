@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:svd_doc/global_const.dart';
-import 'package:svd_doc/screens/sign_up/sign_up_first_input_bar.dart';
-import 'package:svd_doc/screens/sign_up/sign_up_inherith.dart';
+import 'package:svd_doc/logic/global_const.dart';
+import 'package:svd_doc/screens/auth_registration/sign_up/sign_up_first_input_bar.dart';
+import 'package:svd_doc/screens/auth_registration/sign_up/sign_up_inherith.dart';
 
 class SignUpFirst extends StatefulWidget {
   const SignUpFirst({super.key});

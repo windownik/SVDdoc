@@ -1,19 +1,17 @@
 
-
 import 'package:flutter/cupertino.dart';
-import 'package:svd_doc/screens/sign_up/sign_up_inherith.dart';
-import 'package:svd_doc/screens/sign_up_second/sign_up_second_inherit.dart';
+import 'package:svd_doc/screens/auth_registration/sign_up/sign_up_inherith.dart';
+import 'package:svd_doc/screens/auth_registration/sign_up/sign_up_validation.dart';
+import 'package:svd_doc/logic/global_const.dart';
 
-import '../../global_const.dart';
-
-class SecondNextSignUpButton extends StatefulWidget{
-  const SecondNextSignUpButton({super.key});
+class FirstNextSignUpButton extends StatefulWidget{
+  const FirstNextSignUpButton({super.key});
 
   @override
-  State<StatefulWidget> createState() => SecondNextSignUpButtonState();
+  State<StatefulWidget> createState() => FirstNextSignUpButtonState();
 }
 
-class SecondNextSignUpButtonState extends State<SecondNextSignUpButton>{
+class FirstNextSignUpButtonState extends State<FirstNextSignUpButton>{
   bool pres = false;
   String name = '', surname = '', phone = '';
 
@@ -39,13 +37,20 @@ class SecondNextSignUpButtonState extends State<SecondNextSignUpButton>{
         setState(() { });
       },
       onTapUp: (tap) {
-        bool status = SignUpSecondInherited.of(context)?.check() ?? false;
-        print(status);
-        if (status) {
-
-        }
+        String name = SignUpFirstInherited.of(context)?.name ?? '';
+        String surName = SignUpFirstInherited.of(context)?.surname ?? '';
+        String phone = SignUpFirstInherited.of(context)?.phone ?? '';
+        SignUpFirstInherited.of(context)?.check();
+        bool status = signUpFirstValidation(
+            context,
+            name: name,
+            surName: surName,
+            phone: phone);
         pres = false;
         setState(() { });
+        if (status) {
+          Navigator.of(context).pushNamed('/sign_up_next');
+        }
       },
       onTapCancel: () {
         pres = false; setState(() { });
@@ -66,7 +71,7 @@ class SecondNextSignUpButtonState extends State<SecondNextSignUpButton>{
         ),
         // decoration: ,
         child: const Text(
-          'Зарегистрироваться',
+          'Далее',
           style: TextStyle(
               color: mySet.white,
               fontSize: 14,

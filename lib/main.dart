@@ -2,11 +2,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:hive_flutter/adapters.dart';
+import 'package:svd_doc/screens/auth_registration/login/login_main.dart';
+import 'package:svd_doc/screens/auth_registration/sign_up/sign_up_main.dart';
+import 'package:svd_doc/screens/auth_registration/sign_up_second/sign_up_second_main.dart';
 import 'package:svd_doc/screens/loading.dart';
-import 'package:svd_doc/screens/login/login_main.dart';
-import 'package:svd_doc/screens/sign_up/sign_up_main.dart';
-import 'package:svd_doc/screens/sign_up_second/sign_up_second_main.dart';
-
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();

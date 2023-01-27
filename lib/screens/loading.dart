@@ -3,7 +3,7 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:loading_animation_widget/loading_animation_widget.dart';
-import 'package:svd_doc/global_const.dart';
+import 'package:svd_doc/logic/global_const.dart';
 
 class Loading extends StatefulWidget{
   const Loading({super.key});

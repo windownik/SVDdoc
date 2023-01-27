@@ -1,23 +1,20 @@
 
 import 'package:flutter/cupertino.dart';
-import '../../global_const.dart';
+import 'package:svd_doc/logic/global_const.dart';
 
-class SignUpButton extends StatefulWidget{
-  const SignUpButton({super.key});
+class LoginButton extends StatefulWidget{
+  const LoginButton({super.key});
 
   @override
-  State<StatefulWidget> createState() => SignUpButtonState();
+  State<StatefulWidget> createState() => LoginButtonState();
 }
 
-class SignUpButtonState extends State<SignUpButton>{
+class LoginButtonState extends State<LoginButton>{
   bool pres = false;
 
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: (){
-        Navigator.of(context).pushNamed('/sign_up');
-      },
       onTapDown: (tap) {
         pres = true; setState(() { });
       },
@@ -32,7 +29,7 @@ class SignUpButtonState extends State<SignUpButton>{
         margin: const EdgeInsets.only(left: 20, right: 20),
         height: 47,
         decoration: BoxDecoration(
-            color: pres ? mySet.shadow : mySet.white,
+            color: pres ? mySet.second : mySet.main,
             boxShadow: const [BoxShadow(
               color: mySet.input,
               blurRadius: 4.0,
@@ -42,9 +39,9 @@ class SignUpButtonState extends State<SignUpButton>{
         ),
         // decoration: ,
         child: const Text(
-          'Регистрация',
+          'Вход',
           style: TextStyle(
-              color: mySet.main,
+              color: mySet.white,
               fontSize: 14,
               fontFamily: "Italic",
               fontWeight: FontWeight.w400),
