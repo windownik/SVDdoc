@@ -6,6 +6,8 @@ import 'package:svd_doc/screens/auth_registration/sign_up_second/sign_up_second_
 
 import 'package:svd_doc/logic/global_const.dart';
 
+import 'create_user_logic.dart';
+
 class SecondNextSignUpButton extends StatefulWidget{
   const SecondNextSignUpButton({super.key});
 
@@ -42,7 +44,12 @@ class SecondNextSignUpButtonState extends State<SecondNextSignUpButton>{
         bool status = SignUpSecondInherited.of(context)?.check() ?? false;
         print(status);
         if (status) {
-
+          try {
+            createUserLogic(context);
+          } catch (e) {
+            print("Возникло исключение :$e");
+            throw Exception(e);
+          }
         }
         pres = false;
         setState(() { });
