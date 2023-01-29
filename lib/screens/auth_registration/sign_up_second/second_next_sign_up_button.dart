@@ -1,11 +1,13 @@
 
 
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 import 'package:svd_doc/screens/auth_registration/sign_up/sign_up_inherith.dart';
 import 'package:svd_doc/screens/auth_registration/sign_up_second/sign_up_second_inherit.dart';
 
 import 'package:svd_doc/logic/global_const.dart';
 
+import '../pop_ups/good_check_in.dart';
 import 'create_user_logic.dart';
 
 class SecondNextSignUpButton extends StatefulWidget{
@@ -17,18 +19,18 @@ class SecondNextSignUpButton extends StatefulWidget{
 
 class SecondNextSignUpButtonState extends State<SecondNextSignUpButton>{
   bool pres = false;
-  String name = '', surname = '', phone = '';
+  String email = '', password = '', repPassword = '';
 
 
   @override
   void didChangeDependencies() {
     // TODO: implement didChangeDependencies
     super.didChangeDependencies();
-    final model = SignUpFirstInherited.of(context);
+    final model = SignUpSecondInherited.of(context);
     model?.addListener(() {
-      name = model.name;
-      surname = model.surname;
-      phone = model.phone;
+      email = model.email;
+      password = model.password;
+      repPassword = model.repPassword;
       setState(() {});
     });
   }
@@ -41,15 +43,21 @@ class SecondNextSignUpButtonState extends State<SecondNextSignUpButton>{
         setState(() { });
       },
       onTapUp: (tap) {
+        // SignUpSecondInherited.of(context)?.putEmail(email: )
         bool status = SignUpSecondInherited.of(context)?.check() ?? false;
         print(status);
         if (status) {
-          try {
-            createUserLogic(context);
-          } catch (e) {
-            print("Возникло исключение :$e");
-            throw Exception(e);
-          }
+          showDialog(
+              context: (context),
+              builder: (BuildContext context) {
+                return const GoodCheckIn();
+              });
+          // try {
+          //   createUserLogic(context);
+          // } catch (e) {
+          //   print("Возникло исключение :$e");
+          //   throw Exception(e);
+          // }
         }
         pres = false;
         setState(() { });
