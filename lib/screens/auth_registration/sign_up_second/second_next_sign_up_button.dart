@@ -1,5 +1,3 @@
-
-
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:svd_doc/screens/auth_registration/sign_up/sign_up_inherith.dart';
@@ -10,17 +8,16 @@ import 'package:svd_doc/logic/global_const.dart';
 import '../pop_ups/good_check_in.dart';
 import 'create_user_logic.dart';
 
-class SecondNextSignUpButton extends StatefulWidget{
+class SecondNextSignUpButton extends StatefulWidget {
   const SecondNextSignUpButton({super.key});
 
   @override
   State<StatefulWidget> createState() => SecondNextSignUpButtonState();
 }
 
-class SecondNextSignUpButtonState extends State<SecondNextSignUpButton>{
+class SecondNextSignUpButtonState extends State<SecondNextSignUpButton> {
   bool pres = false;
   String email = '', password = '', repPassword = '';
-
 
   @override
   void didChangeDependencies() {
@@ -40,30 +37,28 @@ class SecondNextSignUpButtonState extends State<SecondNextSignUpButton>{
     return GestureDetector(
       onTapDown: (tap) {
         pres = true;
-        setState(() { });
+        setState(() {});
       },
-      onTapUp: (tap) {
+      onTapUp: (tap) async {
         // SignUpSecondInherited.of(context)?.putEmail(email: )
         bool status = SignUpSecondInherited.of(context)?.check() ?? false;
         print(status);
         if (status) {
-          showDialog(
-              context: (context),
-              builder: (BuildContext context) {
-                return const GoodCheckIn();
-              });
-          // try {
-          //   createUserLogic(context);
-          // } catch (e) {
-          //   print("Возникло исключение :$e");
-          //   throw Exception(e);
-          // }
+          int statusCod = await createUserLogic(context);
+          if (statusCod == 200) {
+            showDialog(
+                context: (context),
+                builder: (BuildContext context) {
+                  return const GoodCheckIn();
+                });
+          }
         }
         pres = false;
-        setState(() { });
+        setState(() {});
       },
       onTapCancel: () {
-        pres = false; setState(() { });
+        pres = false;
+        setState(() {});
       },
       child: Container(
         alignment: Alignment.center,
@@ -71,14 +66,15 @@ class SecondNextSignUpButtonState extends State<SecondNextSignUpButton>{
         height: 47,
         decoration: BoxDecoration(
             color: pres ? mySet.second : mySet.main,
-            boxShadow: const [BoxShadow(
-              offset: Offset(-3.0, 3.0),
-              color: mySet.shadow,
-              blurRadius: 4.0,
-              spreadRadius: 4.0,
-              // offset: const Offset(-5, 5),
-            )]
-        ),
+            boxShadow: const [
+              BoxShadow(
+                offset: Offset(-3.0, 3.0),
+                color: mySet.shadow,
+                blurRadius: 4.0,
+                spreadRadius: 4.0,
+                // offset: const Offset(-5, 5),
+              )
+            ]),
         // decoration: ,
         child: const Text(
           'Зарегистрироваться',

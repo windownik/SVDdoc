@@ -2,7 +2,7 @@ import 'package:svd_doc/logic/data_base.dart';
 import 'package:svd_doc/logic/api.dart';
 import 'package:svd_doc/screens/auth_registration/sign_up_second/sign_up_second_inherit.dart';
 
-void createUserLogic(context) async {
+Future<int> createUserLogic(context) async {
   String email = SignUpSecondInherited.of(context)?.email ?? '0';
   if (email.isEmpty) {
     email = '0';
@@ -13,12 +13,21 @@ void createUserLogic(context) async {
   db.writeEmail(email);
   User user = db.getUser();
   ApiSVD api = ApiSVD();
-  var resp = await api.userCreate(user.email,
-      name: user.name,
-      surname: user.surname,
-      phone: user.phone,
-      password: password,
-      status: user.status);
-  db.writeAccess(resp['access_token']);
-  db.writeRefresh(resp['refresh_token']);
+  try {
+    var resp = await api.userCreate(user.email,
+        name: user.name,
+        surname: user.surname,
+        phone: user.phone,
+        password: password,
+        status: user.status);
+    db.writeAccess(resp['access_token']);
+    db.writeRefresh(resp['refresh_token']);
+  }
+  catch (e){
+    if (e == 'Connection failed') {
+      return 1101;
+    }
+    // throw Exception('1101');
+  }
+  return 200;
 }
