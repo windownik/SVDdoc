@@ -1,7 +1,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:svd_doc/logic/global_const.dart';
-import 'package:svd_doc/screens/auth_registration/login/sign_up_button.dart';
+import 'package:svd_doc/screens/auth_registration/login_start/sign_up_button.dart';
 
 import 'bottom_text_group.dart';
 import 'login_button.dart';

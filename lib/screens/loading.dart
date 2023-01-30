@@ -3,7 +3,12 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:loading_animation_widget/loading_animation_widget.dart';
+import 'package:svd_doc/logic/data_base.dart';
 import 'package:svd_doc/logic/global_const.dart';
+
+import '../logic/api.dart';
+import 'admin/admin_main_screen/admin_main_screen.dart';
+import 'auth_registration/login_start/login_main.dart';
 
 class Loading extends StatefulWidget{
   const Loading({super.key});
@@ -12,16 +17,57 @@ class Loading extends StatefulWidget{
   State<StatefulWidget> createState() => LoadingState();
 }
 
-class LoadingState extends State<Loading>{
+class LoadingState extends State<Loading> {
+  User? user;
+  ApiSVD api = ApiSVD();
+  UserDataBase db = UserDataBase();
+
+  @override
+  void initState() {
+    getUser();
+    super.initState();
+  }
+
+  void getUser() async {
+    try {
+      user = await api.userGet();
+    } catch (e){
+      if (e.toString() == 'Exception: 401') {
+        user = db.getUser();
+      } else {
+        print(e);
+      }
+    }
+    setState(() {});
+  }
 
   @override
   Widget build(BuildContext context) {
-    Timer(const Duration(seconds: 1), () {
-      Navigator.pushNamedAndRemoveUntil(
-          context, '/login', (route) => false);
-    });
+    print(user?.phone);
+    if (user == null) {
+      return const LoadingScreen();
+    }
+    else if (user?.userId == 0) {
+      return const LoginScreen();
+    } else if (user?.status == 'admin') {
+      return const AdminMainScreen();
+    } else if (user?.status == 'simple') {
+      return const LoginScreen();
+    } else if (user?.status == 'creator') {
+      return const LoginScreen();
+    }
+    return const LoadingScreen();
+  }
+}
 
-    return Container(
+
+
+class LoadingScreen extends StatelessWidget{
+  const LoadingScreen({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+      return Container(
         color: mySet.background,
         child: Stack(children: [
           const Positioned(

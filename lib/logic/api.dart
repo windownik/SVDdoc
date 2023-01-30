@@ -13,15 +13,16 @@ class ApiSVD{
     access = db.getAccess();
   }
 
-  void updateAccess () async {
+  Future<bool> updateAccess () async {
     String refresh = db.getRefresh();
     var url = Uri.http(urlAddress, "/access_token", {"refresh_token": refresh});
     var res = await http.get(url);
     if (res.statusCode != 200) {
-      throw Exception("${res.statusCode}");
+      return false;
     }
     access = jsonDecode(res.body)["access_token"];
     db.writeAccess(access);
+    return true;
   }
 
   Future<Map<String, dynamic>> userCreate(String email, {
@@ -47,5 +48,34 @@ class ApiSVD{
     }
     Map<String, dynamic> resSales = jsonDecode(res.body);
     return resSales;
+  }
+
+  Future<User> userGet() async {
+    Map<String, dynamic> params = {
+      "access_token": access,
+    };
+    var url = Uri.http(urlAddress, "/user", params);
+    var res = await http.get(url);
+    if (res.statusCode == 401) {
+      bool status = await updateAccess();
+      if (!status) {
+        return db.getUser();
+      }
+      res = await http.get(url);
+    }
+    if (res.statusCode != 200) {
+      throw Exception("${res.statusCode}");
+    }
+    Map<String, dynamic> response = jsonDecode(res.body);
+    db.writeUserId(response['user_id']);
+    db.writeName(response['name']);
+    db.writeSurName(response['surname']);
+    db.writePhone(response['phone']);
+    db.writeEmail(response['email']);
+    db.writeStatus(response['status']);
+    db.writeCompanyId(response['company_id']);
+    db.writeCompanyName(response['company_name']);
+    db.writeProfession(response['position_name']);
+    return db.getUser();
   }
 }

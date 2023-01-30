@@ -20,6 +20,7 @@ Future<int> createUserLogic(context) async {
         phone: user.phone,
         password: password,
         status: user.status);
+    db.writeUserId(resp['user_id']);
     db.writeAccess(resp['access_token']);
     db.writeRefresh(resp['refresh_token']);
   }
@@ -27,8 +28,8 @@ Future<int> createUserLogic(context) async {
     print(e);
     if (e.toString() == 'Connection failed') {
       return 1101;
-    } else if (e.toString() == 'Connection failed') {
-      return 1101;
+    } else if (e.toString() == 'Exception: 401') {
+      return 401;
     }
   }
   return 200;

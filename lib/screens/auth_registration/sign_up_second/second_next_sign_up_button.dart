@@ -1,4 +1,3 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:svd_doc/screens/auth_registration/sign_up_second/sign_up_second_inherit.dart';
 
@@ -6,6 +5,7 @@ import 'package:svd_doc/logic/global_const.dart';
 
 import '../pop_ups/good_check_in.dart';
 import '../pop_ups/no_inet.dart';
+import '../pop_ups/phone_number_is_busy.dart';
 import 'create_user_logic.dart';
 
 class SecondNextSignUpButton extends StatefulWidget {
@@ -43,6 +43,7 @@ class SecondNextSignUpButtonState extends State<SecondNextSignUpButton> {
         bool status = SignUpSecondInherited.of(context)?.check() ?? false;
         if (status) {
           int statusCod = await createUserLogic(context);
+          print(statusCod);
           if (statusCod == 200) {
             showDialog(
                 context: (context),
@@ -54,6 +55,12 @@ class SecondNextSignUpButtonState extends State<SecondNextSignUpButton> {
                 context: (context),
                 builder: (BuildContext context) {
                   return const NoInetConnection();
+                });
+          } else if (statusCod == 401) {
+            showDialog(
+                context: (context),
+                builder: (BuildContext context) {
+                  return const BadPhone();
                 });
           }
         }

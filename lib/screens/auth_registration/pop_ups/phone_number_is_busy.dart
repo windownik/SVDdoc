@@ -3,14 +3,14 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:svd_doc/logic/global_const.dart';
 
-class NoInetConnection extends StatelessWidget{
-  const NoInetConnection({super.key});
+class BadPhone extends StatelessWidget{
+  const BadPhone({super.key});
 
   @override
   Widget build(BuildContext context) {
     return AlertDialog(
       content: Container(
-        height: 230,
+        height: 270,
         width: 315,
         color: mySet.white,
         child: Column(
@@ -20,18 +20,28 @@ class NoInetConnection extends StatelessWidget{
                 'assets/svg/exclamatory.svg',
                 semanticsLabel: 'Acme Logo'),
             const SizedBox(height: 26,),
-            const Text('Отсутствует соединение с', style: TextStyle(
+            const Text('Пользователь с таким', style: TextStyle(
                 color: mySet.main,
                 fontSize: 18,
                 fontFamily: "Italic",
                 fontWeight: FontWeight.w600)),
-            const Text('интернетом', style: TextStyle(
+            const Text('телефонным номером', style: TextStyle(
+                color: mySet.main,
+                fontSize: 18,
+                fontFamily: "Italic",
+                fontWeight: FontWeight.w600)),
+            const Text('уже существует', style: TextStyle(
                 color: mySet.main,
                 fontSize: 18,
                 fontFamily: "Italic",
                 fontWeight: FontWeight.w600)),
             const SizedBox(height: 10,),
-            const Text('попробуйте еще раз', style: TextStyle(
+            const Text('попробуйте войти в аккаунт', style: TextStyle(
+                color: mySet.main,
+                fontSize: 18,
+                fontFamily: "Italic",
+                fontWeight: FontWeight.w300)),
+            const Text('или востановить пароль', style: TextStyle(
                 color: mySet.main,
                 fontSize: 18,
                 fontFamily: "Italic",
