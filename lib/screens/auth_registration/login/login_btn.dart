@@ -2,21 +2,21 @@
 import 'package:flutter/cupertino.dart';
 import 'package:svd_doc/logic/global_const.dart';
 
-class LoginButton extends StatefulWidget{
-  const LoginButton({super.key});
+class LoginBtn extends StatefulWidget{
+  const LoginBtn({super.key});
 
   @override
   State<StatefulWidget> createState() => LoginButtonState();
 }
 
-class LoginButtonState extends State<LoginButton>{
+class LoginButtonState extends State<LoginBtn>{
   bool pres = false;
 
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: (){
-        Navigator.of(context).pushNamed('/login_with_password');
+        // Navigator.of(context).pushNamed('/sign_up');
       },
       onTapDown: (tap) {
         pres = true; setState(() { });
@@ -28,8 +28,8 @@ class LoginButtonState extends State<LoginButton>{
         pres = false; setState(() { });
       },
       child: Container(
-        margin: const EdgeInsets.only(left: 20, right: 20),
         alignment: Alignment.center,
+        // margin: const EdgeInsets.only(left: 20, right: 20),
         height: 47,
         decoration: BoxDecoration(
             color: pres ? mySet.second : mySet.main,
@@ -42,7 +42,7 @@ class LoginButtonState extends State<LoginButton>{
         ),
         // decoration: ,
         child: const Text(
-          'Вход',
+          'Войти',
           style: TextStyle(
               color: mySet.white,
               fontSize: 14,
