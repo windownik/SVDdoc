@@ -3,51 +3,40 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:svd_doc/logic/global_const.dart';
 
-class GoodCheckIn extends StatelessWidget{
-  const GoodCheckIn({super.key});
+class NoInetConnection extends StatelessWidget{
+  const NoInetConnection({super.key});
 
   @override
   Widget build(BuildContext context) {
     return AlertDialog(
       content: Container(
-        height: 300,
+        height: 230,
         width: 315,
         color: mySet.white,
         child: Column(
           children: [
-            const SizedBox(height: 14,),
+            const SizedBox(height: 17,),
             SvgPicture.asset(
-          'assets/svg/good_check_in.svg',
-          semanticsLabel: 'Acme Logo'),
-            const SizedBox(height: 19,),
-            const Text('Благодарим за регистрацию!', style: TextStyle(
+                'assets/svg/no_inet.svg',
+                semanticsLabel: 'Acme Logo'),
+            const SizedBox(height: 26,),
+            const Text('Отсутствует соединение с', style: TextStyle(
                 color: mySet.main,
                 fontSize: 18,
                 fontFamily: "Italic",
                 fontWeight: FontWeight.w600)),
-            const SizedBox(height: 19,),
-            const Text('Администратор проверит', style: TextStyle(
+            const Text('интернетом', style: TextStyle(
+                color: mySet.main,
+                fontSize: 18,
+                fontFamily: "Italic",
+                fontWeight: FontWeight.w600)),
+            const SizedBox(height: 10,),
+            const Text('попробуйте еще раз', style: TextStyle(
                 color: mySet.main,
                 fontSize: 18,
                 fontFamily: "Italic",
                 fontWeight: FontWeight.w300)),
-            const Text('введённые данные и утвердит', style: TextStyle(
-                color: mySet.main,
-                fontSize: 18,
-                fontFamily: "Italic",
-                fontWeight: FontWeight.w300)),
-            const Text('вашу должность.', style: TextStyle(
-                color: mySet.main,
-                fontSize: 18,
-                fontFamily: "Italic",
-                fontWeight: FontWeight.w300)),
-            const SizedBox(height: 15,),
-            const Text('Вы получите уведомление!', style: TextStyle(
-                color: mySet.main,
-                fontSize: 18,
-                fontFamily: "Italic",
-                fontWeight: FontWeight.w300)),
-            const SizedBox(height: 23,),
+            const SizedBox(height: 27,),
             GestureDetector(
               onTap: () {
                 Navigator.of(context).pop();

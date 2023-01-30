@@ -40,7 +40,6 @@ class ApiSVD{
       "password": password,
       "status": status,
     };
-    print([name, surname, phone, email, password, status]);
     var url = Uri.http(urlAddress, "/user", params);
     var res = await http.post(url);
     if (res.statusCode != 200) {

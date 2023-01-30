@@ -1,11 +1,11 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:svd_doc/screens/auth_registration/sign_up/sign_up_inherith.dart';
 import 'package:svd_doc/screens/auth_registration/sign_up_second/sign_up_second_inherit.dart';
 
 import 'package:svd_doc/logic/global_const.dart';
 
 import '../pop_ups/good_check_in.dart';
+import '../pop_ups/no_inet.dart';
 import 'create_user_logic.dart';
 
 class SecondNextSignUpButton extends StatefulWidget {
@@ -40,9 +40,7 @@ class SecondNextSignUpButtonState extends State<SecondNextSignUpButton> {
         setState(() {});
       },
       onTapUp: (tap) async {
-        // SignUpSecondInherited.of(context)?.putEmail(email: )
         bool status = SignUpSecondInherited.of(context)?.check() ?? false;
-        print(status);
         if (status) {
           int statusCod = await createUserLogic(context);
           if (statusCod == 200) {
@@ -50,6 +48,12 @@ class SecondNextSignUpButtonState extends State<SecondNextSignUpButton> {
                 context: (context),
                 builder: (BuildContext context) {
                   return const GoodCheckIn();
+                });
+          } else if (statusCod == 1101) {
+            showDialog(
+                context: (context),
+                builder: (BuildContext context) {
+                  return const NoInetConnection();
                 });
           }
         }

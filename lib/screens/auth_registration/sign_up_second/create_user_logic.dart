@@ -24,10 +24,12 @@ Future<int> createUserLogic(context) async {
     db.writeRefresh(resp['refresh_token']);
   }
   catch (e){
-    if (e == 'Connection failed') {
+    print(e);
+    if (e.toString() == 'Connection failed') {
+      return 1101;
+    } else if (e.toString() == 'Connection failed') {
       return 1101;
     }
-    // throw Exception('1101');
   }
   return 200;
 }
