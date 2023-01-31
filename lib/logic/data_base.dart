@@ -43,6 +43,14 @@ class UserDataBase {
     userBox.put('access', access);
   }
 
+  void deleteUser() {
+    writeAccess('0');
+    writeRefresh('0');
+    writeUserId(0);
+    writeName('');
+    writeStatus('0');
+  }
+
   void writeRefresh(String refresh) {
     userBox.put('refresh', refresh);
   }

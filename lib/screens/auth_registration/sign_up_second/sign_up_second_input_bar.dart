@@ -170,7 +170,6 @@ class _CustomInputBarState extends State<SignUpSecondInputBar> {
                   setState(() {});
                 }).inputDecor,
             cursorColor: mySet.main,
-
           ),
           const SizedBox(
             height: 35,

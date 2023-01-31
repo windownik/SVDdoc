@@ -1,10 +1,14 @@
 import 'package:flutter/cupertino.dart';
 
+import '../../../logic/api.dart';
+import '../../../logic/data_base.dart';
+
 class LoginModel extends ChangeNotifier {
   String phone = '', password = '';
   String erTextPhone= 'Обязательно для ввода';
   String erTextPassword= 'Обязательно для ввода';
   bool erPassword = false, erPhone = false;
+  ApiSVD api = ApiSVD();
   void putUserPhone({
     required String phone,
   }) {
@@ -34,11 +38,21 @@ class LoginModel extends ChangeNotifier {
     notifyListeners();
   }
 
-  void check() {
+  Future<bool> check() async {
     erPassword = password.isEmpty ? true : false;
     erPhone = phone.isEmpty ? true : false;
-
     notifyListeners();
+    if (erPassword && erPhone) {
+      return false;
+    } else {
+      api.logIn(phone, password);
+      User user = await api.userGet();
+      print(user.userId);
+      if (user.userId == 0) {
+        return false;
+      }
+      return true;
+    }
   }
 }
 

@@ -78,4 +78,21 @@ class ApiSVD{
     db.writeProfession(response['position_name']);
     return db.getUser();
   }
+  Future<bool> logIn(String phone, String password) async {
+    Map<String, dynamic> params = {
+      "phone": phone.substring(1, phone.length),
+      "password": password,
+    };
+    var url = Uri.http(urlAddress, "/login", params);
+    var res = await http.get(url);
+    if (res.statusCode != 200) {
+      throw Exception("${res.statusCode}");
+    }
+    Map<String, dynamic> response = jsonDecode(res.body);
+    access = response['access_token'];
+    db.writeUserId(response['user_id']);
+    db.writeAccess(response['access_token']);
+    db.writeRefresh(response['refresh_token']);
+    return true;
+  }
 }

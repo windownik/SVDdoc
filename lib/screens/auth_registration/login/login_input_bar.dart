@@ -3,6 +3,7 @@ import 'package:svd_doc/logic/global_const.dart';
 import 'package:svd_doc/screens/auth_registration/login/sign_up_text_group.dart';
 
 import '../sign_up/sign_up_input.dart';
+import '../sign_up/sign_up_validation.dart';
 import 'forgot_password_btn.dart';
 import 'login_btn.dart';
 import 'login_inherit.dart';
@@ -20,7 +21,7 @@ class _LoginInputBarState extends State<LoginInputBar> {
   final _contPassword = TextEditingController();
   final _contPhone = TextEditingController();
 
-  bool erPassword = false, erPhone = false;
+  bool erPassword = false, erPhone = false, showPas = false;
 
   String erTextPassword= 'Обязательно для ввода';
   String erTextPhone= 'Обязательно для ввода';
@@ -92,8 +93,22 @@ class _LoginInputBarState extends State<LoginInputBar> {
                 hintText: 'Введите номер телефона',
                 ifError: LoginModelInherit.of(context)?.erPhone ?? false).inputDecor,
             cursorColor: mySet.main,
+            keyboardType:
+            const TextInputType.numberWithOptions(decimal: true),
+            onTap: () {
+              if (_contPhone.text.isEmpty) {
+                _contPhone.text = '+';
+              }
+            },
             onChanged: (phone){
-              LoginModelInherit.of(context)?.putUserPhone(phone: phone);
+              String goodLine = '0123456789+';
+              if (!goodLine.contains(phone.substring(phone.length -1, phone.length))) {
+                _contPhone.text = phone.substring(0, phone.length-1);
+                _contPhone.selection = TextSelection.fromPosition(
+                        TextPosition(offset: phone.length-1));
+              } else {
+                LoginModelInherit.of(context)?.putUserPhone(phone: phone);
+              }
               setState(() {});
             },
           ),
@@ -101,16 +116,24 @@ class _LoginInputBarState extends State<LoginInputBar> {
             height: 18,
           ),
           TextField(
-            controller: _contPassword,
-            decoration: SignUpInput(
-                erText: erTextPassword,
-                hintText: 'Введите пароль',
-                ifError: LoginModelInherit.of(context)?.erPassword ?? false).inputDecor,
-            cursorColor: mySet.main,
-            onChanged: (password){
+            onChanged: (password) {
               LoginModelInherit.of(context)?.putPassword(password: password);
               setState(() {});
             },
+            obscureText: showPas,
+            controller: _contPassword,
+            decoration: PasswordInput(
+                erText: erTextPassword,
+                hintText: 'Введите пароль',
+                ifError: LoginModelInherit.of(context)?.erPassword ?? false,
+                icon: Icon(showPas
+                    ? Icons.visibility_off
+                    : Icons.visibility, color: mySet.input,),
+                onPressed: () {
+                  showPas = !showPas;
+                  setState(() {});
+                }).inputDecor,
+            cursorColor: mySet.main,
           ),
           const SizedBox(
             height: 18,

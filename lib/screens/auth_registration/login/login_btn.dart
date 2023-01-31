@@ -2,6 +2,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:svd_doc/logic/global_const.dart';
 
+import 'login_inherit.dart';
+
 class LoginBtn extends StatefulWidget{
   const LoginBtn({super.key});
 
@@ -15,8 +17,16 @@ class LoginButtonState extends State<LoginBtn>{
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: (){
-        // Navigator.of(context).pushNamed('/sign_up');
+      onTap: () async {
+        try {
+          bool status = await LoginModelInherit.of(context)?.check() ?? false;
+          print(status);
+          if (status) {
+            Navigator.of(context).popAndPushNamed('/admin_start');
+          }
+        } catch (e){
+          print([1, e]);
+        }
       },
       onTapDown: (tap) {
         pres = true; setState(() { });

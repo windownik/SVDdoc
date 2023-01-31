@@ -44,6 +44,7 @@ class LoadingState extends State<Loading> {
   @override
   Widget build(BuildContext context) {
     print(user?.phone);
+    print(user?.userId);
     if (user == null) {
       return const LoadingScreen();
     }

@@ -2,6 +2,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:hive_flutter/adapters.dart';
+import 'package:svd_doc/screens/admin/admin_main_screen/admin_main_screen.dart';
 import 'package:svd_doc/screens/auth_registration/login/login_screen.dart';
 import 'package:svd_doc/screens/auth_registration/login_start/login_main.dart';
 import 'package:svd_doc/screens/auth_registration/sign_up/sign_up_main.dart';
@@ -35,6 +36,7 @@ class MyApp extends StatelessWidget {
         '/login_with_password': (context) => const LoginWithPassword(),
         '/sign_up': (context) => const SignUpFirst(),
         '/sign_up_next': (context) => const SignUpSecond(),
+        '/admin_start': (context) => const AdminMainScreen(),
       },
     );
   }
