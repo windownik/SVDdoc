@@ -33,7 +33,7 @@ class _AdminMainBottomNavigationBarState
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      height: 83,
+      height: 100,
       child: BottomNavigationBar(
         onTap: (newIndex) {
           pickItem(newIndex);
