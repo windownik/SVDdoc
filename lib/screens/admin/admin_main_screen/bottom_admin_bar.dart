@@ -1,4 +1,5 @@
 
+import 'dart:io' show Platform;
 import 'package:flutter/material.dart';
 import 'package:svd_doc/logic/global_const.dart';
 import 'app_bar_main_admin_inherit.dart';
@@ -32,8 +33,14 @@ class _AdminMainBottomNavigationBarState
 
   @override
   Widget build(BuildContext context) {
+    double bottomBarHeight = 100;
+    if (Platform.isAndroid) {
+      bottomBarHeight = 75;
+    } else if (Platform.isIOS) {
+      bottomBarHeight = 100;
+    }
     return SizedBox(
-      height: 100,
+      height: bottomBarHeight,
       child: BottomNavigationBar(
         onTap: (newIndex) {
           pickItem(newIndex);

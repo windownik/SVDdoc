@@ -95,4 +95,37 @@ class ApiSVD{
     db.writeRefresh(response['refresh_token']);
     return true;
   }
+
+  Future<List> getUsers() async {
+    Map<String, dynamic> params = {
+      "access_token": access,
+    };
+    var url = Uri.http(urlAddress, "/get_users", params);
+    var res = await http.get(url);
+    if (res.statusCode == 401) {
+      await updateAccess();
+      res = await http.get(url);
+    }
+    if (res.statusCode != 200) {
+      throw Exception("${res.statusCode}");
+    }
+    Map<String, dynamic> response = jsonDecode(res.body);
+    var users = response['users'];
+    db.writeStringNewUsers(res.body);
+    List newUsers = [];
+    for (var i in users) {
+      newUsers.add(User(
+          userId: i['user_id'],
+          phone: i['phone'],
+          name: i['name'],
+          surname: i['surname'],
+          companyId: 0,
+          profession: '0',
+          companyName: '0',
+          email: i['email'],
+          status: i['status']));
+    }
+    return newUsers;
+  }
 }
+

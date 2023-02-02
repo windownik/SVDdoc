@@ -8,6 +8,7 @@ class AppBarMainAdminModel extends ChangeNotifier {
       newDocActive = false,
       adminActive = true;
   String mainTitle = 'Панель\nадминистратора';
+  String activeScreen = 'admin';
 
   void pickItem(int index) {
     if (index == 0) {
@@ -30,6 +31,7 @@ class AppBarMainAdminModel extends ChangeNotifier {
   //Активируем Пользователи в верхнем баре
   void activateUsers() {
     topFalse();
+    activeScreen = 'users';
     usersActive = true;
     mainTitle = 'Панель\nадминистратора';
     notifyListeners();
@@ -38,6 +40,7 @@ class AppBarMainAdminModel extends ChangeNotifier {
   //Активируем Редактор юр.лиц в верхнем баре
   void activateCompany() {
     topFalse();
+    activeScreen = 'company';
     companyActive = true;
     mainTitle = 'Панель\nадминистратора';
     notifyListeners();
@@ -46,6 +49,7 @@ class AppBarMainAdminModel extends ChangeNotifier {
   //Активируем Редактор объектов в верхнем баре
   void activateObject() {
     topFalse();
+    activeScreen = 'object';
     objectActive = true;
     mainTitle = 'Панель\nадминистратора';
     notifyListeners();
@@ -56,6 +60,7 @@ class AppBarMainAdminModel extends ChangeNotifier {
   //Активируем Активные в нижнем баре
   void activateLine() {
     allFalse();
+    activeScreen = 'line';
     lineActive = true;
     showTopBar = false;
     mainTitle = 'Документы\nна согласование';
@@ -65,6 +70,7 @@ class AppBarMainAdminModel extends ChangeNotifier {
   //Активируем Архив в нижнем баре
   void activateArchive() {
     allFalse();
+    activeScreen = 'archive';
     showTopBar = false;
     archiveActive = true;
     mainTitle = 'Архив\nсогласованных докуметов';
@@ -74,6 +80,7 @@ class AppBarMainAdminModel extends ChangeNotifier {
   //Активируем Создать Новый Документ в нижнем баре
   void activateNewDoc() {
     allFalse();
+    activeScreen = 'new_doc';
     showTopBar = false;
     newDocActive = true;
     mainTitle = 'Новый документ';
@@ -83,22 +90,12 @@ class AppBarMainAdminModel extends ChangeNotifier {
   //Активируем Админ в нижнем баре
   void activateAdmin() {
     allFalse();
+    activeScreen = 'admin';
     showTopBar = true;
     adminActive = true;
+    usersActive = true;
     mainTitle = 'Панель\nадминистратора';
     notifyListeners();
-  }
-
-  //Активируем Админ в нижнем баре
-  String getActiveScreen () {
-    if (companyActive) return 'company';
-    if (usersActive) return 'users';
-    if (objectActive) return 'object';
-
-    if (lineActive) return 'line';
-    if (archiveActive) return 'archive';
-    if (newDocActive) return 'new_doc';
-    return 'admin';
   }
 
   void allFalse() {

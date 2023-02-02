@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:hive/hive.dart';
 
 class UserDataBase {
@@ -43,6 +45,9 @@ class UserDataBase {
     userBox.put('access', access);
   }
 
+  void writeStringNewUsers(String newUsers) {
+    userBox.put('newUsers', newUsers);
+  }
   void deleteUser() {
     writeAccess('0');
     writeRefresh('0');
@@ -80,6 +85,27 @@ class UserDataBase {
   String getAccess() {
     String access = userBox.get('access') ?? '0';
     return access;
+  }
+
+  List getNewUsers() {
+    String dbNewUsers = userBox.get('newUsers') ?? '0';
+    if (dbNewUsers == '0') return [];
+    Map<String, dynamic> response = jsonDecode(dbNewUsers);
+    var users = response['users'];
+    List newUsers = [];
+    for (var i in users) {
+      newUsers.add(User(
+          userId: i['user_id'],
+          phone: i['phone'],
+          name: i['name'],
+          surname: i['surname'],
+          companyId: 0,
+          profession: '0',
+          companyName: '0',
+          email: i['email'],
+          status: i['status']));
+    }
+    return newUsers;
   }
 
   String getRefresh() {
