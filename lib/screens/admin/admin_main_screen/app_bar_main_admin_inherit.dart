@@ -31,7 +31,7 @@ class AppBarMainAdminModel extends ChangeNotifier {
   //Активируем Пользователи в верхнем баре
   void activateUsers() {
     topFalse();
-    activeScreen = 'users';
+    activeScreen = 'admin';
     usersActive = true;
     mainTitle = 'Панель\nадминистратора';
     notifyListeners();
@@ -40,7 +40,7 @@ class AppBarMainAdminModel extends ChangeNotifier {
   //Активируем Редактор юр.лиц в верхнем баре
   void activateCompany() {
     topFalse();
-    activeScreen = 'company';
+    activeScreen = 'admin';
     companyActive = true;
     mainTitle = 'Панель\nадминистратора';
     notifyListeners();
@@ -49,7 +49,7 @@ class AppBarMainAdminModel extends ChangeNotifier {
   //Активируем Редактор объектов в верхнем баре
   void activateObject() {
     topFalse();
-    activeScreen = 'object';
+    activeScreen = 'admin';
     objectActive = true;
     mainTitle = 'Панель\nадминистратора';
     notifyListeners();
