@@ -116,7 +116,8 @@ class UserDataBase {
 
 class User {
   int userId = 0, companyId = 0, phone = 0;
-  String name, surname, profession, companyName, email, status;
+  String name, surname, profession, companyName, email, status,
+      createDate = '2023-01-20 10:22:00.000';
 
   User({
     required this.userId,

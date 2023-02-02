@@ -66,7 +66,7 @@ class ApiSVD{
     if (res.statusCode != 200) {
       throw Exception("${res.statusCode}");
     }
-    Map<String, dynamic> response = jsonDecode(res.body);
+    Map<String, dynamic> response = jsonDecode(utf8.decode(res.bodyBytes));
     db.writeUserId(response['user_id']);
     db.writeName(response['name']);
     db.writeSurName(response['surname']);

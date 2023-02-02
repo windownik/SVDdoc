@@ -18,7 +18,7 @@ class AdminMainScreen extends StatefulWidget {
 class _AdminMainScreenState extends State<AdminMainScreen> {
   UserDataBase db = UserDataBase();
 
-  int index = 0;
+  int index = 3;
 
   var mainAdminBody= {
     0: const LineAdminMainInfo(),
@@ -43,7 +43,9 @@ class _AdminMainScreenState extends State<AdminMainScreen> {
     }
     return AppBarMainAdminInherit(
       model: AppBarMainAdminModel(),
+
       child: Scaffold(
+        backgroundColor: mySet.background,
         appBar: const PreferredSize(
           preferredSize: Size.fromHeight(210),
           child: AppBarMainAdmin(),
