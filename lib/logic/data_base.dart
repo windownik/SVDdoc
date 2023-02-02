@@ -48,6 +48,10 @@ class UserDataBase {
   void writeStringNewUsers(String newUsers) {
     userBox.put('newUsers', newUsers);
   }
+
+  void writeLastActive(String lastActive) {
+    userBox.put('lastActive', lastActive);
+  }
   void deleteUser() {
     writeAccess('0');
     writeRefresh('0');
@@ -70,6 +74,7 @@ class UserDataBase {
     String companyName = userBox.get('companyName') ?? '';
     String email = userBox.get('email') ?? '0';
     String status = userBox.get('status') ?? 'simple';
+    String lastActive = userBox.get('lastActive') ?? '2023-02-02T17:24:46.396038';
     return User(
         userId: userId,
         phone: phone,
@@ -79,7 +84,8 @@ class UserDataBase {
         profession: profession,
         companyName: companyName,
         email: email,
-        status: status);
+        status: status,
+        createDate: lastActive);
   }
 
   String getAccess() {
@@ -103,7 +109,9 @@ class UserDataBase {
           profession: '0',
           companyName: '0',
           email: i['email'],
-          status: i['status']));
+          status: i['status'],
+          createDate: i['create_date']),
+      );
     }
     return newUsers;
   }
@@ -116,8 +124,7 @@ class UserDataBase {
 
 class User {
   int userId = 0, companyId = 0, phone = 0;
-  String name, surname, profession, companyName, email, status,
-      createDate = '2023-01-20 10:22:00.000';
+  String name, surname, profession, companyName, email, status, createDate;
 
   User({
     required this.userId,
@@ -129,5 +136,6 @@ class User {
     required this.companyName,
     required this.email,
     required this.status,
+    required this.createDate,
   });
 }

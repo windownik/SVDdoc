@@ -38,7 +38,7 @@ class _LoginInputBarState extends State<LoginInputBar> {
   @override
   Widget build(BuildContext context) {
     var screenSize = MediaQuery.of(context).size.height;
-    var screenWidth = MediaQuery.of(context).size.width;
+
     return Container(
       height: screenSize,
       alignment: Alignment.center,

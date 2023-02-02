@@ -65,15 +65,6 @@ class _AdminMainInfoState extends State<AdminUsersMainInfo> {
   List newUsers = [];
 
   @override
-  void didChangeDependencies() {
-    super.didChangeDependencies();
-    final model = AppBarMainAdminInherit.of(context);
-    model?.addListener(() {
-      setState(() {});
-    });
-  }
-
-  @override
   void initState() {
     // TODO: implement initState
     super.initState();
@@ -154,8 +145,6 @@ class NewUserCard extends StatelessWidget {
     return Container(
       height: 62,
       margin: const EdgeInsets.only(
-        left: 0,
-        right: 0,
         top: 18,
       ),
       padding: const EdgeInsets.only(

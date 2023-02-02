@@ -123,7 +123,9 @@ class ApiSVD{
           profession: '0',
           companyName: '0',
           email: i['email'],
-          status: i['status']));
+          status: i['status'],
+          createDate: i['create_date'])
+      );
     }
     return newUsers;
   }

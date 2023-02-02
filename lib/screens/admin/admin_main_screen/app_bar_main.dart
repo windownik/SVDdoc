@@ -4,30 +4,18 @@ import 'package:svd_doc/logic/data_base.dart';
 
 import 'app_bar_main_admin_inherit.dart';
 
-class AppBarMainAdmin extends StatelessWidget {
-  const AppBarMainAdmin({super.key});
+class SmallAdminBar extends StatefulWidget{
+  const SmallAdminBar({super.key});
 
   @override
-  Widget build(BuildContext context) {
-    return Column(
-      children: const [
-        FontAppBar(),
-        SmallAdminBar(showTopBar: true,)
-      ],
-    );
-  }
+  State<SmallAdminBar> createState() => _SmallAdminBarState();
 }
 
-class SmallAdminBar extends StatelessWidget{
-  const SmallAdminBar({super.key, required this.showTopBar});
-
-  final bool showTopBar;
+class _SmallAdminBarState extends State<SmallAdminBar> {
+  int pickBtn = 1;
 
   @override
   Widget build(BuildContext context) {
-    if (!showTopBar) {
-      return Container(width: 1,);
-    }
     return Container(
       height: 70,
       color: mySet.shadow,
@@ -35,43 +23,39 @@ class SmallAdminBar extends StatelessWidget{
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         children: [
-          const CompanyBtn(),
+          CompanyBtn(pres: pickBtn == 0 ? true : false,
+            onTap: () {
+            pickBtn = 0;
+            setState(() { });
+            },),
           Container(height: 30, width: 1, color: mySet.unSelect,),
-          const UsersBtn(),
+          UsersBtn(pres: pickBtn == 1 ? true : false,
+            onTap: () {
+              pickBtn = 1;
+              setState(() { });
+            },),
           Container(height: 30, width: 1, color: mySet.unSelect,),
-          const ObjectBtn(),
+          ObjectBtn(pres: pickBtn == 2 ? true : false,
+            onTap: () {
+            pickBtn = 2;
+            setState(() { });
+            },),
         ]
       ),
     );
   }
 }
 
-class CompanyBtn extends StatefulWidget{
-  const CompanyBtn({super.key});
+class CompanyBtn extends StatelessWidget{
+  const CompanyBtn({super.key, required this.pres, required this.onTap});
 
-  @override
-  State<CompanyBtn> createState() => _CompanyBtnState();
-}
+  final bool pres;
+  final GestureTapCallback onTap;
 
-class _CompanyBtnState extends State<CompanyBtn> {
-  @override
-  void didChangeDependencies() {
-    // TODO: implement didChangeDependencies
-    super.didChangeDependencies();
-    final model = AppBarMainAdminInherit.of(context);
-    model?.addListener(() {
-      setState(() {});
-    });
-  }
-
-  bool pres = false;
   @override
   Widget build(BuildContext context) {
-    pres = AppBarMainAdminInherit.of(context)?.companyActive ?? false;
     return GestureDetector(
-      onTap: () {
-        AppBarMainAdminInherit.of(context)?.activateCompany();
-      },
+      onTap: onTap,
       child: Container(
         alignment: Alignment.center,
         height: 70,
@@ -90,32 +74,16 @@ class _CompanyBtnState extends State<CompanyBtn> {
   }
 }
 
-class UsersBtn extends StatefulWidget{
-  const UsersBtn({super.key});
+class UsersBtn extends StatelessWidget{
+  const UsersBtn({super.key, required this.pres, required this.onTap});
 
-  @override
-  State<UsersBtn> createState() => _UsersBtnState();
-}
+  final bool pres;
+  final GestureTapCallback onTap;
 
-class _UsersBtnState extends State<UsersBtn> {
-  @override
-  void didChangeDependencies() {
-    // TODO: implement didChangeDependencies
-    super.didChangeDependencies();
-    final model = AppBarMainAdminInherit.of(context);
-    model?.addListener(() {
-      setState(() {});
-    });
-  }
-
-  bool pres = false;
   @override
   Widget build(BuildContext context) {
-    pres = AppBarMainAdminInherit.of(context)?.usersActive ?? false;
     return GestureDetector(
-      onTap: () {
-        AppBarMainAdminInherit.of(context)?.activateUsers();
-      },
+      onTap: onTap,
       child: Container(
         alignment: Alignment.center,
         height: 70,
@@ -134,32 +102,15 @@ class _UsersBtnState extends State<UsersBtn> {
   }
 }
 
-class ObjectBtn extends StatefulWidget{
-  const ObjectBtn({super.key});
+class ObjectBtn extends StatelessWidget{
+  const ObjectBtn({super.key, required this.pres, required this.onTap});
+  final bool pres;
+  final GestureTapCallback onTap;
 
-  @override
-  State<ObjectBtn> createState() => _ObjectBtnState();
-}
-
-class _ObjectBtnState extends State<ObjectBtn> {
-  @override
-  void didChangeDependencies() {
-    // TODO: implement didChangeDependencies
-    super.didChangeDependencies();
-    final model = AppBarMainAdminInherit.of(context);
-    model?.addListener(() {
-      setState(() {});
-    });
-  }
-
-  bool pres = false;
   @override
   Widget build(BuildContext context) {
-    pres = AppBarMainAdminInherit.of(context)?.objectActive ?? false;
     return GestureDetector(
-      onTap: () {
-        AppBarMainAdminInherit.of(context)?.activateObject();
-      },
+      onTap: onTap,
       child: Container(
         alignment: Alignment.center,
         height: 70,
@@ -178,7 +129,6 @@ class _ObjectBtnState extends State<ObjectBtn> {
   }
 }
 
-
 class FontAppBar extends StatefulWidget {
   const FontAppBar({super.key});
 
@@ -188,16 +138,6 @@ class FontAppBar extends StatefulWidget {
 
 class _FontAppBarState extends State<FontAppBar> {
   UserDataBase db = UserDataBase();
-
-  @override
-  void didChangeDependencies() {
-    // TODO: implement didChangeDependencies
-    super.didChangeDependencies();
-    final model = AppBarMainAdminInherit.of(context);
-    model?.addListener(() {
-      setState(() {});
-    });
-  }
 
   @override
   Widget build(BuildContext context) {
