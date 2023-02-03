@@ -31,12 +31,15 @@ class MyApp extends StatelessWidget {
       title: 'Exchanger',
       initialRoute: '/',
       routes: {
+        //Auth routes
         '/': (context) => const Loading(),
         '/login': (context) => const LoginScreen(),
         '/login_with_password': (context) => const LoginWithPassword(),
         '/sign_up': (context) => const SignUpFirst(),
         '/sign_up_next': (context) => const SignUpSecond(),
+        // Admins routes
         '/admin_start': (context) => const AdminMainScreen(),
+        // '/new_user_admin': (context) => const NewUsersAdminScreen(),
       },
     );
   }
