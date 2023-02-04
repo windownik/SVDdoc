@@ -45,17 +45,7 @@ class NewUsersFontAppBar extends StatelessWidget {
                 icon: const Icon(Icons.menu_outlined),
                 color: mySet.white,
               )),
-          Positioned(
-              left: 20,
-              top: 50,
-              child: IconButton(
-                onPressed: () {
-                  print(112);
-                  Navigator.of(context).pop();
-                },
-                icon: const Icon(Icons.arrow_back_ios),
-                color: mySet.white,
-              )),
+
           Positioned(
               bottom: 0,
               left: 0,
@@ -76,6 +66,17 @@ class NewUsersFontAppBar extends StatelessWidget {
                 textAlign: TextAlign.center,
               )
           ),
+          Positioned(
+              left: 20,
+              top: 50,
+              child: IconButton(
+                onPressed: () {
+                  print(112);
+                  Navigator.of(context).pop();
+                },
+                icon: const Icon(Icons.arrow_back_ios),
+                color: mySet.white,
+              )),
         ],
       ),
     );
