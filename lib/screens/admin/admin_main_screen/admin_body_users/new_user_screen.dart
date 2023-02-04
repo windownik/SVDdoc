@@ -5,6 +5,7 @@ import 'package:svd_doc/logic/data_base.dart';
 import 'package:svd_doc/logic/global_const.dart';
 
 
+
 class NewUsersAdminScreen extends StatelessWidget{
   final User user;
   const NewUsersAdminScreen({super.key, required this.user});
@@ -92,14 +93,17 @@ class NewUserBody extends StatefulWidget{
 }
 
 class _NewUserBodyState extends State<NewUserBody> {
-
+  List<String> items = <String>['Auto', '0', '1', '2', '3', '4', '5', '6'];
+  String dropdownValue = 'Auto';
   @override
   Widget build(BuildContext context) {
-    return Align(
-      // alignment: Alignment.topCenter,
+    double width = MediaQuery.of(context).size.width;
+    return Container(
+      alignment: Alignment.topCenter,
       child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
+        // mainAxisAlignment: MainAxisAlignment.center,
         children: [
+          const SizedBox(height: 30,),
           Image.asset(
             'assets/big_icons/new_user_avatar.png',
             height: 70,
@@ -117,6 +121,22 @@ class _NewUserBodyState extends State<NewUserBody> {
                   fontSize: 14,
                   fontFamily: "Italic",
                   fontWeight: FontWeight.w400)),
+          const SizedBox(height: 21,),
+          SizedBox(width: width-40, child: const Text("Выберите юридическое лицо",
+              style: TextStyle(
+                  color: mySet.second,
+                  fontSize: 14,
+                  fontFamily: "Italic",
+                  fontWeight: FontWeight.w400)),),
+          const SizedBox(height: 6,),
+        DropdownButton<String>(items: const [
+          DropdownMenuItem(child: Text('1'), value: '1',),
+          DropdownMenuItem(child: Text('2'), value: '2',),
+          DropdownMenuItem(child: Text('3'), value: '3',),
+          DropdownMenuItem(child: Text('4'), value: '4',),
+        ],
+          isExpanded: true,
+          onChanged: (Object? value) {  },)
         ]
 
       ),

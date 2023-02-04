@@ -12,7 +12,7 @@ import 'package:svd_doc/screens/loading.dart';
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Hive.initFlutter();
-  var box = await Hive.openBox('user');
+  await Hive.openBox('user');
   runApp(const MyApp());
 }
 
