@@ -3,8 +3,7 @@ import 'package:http/http.dart' as http;
 
 import 'data_base.dart';
 
-
-class ApiSVD{
+class ApiSVD {
   String urlAddress = '185.51.247.27:10020';
   UserDataBase db = UserDataBase();
   String access = '0';
@@ -13,7 +12,7 @@ class ApiSVD{
     access = db.getAccess();
   }
 
-  Future<bool> updateAccess () async {
+  Future<bool> updateAccess() async {
     String refresh = db.getRefresh();
     var url = Uri.http(urlAddress, "/access_token", {"refresh_token": refresh});
     var res = await http.get(url);
@@ -25,13 +24,13 @@ class ApiSVD{
     return true;
   }
 
-  Future<Map<String, dynamic>> userCreate(String email, {
+  Future<Map<String, dynamic>> userCreate(
+    String email, {
     required String name,
     required String surname,
     required int phone,
     required String password,
     required String status,
-
   }) async {
     Map<String, dynamic> params = {
       "name": name,
@@ -78,6 +77,7 @@ class ApiSVD{
     db.writeProfession(response['position_name']);
     return db.getUser();
   }
+
   Future<bool> logIn(String phone, String password) async {
     Map<String, dynamic> params = {
       "phone": phone.substring(1, phone.length),
@@ -124,10 +124,29 @@ class ApiSVD{
           companyName: '0',
           email: i['email'],
           status: i['status'],
-          createDate: i['create_date'])
-      );
+          createDate: i['create_date']));
     }
     return newUsers;
   }
-}
 
+  Future<List<Company>> getCompanyList() async {
+    var url = Uri.http(urlAddress, "/company_all");
+    var res = await http.get(url);
+    if (res.statusCode != 200) {
+      throw Exception("${res.statusCode}");
+    }
+    Map<String, dynamic> response = jsonDecode(res.body);
+    var companyS = response['company'];
+    db.writeStringNewUsers(res.body);
+    List<Company> companyList = [];
+    for (var i in companyS) {
+      companyList.add(Company(
+        companyId: i['id'],
+        companyTypeId: i['company_type_id'],
+        name: i['company_name'],
+        typeName: i['company_type_name'],
+      ));
+    }
+    return companyList;
+  }
+}

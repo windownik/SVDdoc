@@ -72,6 +72,7 @@ flutter:
     - assets/big_icons/
     - assets/svg/
     - assets/app_bar/
+    - assets/background/
 
 
   # An image asset can refer to one or more resolution-specific "variants", see

@@ -1,5 +1,7 @@
 
 import 'package:flutter/material.dart';
+import 'package:svd_doc/custom_widgets/default_btn.dart';
+import 'package:svd_doc/logic/api.dart';
 import 'package:svd_doc/logic/data_base.dart';
 
 import 'package:svd_doc/logic/global_const.dart';
@@ -72,7 +74,6 @@ class NewUsersFontAppBar extends StatelessWidget {
               top: 50,
               child: IconButton(
                 onPressed: () {
-                  print(112);
                   Navigator.of(context).pop();
                 },
                 icon: const Icon(Icons.arrow_back_ios),
@@ -93,53 +94,200 @@ class NewUserBody extends StatefulWidget{
 }
 
 class _NewUserBodyState extends State<NewUserBody> {
-  List<String> items = <String>['Auto', '0', '1', '2', '3', '4', '5', '6'];
-  String dropdownValue = 'Auto';
+  List<Company> companyList = [];
+  List<String> companyTypeItems = ['Auto', '0', '1', '2', '3', '4', '5', '6'];
+  List<DropdownMenuItem<int>> dropCompanyItems = [];
+  List<DropdownMenuItem<int>> dropProfessionItems = [];
+  int? dropCompanyValue;
+  int? dropProfessionValue;
+  final ApiSVD api = ApiSVD();
+
+  @override
+  void initState() {
+    updateDropItems();
+    super.initState();
+  }
+
+  void updateDropItems() async {
+    companyList = await api.getCompanyList();
+    dropCompanyItems = [];
+    int i = 0;
+    for (Company company in companyList) {
+      dropCompanyItems.add(DropdownMenuItem(value: i,
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            Text(company.name, style: const TextStyle(
+                color: mySet.main,
+                fontSize: 16,
+                fontFamily: "Italic",
+                fontWeight: FontWeight.w400)),
+            Text(company.typeName, style: const TextStyle(
+                color: mySet.second,
+                fontSize: 14,
+                fontFamily: "Italic",
+                fontWeight: FontWeight.w300)),
+          ],
+        ),));
+      i += 1;
+    }
+    setState(() { });
+  }
+
+  void updateDropCompanyItems(int companyType) {
+    List<String> professionSvd = ['Директор', 'Руководитель проекта', 'Инженер тех. надзор', 'Инженер ПТО'];
+    List<String> professionRead = ['Директор', 'Технический директор', 'Финансовый директор', 'Секретарь', 'Бухгалтер'];
+    List<String> professionNotification = ['Прораб', 'Мастер', 'Подрядчик'];
+    List<String> items = professionSvd;
+    if (companyType == 2) {
+      items = professionRead;
+    }
+    if (companyType == 3) {
+      items = professionNotification;
+    }
+
+    dropProfessionItems = [];
+    int i = 0;
+    for (String item in items) {
+      dropProfessionItems.add(DropdownMenuItem(value: i, child: Text(item, style: const TextStyle(
+          color: mySet.second,
+          fontSize: 16,
+          fontFamily: "Italic",
+          fontWeight: FontWeight.w400)),));
+      i += 1;
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     double width = MediaQuery.of(context).size.width;
-    return Container(
-      alignment: Alignment.topCenter,
-      child: Column(
-        // mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          const SizedBox(height: 30,),
-          Image.asset(
-            'assets/big_icons/new_user_avatar.png',
-            height: 70,
-          ),
-          Text("${widget.user.surname} ${widget.user.name}",
-              style: const TextStyle(
-                  color: mySet.main,
-                  fontSize: 20,
-                  fontFamily: "Italic",
-                  fontWeight: FontWeight.w400)),
-          const SizedBox(height: 3,),
-          Text("+${widget.user.phone}",
-              style: const TextStyle(
-                  color: mySet.second,
-                  fontSize: 14,
-                  fontFamily: "Italic",
-                  fontWeight: FontWeight.w400)),
-          const SizedBox(height: 21,),
-          SizedBox(width: width-40, child: const Text("Выберите юридическое лицо",
-              style: TextStyle(
-                  color: mySet.second,
-                  fontSize: 14,
-                  fontFamily: "Italic",
-                  fontWeight: FontWeight.w400)),),
-          const SizedBox(height: 6,),
-        DropdownButton<String>(items: const [
-          DropdownMenuItem(child: Text('1'), value: '1',),
-          DropdownMenuItem(child: Text('2'), value: '2',),
-          DropdownMenuItem(child: Text('3'), value: '3',),
-          DropdownMenuItem(child: Text('4'), value: '4',),
-        ],
-          isExpanded: true,
-          onChanged: (Object? value) {  },)
-        ]
+    double height = MediaQuery.of(context).size.height;
+    return SizedBox(
+      height: height,
+      child: Stack(
+          children: [
+            Positioned(
+              bottom: 0,
+                child: Image.asset('assets/background/new_user.png', width: width,)
+            ),
+            Container(
+            alignment: Alignment.topCenter,
+            child: Column(
+              // mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                const SizedBox(height: 30,),
+                Image.asset(
+                  'assets/big_icons/new_user_avatar.png',
+                  height: 70,
+                ),
+                Text("${widget.user.surname} ${widget.user.name}",
+                    style: const TextStyle(
+                        color: mySet.main,
+                        fontSize: 20,
+                        fontFamily: "Italic",
+                        fontWeight: FontWeight.w400)),
+                const SizedBox(height: 3,),
+                Text("+${widget.user.phone}",
+                    style: const TextStyle(
+                        color: mySet.second,
+                        fontSize: 14,
+                        fontFamily: "Italic",
+                        fontWeight: FontWeight.w400)),
+                const SizedBox(height: 21,),
+                SizedBox(width: width-40,
+                  child: const Text("Выберите юридическое лицо",
+                    style: TextStyle(
+                        color: mySet.second,
+                        fontSize: 14,
+                        fontFamily: "Italic",
+                        fontWeight: FontWeight.w400)
+                  ),
+                ),
+                const SizedBox(height: 8,),
 
-      ),
+              Container(
+               decoration: BoxDecoration(
+                    border: Border.all(color: mySet.second, width: 1)
+                ),
+                padding: const EdgeInsets.only(left: 10, right: 10),
+                width: width-40,
+                child: DropdownButton<int>(
+                  items: dropCompanyItems,
+                  value: dropCompanyValue,
+                  hint: const Text('Название оргонизации'),
+                  style: const TextStyle(
+                    color: mySet.second,
+                    fontSize: 14,
+                    fontFamily: "Italic",
+                    fontWeight: FontWeight.w300),
+                  underline: const SizedBox(),
+                  isExpanded: true,
+                  menuMaxHeight: 300,
+                  onChanged: (value) {
+                    dropCompanyValue = value;
+                    if (value != null) {
+                      Company pickCompany = companyList[value];
+                      updateDropCompanyItems(pickCompany.companyTypeId);
+                    }
+
+                    setState(() { });
+                  },),
+              ),
+
+                const SizedBox(height: 18,),
+
+                SizedBox(width: width-40,
+                  child: const Text("Выберите должность",
+                    style: TextStyle(
+                        color: mySet.second,
+                        fontSize: 14,
+                        fontFamily: "Italic",
+                        fontWeight: FontWeight.w400)),),
+                const SizedBox(height: 8,),
+                Container(
+                  decoration: BoxDecoration(
+                      border: Border.all(color: mySet.second, width: 1)
+                  ),
+                  padding: const EdgeInsets.only(left: 10, right: 10),
+                  width: width-40,
+                  child: DropdownButton<int>(
+                    items: dropProfessionItems,
+                    value: dropProfessionValue,
+                    hint: const Text('Должность'),
+                    style: const TextStyle(
+                        color: mySet.second,
+                        fontSize: 14,
+                        fontFamily: "Italic",
+                        fontWeight: FontWeight.w300),
+                    underline: const SizedBox(),
+                    isExpanded: true,
+                    menuMaxHeight: 300,
+                    onChanged: (value) {
+                      dropProfessionValue = value;
+                      setState(() { });
+                    },),
+                ),
+                const SizedBox(height: 30,),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  children: [
+                  UniversalBtn(text: 'Подтвердить', textStyle: const TextStyle(
+                      color: mySet.white,
+                      fontSize: 16,
+                      fontFamily: "Italic",
+                      fontWeight: FontWeight.w400),
+                    onTap: () {
+                      print('Подтвердить');
+                    },),
+                    UniversalBtn(text: 'Забанить', blackColor: false,
+                      onTap: () {
+                      print('Забанить');
+                      },),
+                ],)
+              ]
+            ),
+          ),]
+        ),
     );
   }
 }
