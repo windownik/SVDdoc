@@ -150,3 +150,34 @@ class Company {
     required this.typeName
   });
 }
+
+class ListProfession {
+  ListProfession._();
+  static const List<Profession> professionSvd = [
+    Profession(professionId: 1, name: 'Директор'),
+    Profession(professionId: 2, name: 'Руководитель проекта'),
+    Profession(professionId: 3, name: 'Инженер тех. надзор'),
+    Profession(professionId: 4, name: 'Инженер ПТО'),
+  ];
+  static const List<Profession> professionRead = [
+    Profession(professionId: 5, name: 'Директор'),
+    Profession(professionId: 6, name: 'Технический директор'),
+    Profession(professionId: 7, name: 'Финансовый директор'),
+    Profession(professionId: 8, name: 'Секретарь'),
+    Profession(professionId: 9, name: 'Бухгалтер'),
+  ];
+  static const List<Profession> professionNotification = [
+    Profession(professionId: 10, name: 'Прораб'),
+    Profession(professionId: 11, name: 'Мастер'),
+    Profession(professionId: 12, name: 'Подрядчик'),
+  ];
+}
+
+class Profession {
+  final int professionId;
+  final String name;
+  const Profession({
+    required this.professionId,
+    required this.name,
+  });
+}

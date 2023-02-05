@@ -149,4 +149,19 @@ class ApiSVD {
     }
     return companyList;
   }
+
+  Future<bool> updateProfession (int userId, int positionId, int companyId, ) async {
+    Map<String, dynamic> params = {
+      "access_token": access,
+      "position_id": positionId,
+      "company_id": companyId,
+      "user_id ": userId,
+    };
+    var url = Uri.http(urlAddress, "/user_info", params);
+    var res = await http.put(url);
+    if (res.statusCode != 200) {
+      throw Exception("${res.statusCode}");
+    }
+    return true;
+  }
 }
