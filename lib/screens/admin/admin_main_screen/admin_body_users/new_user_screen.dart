@@ -300,12 +300,10 @@ class _NewUserBodyState extends State<NewUserBody> {
                           fontFamily: "Italic",
                           fontWeight: FontWeight.w400),
                       onTap: () {
-                        print(widget.user.userId);
-                        print([pickProfession.professionId, pickProfession.name]);
-                        print(pickCompany?.companyId);
-                        // api.updateProfession(userId, positionId, companyId)
+                        api.updateProfession(widget.user.userId,
+                            pickProfession.professionId,
+                            pickCompany?.companyId ?? 0);
                         Navigator.of(context).popAndPushNamed('/admin_start');
-                        print('Подтвердить');
                       },
                     ),
                     UniversalBtn(

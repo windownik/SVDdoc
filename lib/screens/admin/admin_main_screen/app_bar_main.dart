@@ -23,106 +23,59 @@ class _SmallAdminBarState extends State<SmallAdminBar> {
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         children: [
-          CompanyBtn(pres: pickBtn == 0 ? true : false,
+          LittleAppBarBtn(pres: pickBtn == 0 ? true : false,
             onTap: () {
             pickBtn = 0;
             setState(() { });
-            },),
+            }, text: 'Редактор\nюр. лиц.',),
           Container(height: 30, width: 1, color: mySet.unSelect,),
-          UsersBtn(pres: pickBtn == 1 ? true : false,
+          LittleAppBarBtn(pres: pickBtn == 1 ? true : false,
             onTap: () {
               pickBtn = 1;
               setState(() { });
-            },),
+            }, text: 'Пользователи',),
           Container(height: 30, width: 1, color: mySet.unSelect,),
-          ObjectBtn(pres: pickBtn == 2 ? true : false,
+          LittleAppBarBtn(pres: pickBtn == 2 ? true : false,
             onTap: () {
             pickBtn = 2;
             setState(() { });
-            },),
+            },
+            text: 'Редактор\nобъектов',
+            rightAlign: true,
+          ),
         ]
       ),
     );
   }
 }
 
-class CompanyBtn extends StatelessWidget{
-  const CompanyBtn({super.key, required this.pres, required this.onTap});
-
-  final bool pres;
+class LittleAppBarBtn extends StatefulWidget{
+  const LittleAppBarBtn({super.key, required this.pres, required this.onTap, required this.text, this.rightAlign = false});
+  final String text;
+  final bool pres, rightAlign;
   final GestureTapCallback onTap;
 
   @override
-  Widget build(BuildContext context) {
-    return GestureDetector(
-      onTap: onTap,
-      child: Container(
-        alignment: Alignment.center,
-        height: 70,
-        color: Colors.transparent,
-        child: Text('Редактор\nюр. лиц.',
-          style: TextStyle(
-              color: pres ? mySet.main : mySet.unSelect,
-              fontSize: 14,
-              fontFamily: "Italic",
-              fontWeight: FontWeight.w400),
-          maxLines: 2,
-          textAlign: TextAlign.left,
-        ),
-      ),
-    );
-  }
+  State<LittleAppBarBtn> createState() => _LittleAppBarBtnState();
 }
 
-class UsersBtn extends StatelessWidget{
-  const UsersBtn({super.key, required this.pres, required this.onTap});
-
-  final bool pres;
-  final GestureTapCallback onTap;
-
+class _LittleAppBarBtnState extends State<LittleAppBarBtn> {
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: onTap,
+      onTap: widget.onTap,
       child: Container(
         alignment: Alignment.center,
         height: 70,
         color: Colors.transparent,
-        child: Text('Пользователи',
+        child: Text(widget.text,
           style: TextStyle(
-              color: pres ? mySet.main : mySet.unSelect,
+              color: widget.pres ? mySet.main : mySet.unSelect,
               fontSize: 14,
               fontFamily: "Italic",
               fontWeight: FontWeight.w400),
           maxLines: 2,
-          textAlign: TextAlign.left,
-        ),
-      ),
-    );
-  }
-}
-
-class ObjectBtn extends StatelessWidget{
-  const ObjectBtn({super.key, required this.pres, required this.onTap});
-  final bool pres;
-  final GestureTapCallback onTap;
-
-  @override
-  Widget build(BuildContext context) {
-    return GestureDetector(
-      onTap: onTap,
-      child: Container(
-        alignment: Alignment.center,
-        height: 70,
-        color: Colors.transparent,
-        child: Text('Редактор\nобъектов',
-          style: TextStyle(
-              color: pres ? mySet.main : mySet.unSelect,
-              fontSize: 14,
-              fontFamily: "Italic",
-              fontWeight: FontWeight.w400),
-          maxLines: 2,
-          textAlign: TextAlign.right,
+          textAlign: widget.rightAlign ? TextAlign.right : TextAlign.left,
         ),
       ),
     );
