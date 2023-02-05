@@ -5,7 +5,7 @@ import 'package:svd_doc/logic/global_const.dart';
 
 class UniversalBtn extends StatefulWidget{
   final double height, width;
-  final bool blackColor;
+  final bool blackColor, enable;
   final String text;
   final GestureTapCallback onTap;
   static const TextStyle style = TextStyle(
@@ -19,7 +19,9 @@ class UniversalBtn extends StatefulWidget{
     this.height = 44,
     this.width = 157,
     this.blackColor = true,
-    this.textStyle = style, required this.onTap,
+    this.enable = true,
+    this.textStyle = style,
+    required this.onTap,
   });
 
   @override
@@ -34,24 +36,30 @@ class _UniversalBtnState extends State<UniversalBtn> {
 
   @override
   Widget build(BuildContext context) {
-
+    bool enable = widget.enable;
     defaultColor = widget.blackColor ? mySet.main : mySet.white;
     presColor = widget.blackColor ? mySet.second : mySet.shadow;
-
+    defaultColor = enable ? defaultColor : mySet.second;
     return GestureDetector(
       onTapDown: (tap) {
-        pres = true;
-        setState(() { });
+        if (enable) {
+          pres = true;
+          setState(() { });
+        }
       },
       onTapUp: (tap) {
-        pres = false;
-        setState(() { });
+    if (enable) {
+      pres = false;
+      setState(() {});
+    }
       },
       onTapCancel: () {
-        pres = false;
-        setState(() { });
+    if (enable) {
+      pres = false;
+      setState(() {});
+    }
       },
-      onTap: widget.onTap,
+      onTap: enable ? widget.onTap : null,
       child: Container(
         width: widget.width,
         height: widget.height,
