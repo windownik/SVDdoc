@@ -1,6 +1,8 @@
 import 'package:svd_doc/logic/global_const.dart';
 import 'package:flutter/material.dart';
 
+import '../main_admin_inherit.dart';
+
 class SmallAdminBar extends StatefulWidget{
   const SmallAdminBar({super.key});
 
@@ -23,18 +25,21 @@ class _SmallAdminBarState extends State<SmallAdminBar> {
             LittleAppBarBtn(pres: pickBtn == 0 ? true : false,
               onTap: () {
                 pickBtn = 0;
+                MainAdminInherit.of(context)?.setNewCompanyWidgetToBody();
                 setState(() { });
               }, text: 'Редактор\nюр. лиц.',),
             Container(height: 30, width: 1, color: mySet.unSelect,),
             LittleAppBarBtn(pres: pickBtn == 1 ? true : false,
               onTap: () {
                 pickBtn = 1;
+                MainAdminInherit.of(context)?.setNewUsersWidgetToBody();
                 setState(() { });
               }, text: 'Пользователи',),
             Container(height: 30, width: 1, color: mySet.unSelect,),
             LittleAppBarBtn(pres: pickBtn == 2 ? true : false,
               onTap: () {
                 pickBtn = 2;
+                MainAdminInherit.of(context)?.setObjectAdminWidgetToBody();
                 setState(() { });
               },
               text: 'Редактор\nобъектов',

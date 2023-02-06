@@ -1,7 +1,11 @@
 import 'package:flutter/cupertino.dart';
+import 'package:svd_doc/logic/data_base.dart';
 
 import 'body/admin_body_users/admin_new_users.dart';
-import 'body/admin_main_body.dart';
+import 'body/admin_body_users/new_user_screen.dart';
+import 'body/admin_company_body/company_dody.dart';
+import 'body/admin_line_body/admin_line_body.dart';
+import 'body/objects_admin_body/object_admin_body.dart';
 
 class MainAdminModel extends ChangeNotifier {
   bool showLittleTopBar = true, showBottomBar = true;
@@ -11,13 +15,74 @@ class MainAdminModel extends ChangeNotifier {
 
   //Flags for bottom admin bar
   int bottomActiveBtn = 3;
+  VoidCallback? backOnPressed;
+  bool backIcon = false;
   String mainTitle = 'Панель\nадминистратора';
-  Widget pickWidget = const LineAdminMainInfo();
+  String assetsImageFont = 'assets/app_bar/admin_main.png';
+  Widget pickWidget = const AdminUsersMainInfo();
 
+  // Main App Bar Tittle
   void updateMainTitle(String title) {
     mainTitle = title;
     notifyListeners();
   }
+
+  void setNewUserCardWidgetToBody(User user) {
+    pickWidget = NewUserBody(user: user,);
+    showBottomBar = false;
+    showLittleTopBar = false;
+    backIcon = true;
+    mainTitle = 'Новый\nпользователь';
+    // assetsImageFont = 'assets/app_bar/new_users_admin.png';
+    backOnPressed = () {
+      setNewUsersWidgetToBody();
+    };
+    notifyListeners();
+  }
+
+  void setNewUsersWidgetToBody() {
+    pickWidget = const AdminUsersMainInfo();
+    showBottomBar = true;
+    showLittleTopBar = true;
+    backIcon = false;
+    topActiveBtn = 1;
+    mainTitle = 'Панель\nадминистратора';
+    assetsImageFont = 'assets/app_bar/admin_main.png';
+    notifyListeners();
+  }
+
+  void setLineWidgetToBody() {
+    pickWidget = const LineAdminBody();
+    showBottomBar = true;
+    showLittleTopBar = true;
+    backIcon = false;
+    mainTitle = 'Документы\nна согласовании';
+    assetsImageFont = 'assets/app_bar/admin_main.png';
+    notifyListeners();
+  }
+
+  void setNewCompanyWidgetToBody() {
+    pickWidget = const CompanyAdminBody();
+    showBottomBar = true;
+    showLittleTopBar = true;
+    backIcon = false;
+    topActiveBtn = 1;
+    mainTitle = 'Панель\nадминистратора';
+    assetsImageFont = 'assets/app_bar/admin_main.png';
+    notifyListeners();
+  }
+
+  void setObjectAdminWidgetToBody() {
+    pickWidget = const ObjectAdminBody();
+    showBottomBar = true;
+    showLittleTopBar = true;
+    backIcon = false;
+    topActiveBtn = 2;
+    mainTitle = 'Панель объектов';
+    assetsImageFont = 'assets/app_bar/admin_main.png';
+    notifyListeners();
+  }
+
 
   //------------------------
   //Активируем Элементы верхнего бара
@@ -34,8 +99,7 @@ class MainAdminModel extends ChangeNotifier {
   void pickBottomItem(int index) {
     bottomActiveBtn = index;
     if (index == 0) {
-      mainTitle = 'Документы\nна согласование';
-      pickWidget = const Text('Документы\nна согласование');
+      setLineWidgetToBody();
     }
     if (index == 1) {
       mainTitle = 'Архив\nсогласованных докуметов';

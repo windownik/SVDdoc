@@ -4,6 +4,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:svd_doc/logic/data_base.dart';
 import 'package:svd_doc/logic/global_const.dart';
 import 'package:flutter/material.dart';
+import 'package:svd_doc/screens/admin/admin_main_screen/main_admin_inherit.dart';
 
 import 'new_user_screen.dart';
 
@@ -41,12 +42,7 @@ class _NewUserCardState extends State<NewUserCard> {
         setState(() { });
       },
       onTap: () {
-        Navigator.push(
-            context,
-            MaterialPageRoute(
-            builder: (context) => NewUsersAdminScreen(user: widget.user,),
-        )
-        );
+        MainAdminInherit.of(context)?.setNewUserCardWidgetToBody(widget.user);
       },
       child: Container(
         height: 62,
@@ -97,33 +93,5 @@ class _NewUserCardState extends State<NewUserCard> {
         ),
       ),
     );
-  }
-}
-
-
-class NewUserCardModel extends ChangeNotifier{
-  String name = '';
-  String surname = '';
-  void putUser (User user) {
-    name = user.name;
-    surname = user.surname;
-    print(name);
-    notifyListeners();
-  }
-}
-
-class NewUserCardInherit extends InheritedWidget{
-  final NewUserCardModel model;
-
-  const NewUserCardInherit({super.key, required super.child, required this.model,});
-  static NewUserCardModel? of(BuildContext context) {
-    return context
-        .dependOnInheritedWidgetOfExactType<NewUserCardInherit>()
-        ?.model;
-  }
-
-  @override
-  bool updateShouldNotify(NewUserCardInherit oldWidget) {
-    return model != oldWidget.model;
   }
 }

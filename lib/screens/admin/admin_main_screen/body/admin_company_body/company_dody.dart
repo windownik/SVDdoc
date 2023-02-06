@@ -3,13 +3,13 @@ import 'package:svd_doc/logic/global_const.dart';
 import 'package:flutter/cupertino.dart';
 
 
-class LineAdminMainInfo extends StatefulWidget {
-  const LineAdminMainInfo({super.key});
+class CompanyAdminBody extends StatefulWidget {
+  const CompanyAdminBody({super.key});
   @override
-  State<LineAdminMainInfo> createState() => _LineAdminMainInfoState();
+  State<CompanyAdminBody> createState() => _CompanyAdminBodyState();
 }
 
-class _LineAdminMainInfoState extends State<LineAdminMainInfo> {
+class _CompanyAdminBodyState extends State<CompanyAdminBody> {
   @override
   Widget build(BuildContext context) {
     return SingleChildScrollView(
@@ -19,21 +19,12 @@ class _LineAdminMainInfoState extends State<LineAdminMainInfo> {
             const SizedBox(
               height: 50,
             ),
-            const Text('Отличная работа!',
+            const Text('У вас нет оргонизаций',
                 style: TextStyle(
                     color: mySet.main,
                     fontSize: 18,
                     fontFamily: "Italic",
                     fontWeight: FontWeight.w400)),
-            const SizedBox(
-              height: 13,
-            ),
-            const Text('Новые пользователи отсутствуют.',
-                style: TextStyle(
-                    color: mySet.main,
-                    fontSize: 18,
-                    fontFamily: "Italic",
-                    fontWeight: FontWeight.w300)),
             const SizedBox(
               height: 10,
             ),

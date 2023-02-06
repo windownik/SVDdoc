@@ -33,12 +33,11 @@ class _AdminMainInfoState extends State<AdminUsersMainInfo> {
   Widget build(BuildContext context) {
 
     if (newUsers.isEmpty == false) {
-      return NewUserCardInherit(
-        model: NewUserCardModel(),
-        child: Padding(
+      return Padding(
           padding: const EdgeInsets.only(left: 10, right: 10),
           child: ListView(
             children: [
+              const SizedBox(height: 10,),
               Center(
                 child: Text('У вас ${newUsers.length} новых пользователей',
                     style: const TextStyle(
@@ -50,8 +49,7 @@ class _AdminMainInfoState extends State<AdminUsersMainInfo> {
               for (var i in newUsers) (NewUserCard(user: i,))
             ],
           ),
-        ),
-      );
+        );
     }
     return SingleChildScrollView(
       child: Center(
