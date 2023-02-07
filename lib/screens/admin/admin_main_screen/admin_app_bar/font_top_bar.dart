@@ -26,7 +26,9 @@ class _FontTopBarState extends State<FontTopBar> {
     super.didChangeDependencies();
     final model = MainAdminInherit.of(context);
     model?.addListener(() {
-      setState(() {});
+      if (mounted) {
+        setState(() {});
+      }
     });
   }
 

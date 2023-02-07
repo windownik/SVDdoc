@@ -4,6 +4,7 @@ import 'package:svd_doc/logic/data_base.dart';
 import 'body/admin_body_users/admin_new_users.dart';
 import 'body/admin_body_users/new_user_screen.dart';
 import 'body/admin_company_body/company_dody.dart';
+import 'body/admin_company_body/new_company_body/new_company_body.dart';
 import 'body/admin_line_body/admin_line_body.dart';
 import 'body/objects_admin_body/object_admin_body.dart';
 
@@ -33,7 +34,7 @@ class MainAdminModel extends ChangeNotifier {
     showLittleTopBar = false;
     backIcon = true;
     mainTitle = 'Новый\nпользователь';
-    // assetsImageFont = 'assets/app_bar/new_users_admin.png';
+    assetsImageFont = 'assets/app_bar/admin_main.png';
     backOnPressed = () {
       setNewUsersWidgetToBody();
     };
@@ -61,13 +62,28 @@ class MainAdminModel extends ChangeNotifier {
     notifyListeners();
   }
 
-  void setNewCompanyWidgetToBody() {
-    pickWidget = const CompanyAdminBody();
+  //-----------------------
+  // Работаем с компаниями
+  //-----------------------
+  // Список всех компаний
+  void setAllCompanyListWidgetToBody() {
+    pickWidget = const AllCompanyListBody();
     showBottomBar = true;
     showLittleTopBar = true;
     backIcon = false;
     topActiveBtn = 1;
     mainTitle = 'Панель\nадминистратора';
+    assetsImageFont = 'assets/app_bar/admin_main.png';
+    notifyListeners();
+  }
+  // Создаем новую компанию
+  void setNewCompanyWidgetToBody() {
+    pickWidget = const NewCompanyAdminBody();
+    showBottomBar = false;
+    showLittleTopBar = false;
+    backIcon = true;
+    topActiveBtn = 1;
+    mainTitle = 'Новое\nюридическое лицо';
     assetsImageFont = 'assets/app_bar/admin_main.png';
     notifyListeners();
   }

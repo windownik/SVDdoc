@@ -17,7 +17,7 @@ class _SmallAdminBarState extends State<SmallAdminBar> {
   Widget build(BuildContext context) {
     return Container(
       height: 70,
-      color: mySet.shadow,
+      color: mySet.background,
       alignment: Alignment.center,
       child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -25,7 +25,7 @@ class _SmallAdminBarState extends State<SmallAdminBar> {
             LittleAppBarBtn(pres: pickBtn == 0 ? true : false,
               onTap: () {
                 pickBtn = 0;
-                MainAdminInherit.of(context)?.setNewCompanyWidgetToBody();
+                MainAdminInherit.of(context)?.setAllCompanyListWidgetToBody();
                 setState(() { });
               }, text: 'Редактор\nюр. лиц.',),
             Container(height: 30, width: 1, color: mySet.unSelect,),

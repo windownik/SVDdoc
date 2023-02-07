@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:svd_doc/custom_widgets/default_btn.dart';
 import 'package:svd_doc/logic/api.dart';
 import 'package:svd_doc/logic/global_const.dart';
 
@@ -32,21 +33,37 @@ class _AdminMainInfoState extends State<AdminUsersMainInfo> {
   @override
   Widget build(BuildContext context) {
 
-    if (newUsers.isEmpty == false) {
+    if (newUsers.isNotEmpty) {
       return Padding(
           padding: const EdgeInsets.only(left: 10, right: 10),
-          child: ListView(
+          child: Column(
             children: [
-              const SizedBox(height: 10,),
-              Center(
-                child: Text('У вас ${newUsers.length} новых пользователей',
-                    style: const TextStyle(
-                        color: mySet.main,
-                        fontSize: 16,
-                        fontFamily: "Italic",
-                        fontWeight: FontWeight.w300)),
+              Flexible(
+                child: ListView(
+                  children: [
+                    const SizedBox(height: 10,),
+                    Center(
+                      child: Text('У вас ${newUsers.length} новых пользователей',
+                          style: const TextStyle(
+                              color: mySet.main,
+                              fontSize: 16,
+                              fontFamily: "Italic",
+                              fontWeight: FontWeight.w300)),
+                    ),
+                    for (var i in newUsers) (NewUserCard(user: i,)),
+
+                  ],
+                ),
               ),
-              for (var i in newUsers) (NewUserCard(user: i,))
+              const SizedBox(height: 20,),
+              UniversalBtn(
+                text: 'Все пользователи',
+                onTap: () {  },
+                textStyle: const TextStyle(color: mySet.white),
+                width: double.infinity,
+              ),
+              const SizedBox(height: 27,),
+
             ],
           ),
         );

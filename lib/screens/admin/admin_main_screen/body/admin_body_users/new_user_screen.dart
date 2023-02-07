@@ -1,5 +1,3 @@
-import 'dart:math';
-
 import 'package:flutter/material.dart';
 import 'package:svd_doc/custom_widgets/default_btn.dart';
 import 'package:svd_doc/logic/api.dart';

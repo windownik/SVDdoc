@@ -90,10 +90,10 @@ class _BottomTextState extends State<BottomText> {
                   child: const Text(
                     'Зарегистрируйтесь',
                     style: TextStyle(
-                        color: mySet.main,
+                        color: mySet.second,
                         fontSize: 14,
                         fontFamily: "Italic",
-                        fontWeight: FontWeight.w500,
+                        fontWeight: FontWeight.w400,
                         decoration: TextDecoration.underline
                     ),
                   ),
