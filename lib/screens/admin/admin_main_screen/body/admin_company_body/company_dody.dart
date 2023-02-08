@@ -33,15 +33,23 @@ class _AllCompanyListBodyState extends State<AllCompanyListBody> {
 
   @override
   Widget build(BuildContext context) {
-
+    double height = MediaQuery.of(context).size.height;
     if (allCompany.isNotEmpty) {
       return Padding(
-        padding: const EdgeInsets.only(left: 10, right: 10),
+        padding: const EdgeInsets.only(left: 20, right: 20),
         child: Column(
           children: [
             Flexible(
               child: ListView(
                 children: [
+                  Center(
+                    child: Text('У вас ${allCompany.length} юридических лица',
+                        style: const TextStyle(
+                            color: mySet.main,
+                            fontSize: 16,
+                            fontFamily: "Italic",
+                            fontWeight: FontWeight.w300)),
+                  ),
                   for (var i in allCompany) (CompanyListCard(company: i,)),
                 ],
               ),
@@ -61,7 +69,10 @@ class _AllCompanyListBodyState extends State<AllCompanyListBody> {
       );
     }
     return SingleChildScrollView(
-      child: Center(
+      child: Container(
+        alignment: Alignment.center,
+        padding: const EdgeInsets.only(left: 20, right: 20),
+        height: height-320,
         child: Column(
           children: [
             const SizedBox(
@@ -80,7 +91,17 @@ class _AllCompanyListBodyState extends State<AllCompanyListBody> {
               'assets/big_icons/active_empty.png',
               height: 200,
               width: 200,
-            )
+            ),
+            const Spacer(),
+            UniversalBtn(
+              text: 'Создать новое юридическое лицо',
+              onTap: () {
+                MainAdminInherit.of(context)?.setNewCompanyWidgetToBody();
+              },
+              textStyle: const TextStyle(color: mySet.white),
+              width: double.infinity,
+            ),
+            const SizedBox(height: 27,),
           ],
         ),
       ),

@@ -1,10 +1,11 @@
 import 'dart:io' show Platform;
 import 'package:flutter/material.dart';
-import 'package:hive/hive.dart';
 import 'package:svd_doc/custom_widgets/default_btn.dart';
 import 'package:svd_doc/custom_widgets/text_field_without_top_hint.dart';
 import 'package:svd_doc/logic/api.dart';
 import 'package:svd_doc/logic/global_const.dart';
+import 'package:svd_doc/screens/admin/admin_main_screen/main_admin_inherit.dart';
+import 'package:svd_doc/screens/auth_registration/pop_ups/func_chow_pop_ups.dart';
 
 
 class NewCompanyAdminBody extends StatefulWidget {
@@ -180,8 +181,18 @@ class _NewCompanyAdminBodyState extends State<NewCompanyAdminBody> {
             ),
             UniversalBtn(
               text: 'Сохранить',
-              enable: enable,
-              onTap: () {  },
+              enable: dropValue != null && _newCompanyName.text.isNotEmpty ? true : false,
+              onTap: () async {
+                String name = _newCompanyName.text;
+                try {
+                  bool status = await api.createCompany(name, (dropValue ?? 0) + 1);
+                  if (status) {
+                    MainAdminInherit.of(context)?.setAllCompanyListWidgetToBody();
+                  }
+                } catch (e) {
+                  showPopDefault(e, context);
+                }
+              },
               textStyle: const TextStyle(color: mySet.white),
               width: double.infinity,
             ),

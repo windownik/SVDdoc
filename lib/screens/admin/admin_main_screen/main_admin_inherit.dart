@@ -82,6 +82,24 @@ class MainAdminModel extends ChangeNotifier {
     showBottomBar = false;
     showLittleTopBar = false;
     backIcon = true;
+    backOnPressed = () {
+      setAllCompanyListWidgetToBody();
+    };
+    topActiveBtn = 1;
+    mainTitle = 'Новое\nюридическое лицо';
+    assetsImageFont = 'assets/app_bar/admin_main.png';
+    notifyListeners();
+  }
+
+  // Редактируем компанию
+  void changeCompanyWidgetToBody() {
+    pickWidget = const NewCompanyAdminBody();
+    showBottomBar = false;
+    showLittleTopBar = false;
+    backIcon = true;
+    backOnPressed = () {
+      setAllCompanyListWidgetToBody();
+    };
     topActiveBtn = 1;
     mainTitle = 'Новое\nюридическое лицо';
     assetsImageFont = 'assets/app_bar/admin_main.png';
@@ -101,7 +119,7 @@ class MainAdminModel extends ChangeNotifier {
 
 
   //------------------------
-  //Активируем Элементы верхнего бара
+  // Активируем Элементы верхнего бара
   //------------------------
   void pickTopItem(int index) {
     topActiveBtn = index;
@@ -110,7 +128,7 @@ class MainAdminModel extends ChangeNotifier {
   }
 
   //------------------------
-  //Активируем Элементы нижнего бара
+  // Активируем Элементы нижнего бара
   //------------------------
   void pickBottomItem(int index) {
     bottomActiveBtn = index;

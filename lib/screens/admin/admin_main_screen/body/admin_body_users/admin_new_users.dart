@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:svd_doc/custom_widgets/default_btn.dart';
 import 'package:svd_doc/logic/api.dart';
 import 'package:svd_doc/logic/global_const.dart';
+import 'package:svd_doc/screens/auth_registration/pop_ups/func_chow_pop_ups.dart';
 
 import 'new_user_card.dart';
 
@@ -26,16 +27,19 @@ class _AdminMainInfoState extends State<AdminUsersMainInfo> {
   }
 
   void getApiNewUsers() async {
-    newUsers = await api.getUsers();
+    try {
+      newUsers = await api.getUsers();
+    } catch (e) {
+      print(e);
+    }
     setState(() {});
   }
 
   @override
   Widget build(BuildContext context) {
-
     if (newUsers.isNotEmpty) {
       return Padding(
-          padding: const EdgeInsets.only(left: 10, right: 10),
+          padding: const EdgeInsets.only(left: 20, right: 20),
           child: Column(
             children: [
               Flexible(

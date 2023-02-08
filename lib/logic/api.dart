@@ -161,11 +161,48 @@ class ApiSVD {
     var res = await http.put(url);
     if (res.statusCode == 401) {
       await updateAccess();
-      res = await http.get(url);
+      res = await http.put(url);
     }
     if (res.statusCode != 200) {
       throw Exception("${res.statusCode}");
     }
     return true;
   }
+
+  Future<bool> createCompany (String name, int companyTypeId) async {
+    Map<String, dynamic> params = {
+      "name": name,
+      "company_type_id": companyTypeId.toString(),
+      "access_token": access,
+    };
+    var url = Uri.http(urlAddress, "/company", params);
+    var res = await http.post(url);
+    if (res.statusCode == 401) {
+      await updateAccess();
+      res = await http.post(url);
+    }
+    if (res.statusCode != 200) {
+      throw Exception("${res.statusCode}");
+    }
+    return true;
+  }
+
+  Future<bool> updateCompany (String name, int companyId) async {
+    Map<String, dynamic> params = {
+      "new_name ": name,
+      "company_id": companyId.toString(),
+      "access_token": access,
+    };
+    var url = Uri.http(urlAddress, "/company", params);
+    var res = await http.put(url);
+    if (res.statusCode == 401) {
+      await updateAccess();
+      res = await http.put(url);
+    }
+    if (res.statusCode != 200) {
+      throw Exception("${res.statusCode}");
+    }
+    return true;
+  }
+
 }

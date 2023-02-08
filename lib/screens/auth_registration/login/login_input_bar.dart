@@ -3,7 +3,6 @@ import 'package:svd_doc/logic/global_const.dart';
 import 'package:svd_doc/screens/auth_registration/login/sign_up_text_group.dart';
 
 import '../sign_up/sign_up_input.dart';
-import '../sign_up/sign_up_validation.dart';
 import 'forgot_password_btn.dart';
 import 'login_btn.dart';
 import 'login_inherit.dart';
