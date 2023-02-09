@@ -3,13 +3,15 @@ import 'package:flutter/material.dart';
 import 'package:svd_doc/custom_widgets/default_btn.dart';
 import 'package:svd_doc/custom_widgets/text_field_without_top_hint.dart';
 import 'package:svd_doc/logic/api.dart';
+import 'package:svd_doc/logic/data_base.dart';
 import 'package:svd_doc/logic/global_const.dart';
 import 'package:svd_doc/screens/admin/admin_main_screen/main_admin_inherit.dart';
 import 'package:svd_doc/screens/auth_registration/pop_ups/func_chow_pop_ups.dart';
 
 
 class NewCompanyAdminBody extends StatefulWidget {
-  const NewCompanyAdminBody({super.key});
+  const NewCompanyAdminBody({super.key, this.company});
+  final Company? company;
   @override
   State<NewCompanyAdminBody> createState() => _NewCompanyAdminBodyState();
 }
@@ -27,13 +29,20 @@ class _NewCompanyAdminBodyState extends State<NewCompanyAdminBody> {
   @override
   void initState() {
     super.initState();
-    getApiNewUsers();
+    if (widget.company != null) {
+      _newCompanyName.text = widget.company?.name ?? '';
+      // updateDropItems();
+      dropValue = (widget.company?.companyTypeId ?? 1) - 1;
+      textEmpty = false;
+      setState(() { });
+    }
+    // getApiNewUsers();
   }
 
-  void getApiNewUsers() async {
-    companyUsers = await api.getUsers();
-    setState(() {});
-  }
+  // void getApiNewUsers() async {
+  //   companyUsers = await api.getUsers();
+  //   setState(() {});
+  // }
 
   void updateDropItems() async {
     int i = 0;
@@ -92,13 +101,16 @@ class _NewCompanyAdminBodyState extends State<NewCompanyAdminBody> {
                     textEmpty: textEmpty,
                     fieldController: _newCompanyName,
                     onChanged: (text) {
-                      textEmpty = text.isNotEmpty ? false : true;
-                      if (text.isNotEmpty) {
-                        updateDropItems();
-                      } else {
-                        dropItems.clear();
-                        dropValue = null;
+                      if (widget.company == null) {
+                        textEmpty = text.isNotEmpty ? false : true;
+                        if (text.isNotEmpty) {
+                          updateDropItems();
+                        } else {
+                          dropItems.clear();
+                          dropValue = null;
+                        }
                       }
+
                       setState(() { });
                     },
                   ),
@@ -168,8 +180,16 @@ class _NewCompanyAdminBodyState extends State<NewCompanyAdminBody> {
                           fontFamily: "Italic",
                           fontWeight: FontWeight.w400)),
                   const SizedBox(height: 33,),
-                  const Text('Добавить сотрудника',
+                  widget.company != null ? const Text('Добавить сотрудника',
                       textAlign: TextAlign.left,
+                      style: TextStyle(
+                          decoration: TextDecoration.underline,
+                          color: mySet.main,
+                          fontSize: 14,
+                          fontFamily: "Italic",
+                          fontWeight: FontWeight.w400)) :
+                  const Text('Что бы добавить сотрудника\nсохраните изменения',
+                      textAlign: TextAlign.center,
                       style: TextStyle(
                           decoration: TextDecoration.underline,
                           color: mySet.main,
@@ -184,14 +204,22 @@ class _NewCompanyAdminBodyState extends State<NewCompanyAdminBody> {
               enable: dropValue != null && _newCompanyName.text.isNotEmpty ? true : false,
               onTap: () async {
                 String name = _newCompanyName.text;
-                try {
-                  bool status = await api.createCompany(name, (dropValue ?? 0) + 1);
+                if (widget.company == null) {
+                  try {
+                    bool status = await api.createCompany(name, (dropValue ?? 0) + 1);
+                    if (status) {
+                      MainAdminInherit.of(context)?.setAllCompanyListWidgetToBody();
+                    }
+                  } catch (e) {
+                    showPopDefault(e, context);
+                  }
+                } else {
+                  bool status = await api.updateCompany(name, widget.company?.companyId ?? 1);
                   if (status) {
                     MainAdminInherit.of(context)?.setAllCompanyListWidgetToBody();
                   }
-                } catch (e) {
-                  showPopDefault(e, context);
                 }
+
               },
               textStyle: const TextStyle(color: mySet.white),
               width: double.infinity,

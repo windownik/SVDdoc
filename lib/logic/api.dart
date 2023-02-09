@@ -188,8 +188,10 @@ class ApiSVD {
   }
 
   Future<bool> updateCompany (String name, int companyId) async {
+    print(name);
+    print(companyId);
     Map<String, dynamic> params = {
-      "new_name ": name,
+      "new_name": name,
       "company_id": companyId.toString(),
       "access_token": access,
     };

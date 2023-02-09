@@ -2,6 +2,7 @@
 import 'package:svd_doc/logic/data_base.dart';
 import 'package:svd_doc/logic/global_const.dart';
 import 'package:flutter/material.dart';
+import 'package:svd_doc/screens/admin/admin_main_screen/main_admin_inherit.dart';
 
 
 class CompanyListCard extends StatefulWidget {
@@ -17,7 +18,7 @@ class _CompanyListCardState extends State<CompanyListCard> {
 
   @override
   Widget build(BuildContext context) {
-    double width = MediaQuery.of(context).size.width;
+    // double width = MediaQuery.of(context).size.width;
     return GestureDetector(
       onTapDown: (a) {
         pres = true;
@@ -33,7 +34,7 @@ class _CompanyListCardState extends State<CompanyListCard> {
         setState(() { });
       },
       onTap: () {
-        // MainAdminInherit.of(context)?.setNewUserCardWidgetToBody(widget.user);
+        MainAdminInherit.of(context)?.setNewCompanyWidgetToBody(widget.company);
       },
       child: Column(
         children: [
@@ -70,18 +71,18 @@ class _CompanyListCardState extends State<CompanyListCard> {
               ],
             ),
           ),
-          const SizedBox(height: 4,),
-          SizedBox(
-            width: width,
-            child: const Text('редактировать',
-                textAlign: TextAlign.right,
-                style: TextStyle(
-                    color: mySet.input,
-                    decoration: TextDecoration.underline,
-                    fontSize: 14,
-                    fontFamily: "Italic",
-                    fontWeight: FontWeight.w400)),
-          ),
+          // const SizedBox(height: 4,),
+          // SizedBox(
+          //   width: width,
+          //   child: const Text('редактировать',
+          //       textAlign: TextAlign.right,
+          //       style: TextStyle(
+          //           color: mySet.input,
+          //           decoration: TextDecoration.underline,
+          //           fontSize: 14,
+          //           fontFamily: "Italic",
+          //           fontWeight: FontWeight.w400)),
+          // ),
         ],
       ),
     );

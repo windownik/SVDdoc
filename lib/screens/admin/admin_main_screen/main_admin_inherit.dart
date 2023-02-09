@@ -77,8 +77,8 @@ class MainAdminModel extends ChangeNotifier {
     notifyListeners();
   }
   // Создаем новую компанию
-  void setNewCompanyWidgetToBody() {
-    pickWidget = const NewCompanyAdminBody();
+  void setNewCompanyWidgetToBody([Company? company]) {
+    pickWidget = NewCompanyAdminBody(company: company);
     showBottomBar = false;
     showLittleTopBar = false;
     backIcon = true;
