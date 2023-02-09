@@ -124,7 +124,7 @@ class UserDataBase {
 
 class User {
   int userId = 0, companyId = 0, phone = 0;
-  String name, surname, profession, companyName, email, status, createDate;
+  String name, surname, profession, companyName, email, status, createDate, activeDate;
 
   User({
     required this.userId,
@@ -137,6 +137,7 @@ class User {
     required this.email,
     required this.status,
     required this.createDate,
+    this.activeDate = ''
   });
 }
 

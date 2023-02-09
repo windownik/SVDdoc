@@ -8,6 +8,8 @@ import 'package:svd_doc/logic/global_const.dart';
 import 'package:svd_doc/screens/admin/admin_main_screen/main_admin_inherit.dart';
 import 'package:svd_doc/screens/auth_registration/pop_ups/func_chow_pop_ups.dart';
 
+import '../user_in_company_card.dart';
+
 
 class NewCompanyAdminBody extends StatefulWidget {
   const NewCompanyAdminBody({super.key, this.company});
@@ -19,7 +21,7 @@ class NewCompanyAdminBody extends StatefulWidget {
 class _NewCompanyAdminBodyState extends State<NewCompanyAdminBody> {
   final _newCompanyName = TextEditingController();
   final ApiSVD api = ApiSVD();
-  List companyUsers = [];
+  List<User> allUsers = [];
   List<DropdownMenuItem<int>> dropItems = [];
   final List<String> typesCompany = ['Технический заказчик', 'Инвестор', 'Контрагент'];
   bool enable = false;
@@ -35,14 +37,16 @@ class _NewCompanyAdminBodyState extends State<NewCompanyAdminBody> {
       dropValue = (widget.company?.companyTypeId ?? 1) - 1;
       textEmpty = false;
       setState(() { });
+    } else {
+      allUsers.clear();
     }
-    // getApiNewUsers();
+    getApiNewUsers();
   }
 
-  // void getApiNewUsers() async {
-  //   companyUsers = await api.getUsers();
-  //   setState(() {});
-  // }
+  void getApiNewUsers() async {
+    allUsers = await api.usersInCompany(widget.company?.companyId ?? 1);
+    setState(() {});
+  }
 
   void updateDropItems() async {
     int i = 0;
@@ -169,25 +173,21 @@ class _NewCompanyAdminBodyState extends State<NewCompanyAdminBody> {
                       Container(height: 1, width: screenWidth*0.32, color: mySet.main,),
                     ],
                   ),
-                  const SizedBox(height: 30,),
-                  Image.asset('assets/big_icons/no_user_in_company.png', width: 200,),
-                  const SizedBox(height: 5,),
-                  const Text('Список сотрудников пуст',
-                      textAlign: TextAlign.left,
-                      style: TextStyle(
-                          color: mySet.unSelect,
-                          fontSize: 16,
-                          fontFamily: "Italic",
-                          fontWeight: FontWeight.w400)),
-                  const SizedBox(height: 33,),
-                  widget.company != null ? const Text('Добавить сотрудника',
-                      textAlign: TextAlign.left,
-                      style: TextStyle(
-                          decoration: TextDecoration.underline,
-                          color: mySet.main,
-                          fontSize: 14,
-                          fontFamily: "Italic",
-                          fontWeight: FontWeight.w400)) :
+                  const SizedBox(height: 15,),
+                  ListUsersCards(allUsers: allUsers, company: widget.company,),
+                  widget.company != null ? TextButton(
+                    onPressed: () {
+
+                    },
+                    child: const Text('Добавить сотрудника',
+                        textAlign: TextAlign.left,
+                        style: TextStyle(
+                            decoration: TextDecoration.underline,
+                            color: mySet.main,
+                            fontSize: 14,
+                            fontFamily: "Italic",
+                            fontWeight: FontWeight.w400)),
+                  ) :
                   const Text('Что бы добавить сотрудника\nсохраните изменения',
                       textAlign: TextAlign.center,
                       style: TextStyle(
@@ -225,10 +225,43 @@ class _NewCompanyAdminBodyState extends State<NewCompanyAdminBody> {
               width: double.infinity,
             ),
             SizedBox(height: bottomHeight,),
-
           ],
         ),
       ),
     );
   }
+}
+
+class ListUsersCards extends StatelessWidget {
+  const ListUsersCards({super.key, required this.allUsers, required this.company});
+  final List<User> allUsers;
+  final Company? company;
+
+  @override
+  Widget build(BuildContext context) {
+    if (allUsers.isEmpty) {
+      return Column(
+        children: [
+          Image.asset('assets/big_icons/no_user_in_company.png', width: 200,),
+            const SizedBox(height: 5,),
+            const Text('Список сотрудников пуст',
+                textAlign: TextAlign.left,
+                style: TextStyle(
+                    color: mySet.unSelect,
+                    fontSize: 16,
+                    fontFamily: "Italic",
+                    fontWeight: FontWeight.w400)),
+            const SizedBox(height: 33,),
+        ],
+      );
+    } else {
+      return Column(
+        children: [
+          for (var user in allUsers) (UsersCompanyCard(user: user, company: company!,)),
+          const SizedBox(height: 20,),
+        ],
+      );
+    }
+  }
+
 }

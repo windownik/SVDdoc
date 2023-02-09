@@ -207,4 +207,38 @@ class ApiSVD {
     return true;
   }
 
+  Future<List<User>> usersInCompany (int companyId) async {
+    print(companyId);
+    Map<String, dynamic> params = {
+      "company_id": companyId.toString(),
+      "access_token": access,
+    };
+    var url = Uri.http(urlAddress, "/users_in_company", params);
+    var res = await http.get(url);
+    if (res.statusCode == 401) {
+      await updateAccess();
+      res = await http.get(url);
+    }
+    if (res.statusCode != 200) {
+      throw Exception("${res.statusCode}");
+    }
+    Map<String, dynamic> response = jsonDecode(res.body);
+    var users = response['all_users'];
+    List<User> allUsers = [];
+    for (var i in users) {
+      allUsers.add(User(
+          userId: i['user_id'],
+          name: i['name'],
+          surname: i['surname'],
+          phone: i['phone'],
+          companyId: companyId,
+          email: i['email'],
+          status: i['status'],
+          profession: i['position'],
+          companyName: response['company_name'],
+          activeDate: i['active_date'],
+          createDate: i['create_date']));
+    }
+    return allUsers;
+  }
 }

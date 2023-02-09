@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "218068493696",
+    "project_id": "svddoc",
+    "storage_bucket": "svddoc.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:218068493696:android:b2cab1b7b4dcdd92c4cd65",
+        "android_client_info": {
+          "package_name": "com.example.svd_doc"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "218068493696-kfo0jbh5a2qfl3d2h8dvj5evuaieumfv.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAnqzlB6WfMtCd5X5IWtslAjDovJHKb3l8"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "218068493696-kfo0jbh5a2qfl3d2h8dvj5evuaieumfv.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
