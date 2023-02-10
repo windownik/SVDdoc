@@ -34,7 +34,6 @@ class _CompanyListCardState extends State<CompanyListCard> {
         setState(() { });
       },
       onTap: () {
-        MainAdminInherit.of(context)?.updateAllUsersCompany(widget.company.companyId);
         MainAdminInherit.of(context)?.setNewCompanyWidgetToBody(widget.company);
       },
       child: Column(

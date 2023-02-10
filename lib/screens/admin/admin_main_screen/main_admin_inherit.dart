@@ -4,6 +4,7 @@ import 'package:svd_doc/logic/data_base.dart';
 
 import 'body/admin_body_users/admin_new_users.dart';
 import 'body/admin_body_users/new_user_screen.dart';
+import 'body/admin_company_body/add_user_to_company.dart';
 import 'body/admin_company_body/company_dody.dart';
 import 'body/admin_company_body/new_company_body/new_company_body.dart';
 import 'body/admin_line_body/admin_line_body.dart';
@@ -45,6 +46,19 @@ class MainAdminModel extends ChangeNotifier {
     notifyListeners();
   }
 
+  void setAddNewUserToCompanyWidgetToBody(Company company) {
+    pickWidget = AddUserToCompany(company: company,);
+    showBottomBar = false;
+    showLittleTopBar = false;
+    backIcon = true;
+    mainTitle = 'Добавить\nсотрудника';
+    assetsImageFont = 'assets/app_bar/admin_main.png';
+    backOnPressed = () {
+      setNewCompanyWidgetToBody(company);
+    };
+    notifyListeners();
+  }
+
   void setNewUsersWidgetToBody() {
     pickWidget = const AdminUsersMainInfo();
     showBottomBar = true;
@@ -80,8 +94,9 @@ class MainAdminModel extends ChangeNotifier {
     assetsImageFont = 'assets/app_bar/admin_main.png';
     notifyListeners();
   }
-  // Создаем новую компанию
-  void setNewCompanyWidgetToBody([Company? company]) {
+  // Создаем новую компанию / Редактируем компанию
+  void setNewCompanyWidgetToBody([Company? company]) async {
+    allUsersCompany.clear();
     pickWidget = NewCompanyAdminBody(company: company);
     showBottomBar = false;
     showLittleTopBar = false;
@@ -93,21 +108,9 @@ class MainAdminModel extends ChangeNotifier {
     mainTitle = 'Новое\nюридическое лицо';
     assetsImageFont = 'assets/app_bar/admin_main.png';
     notifyListeners();
-  }
-
-  // Редактируем компанию
-  void changeCompanyWidgetToBody() {
-    pickWidget = const NewCompanyAdminBody();
-    showBottomBar = false;
-    showLittleTopBar = false;
-    backIcon = true;
-    backOnPressed = () {
-      setAllCompanyListWidgetToBody();
-    };
-    topActiveBtn = 1;
-    mainTitle = 'Новое\nюридическое лицо';
-    assetsImageFont = 'assets/app_bar/admin_main.png';
-    notifyListeners();
+    if (company != null) {
+      updateAllUsersCompany(company.companyId);
+    }
   }
 
   void setObjectAdminWidgetToBody() {

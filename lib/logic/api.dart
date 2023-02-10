@@ -96,7 +96,7 @@ class ApiSVD {
     return true;
   }
 
-  Future<List> getUsers() async {
+  Future<List<User>> getUsers() async {
     Map<String, dynamic> params = {
       "access_token": access,
     };
@@ -112,7 +112,7 @@ class ApiSVD {
     Map<String, dynamic> response = jsonDecode(res.body);
     var users = response['users'];
     db.writeStringNewUsers(res.body);
-    List newUsers = [];
+    List<User> newUsers = [];
     for (var i in users) {
       newUsers.add(User(
           userId: i['user_id'],
@@ -166,6 +166,7 @@ class ApiSVD {
     if (res.statusCode != 200) {
       throw Exception("${res.statusCode}");
     }
+    print(1);
     return true;
   }
 

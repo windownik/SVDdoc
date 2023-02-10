@@ -188,7 +188,8 @@ class _NewCompanyAdminBodyState extends State<NewCompanyAdminBody> {
                   ),
                   widget.company != null ? TextButton(
                     onPressed: () {
-
+                      print('Add user to company');
+                      MainAdminInherit.of(context)?.setAddNewUserToCompanyWidgetToBody(widget.company!);
                     },
                     child: const Text('Добавить сотрудника',
                         textAlign: TextAlign.left,
