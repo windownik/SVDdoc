@@ -16,7 +16,7 @@ Future<void> _firebaseMessagingBackgroundHandler(RemoteMessage message) async {
   // If you're going to use other Firebase services in the background, such as Firestore,
   // make sure you call `initializeApp` before using other Firebase services.
   await Firebase.initializeApp();
-  print("Handling a background message: ${message.messageId}");
+  print("Handling qqqq a background message: ${message.messageId}");
 }
 
 
@@ -25,6 +25,10 @@ void main() async {
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform
   );
+  FirebaseMessaging.onMessage.listen((RemoteMessage message) {
+    print([549599, message.notification?.title, message.notification?.body]);
+  });
+
   FirebaseMessaging.onBackgroundMessage(_firebaseMessagingBackgroundHandler);
 
   FirebaseMessaging messaging = FirebaseMessaging.instance;
@@ -38,14 +42,7 @@ void main() async {
     provisional: false,
     sound: true,
   );
-  FirebaseMessaging.onMessage.listen((RemoteMessage message) {
-    print('Got a message whilst in the foreground!');
-    print('Message data: ${message.data}');
 
-    if (message.notification != null) {
-      print('Message also contained a notification: ${message.notification}');
-    }
-  });
   await Hive.initFlutter();
   await Hive.openBox('user');
   runApp(const MyApp());
