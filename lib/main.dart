@@ -42,6 +42,14 @@ void main() async {
     provisional: false,
     sound: true,
   );
+<<<<<<< HEAD
+=======
+  print('authorizationStatus: ${settings.authorizationStatus}');
+  print('token: ${await messaging.getToken()}');
+  FirebaseMessaging.onMessage.listen((RemoteMessage message) {
+    print('Got a message whilst in the foreground!');
+    print('Message data: ${message.data}');
+>>>>>>> main
 
   await Hive.initFlutter();
   await Hive.openBox('user');

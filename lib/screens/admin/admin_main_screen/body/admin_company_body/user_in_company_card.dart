@@ -1,6 +1,8 @@
+import 'package:svd_doc/logic/api.dart';
 import 'package:svd_doc/logic/data_base.dart';
 import 'package:svd_doc/logic/global_const.dart';
 import 'package:flutter/material.dart';
+import 'package:svd_doc/screens/admin/admin_main_screen/main_admin_inherit.dart';
 
 class UsersCompanyCard extends StatefulWidget {
   final User user;
@@ -12,8 +14,10 @@ class UsersCompanyCard extends StatefulWidget {
 }
 
 class _UsersCompanyCardState extends State<UsersCompanyCard> {
+  ApiSVD api = ApiSVD();
   bool presCard = false;
   bool presDelete = false;
+
   @override
   Widget build(BuildContext context) {
     double width = MediaQuery.of(context).size.width;
@@ -90,7 +94,12 @@ class _UsersCompanyCardState extends State<UsersCompanyCard> {
 
                   setState(() {});
                 },
-                onTap: () {},
+                onTap: () async {
+                  await api.updateProfession(widget.user.userId,
+                      0,
+                      0);
+                  MainAdminInherit.of(context)?.updateAllUsersCompany(widget.company.companyId);
+                },
                 child: Container(
                     height: 38,
                     width: 38,
