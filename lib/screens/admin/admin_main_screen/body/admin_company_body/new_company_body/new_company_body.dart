@@ -21,7 +21,7 @@ class NewCompanyAdminBody extends StatefulWidget {
 class _NewCompanyAdminBodyState extends State<NewCompanyAdminBody> {
   final _newCompanyName = TextEditingController();
   final ApiSVD api = ApiSVD();
-  List<User> allUsers = [];
+  // List<User> allUsers = [];
   List<DropdownMenuItem<int>> dropItems = [];
   final List<String> typesCompany = ['Технический заказчик', 'Инвестор', 'Контрагент'];
   bool enable = false;
@@ -37,16 +37,13 @@ class _NewCompanyAdminBodyState extends State<NewCompanyAdminBody> {
       dropValue = (widget.company?.companyTypeId ?? 1) - 1;
       textEmpty = false;
       setState(() { });
-    } else {
-      allUsers.clear();
     }
-    getApiNewUsers();
   }
 
-  void getApiNewUsers() async {
-    allUsers = await api.usersInCompany(widget.company?.companyId ?? 1);
-    setState(() {});
-  }
+  // void updateAllUsersCompany() {
+  //   MainAdminInherit.of(context)?.updateAllUsersCompany(widget.company?.companyId ?? 1);
+  // }
+
 
   void updateDropItems() async {
     int i = 0;
@@ -68,7 +65,19 @@ class _NewCompanyAdminBodyState extends State<NewCompanyAdminBody> {
   }
 
   @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    final model = MainAdminInherit.of(context);
+    model?.addListener(() {
+      if (mounted) {
+        setState(() {});
+      }
+    });
+  }
+
+  @override
   Widget build(BuildContext context) {
+    // updateAllUsersCompany();
     double screenWidth = MediaQuery.of(context).size.width;
     double screenHeight = MediaQuery.of(context).size.height;
     double bottomHeight = 50;
@@ -114,7 +123,6 @@ class _NewCompanyAdminBodyState extends State<NewCompanyAdminBody> {
                           dropValue = null;
                         }
                       }
-
                       setState(() { });
                     },
                   ),
@@ -174,7 +182,10 @@ class _NewCompanyAdminBodyState extends State<NewCompanyAdminBody> {
                     ],
                   ),
                   const SizedBox(height: 15,),
-                  ListUsersCards(allUsers: allUsers, company: widget.company,),
+                  ListUsersCards(
+                    allUsers: MainAdminInherit.of(context)?.allUsersCompany ?? [],
+                    company: widget.company,
+                  ),
                   widget.company != null ? TextButton(
                     onPressed: () {
 
@@ -239,6 +250,7 @@ class ListUsersCards extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+
     if (allUsers.isEmpty) {
       return Column(
         children: [
@@ -257,7 +269,7 @@ class ListUsersCards extends StatelessWidget {
     } else {
       return Column(
         children: [
-          for (var user in allUsers) (UsersCompanyCard(user: user, company: company!,)),
+          for (var user in allUsers) (UsersCompanyCard(user: user, company: company!)),
           const SizedBox(height: 20,),
         ],
       );

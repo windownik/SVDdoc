@@ -1,4 +1,5 @@
 import 'package:flutter/cupertino.dart';
+import 'package:svd_doc/logic/api.dart';
 import 'package:svd_doc/logic/data_base.dart';
 
 import 'body/admin_body_users/admin_new_users.dart';
@@ -9,6 +10,8 @@ import 'body/admin_line_body/admin_line_body.dart';
 import 'body/objects_admin_body/object_admin_body.dart';
 
 class MainAdminModel extends ChangeNotifier {
+  final ApiSVD api = ApiSVD();
+
   bool showLittleTopBar = true, showBottomBar = true;
 
   // Flags for small top btn bar
@@ -21,6 +24,7 @@ class MainAdminModel extends ChangeNotifier {
   String mainTitle = 'Панель\nадминистратора';
   String assetsImageFont = 'assets/app_bar/admin_main.png';
   Widget pickWidget = const AdminUsersMainInfo();
+  List<User> allUsersCompany = [];
 
   // Main App Bar Tittle
   void updateMainTitle(String title) {
@@ -114,6 +118,12 @@ class MainAdminModel extends ChangeNotifier {
     topActiveBtn = 2;
     mainTitle = 'Панель объектов';
     assetsImageFont = 'assets/app_bar/admin_main.png';
+    notifyListeners();
+  }
+
+  void updateAllUsersCompany(int companyId) async {
+    allUsersCompany.clear();
+    allUsersCompany = await api.usersInCompany(companyId);
     notifyListeners();
   }
 

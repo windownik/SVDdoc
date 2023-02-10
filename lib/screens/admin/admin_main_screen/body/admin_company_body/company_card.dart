@@ -34,6 +34,7 @@ class _CompanyListCardState extends State<CompanyListCard> {
         setState(() { });
       },
       onTap: () {
+        MainAdminInherit.of(context)?.updateAllUsersCompany(widget.company.companyId);
         MainAdminInherit.of(context)?.setNewCompanyWidgetToBody(widget.company);
       },
       child: Column(
@@ -71,18 +72,6 @@ class _CompanyListCardState extends State<CompanyListCard> {
               ],
             ),
           ),
-          // const SizedBox(height: 4,),
-          // SizedBox(
-          //   width: width,
-          //   child: const Text('редактировать',
-          //       textAlign: TextAlign.right,
-          //       style: TextStyle(
-          //           color: mySet.input,
-          //           decoration: TextDecoration.underline,
-          //           fontSize: 14,
-          //           fontFamily: "Italic",
-          //           fontWeight: FontWeight.w400)),
-          // ),
         ],
       ),
     );
