@@ -113,6 +113,7 @@ class MainAdminModel extends ChangeNotifier {
     }
   }
 
+  // Объекты
   void setObjectAdminWidgetToBody() {
     pickWidget = const ObjectAdminBody();
     showBottomBar = true;

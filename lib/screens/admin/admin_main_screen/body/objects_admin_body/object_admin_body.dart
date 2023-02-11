@@ -1,4 +1,6 @@
 
+import 'package:svd_doc/logic/api.dart';
+import 'package:svd_doc/logic/data_base.dart';
 import 'package:svd_doc/logic/global_const.dart';
 import 'package:flutter/cupertino.dart';
 
@@ -10,6 +12,20 @@ class ObjectAdminBody extends StatefulWidget {
 }
 
 class _ObjectAdminBodyState extends State<ObjectAdminBody> {
+  final ApiSVD api = ApiSVD();
+  List<Company> allCompany = [];
+
+  @override
+  void initState() {
+    super.initState();
+    getApiNewUsers();
+  }
+
+  void getApiNewUsers() async {
+    allCompany = await api.getCompanyList();
+    setState(() {});
+  }
+
   @override
   Widget build(BuildContext context) {
     return SingleChildScrollView(
@@ -19,7 +35,7 @@ class _ObjectAdminBodyState extends State<ObjectAdminBody> {
             const SizedBox(
               height: 50,
             ),
-            const Text('У вас нет объектов',
+            const Text('У вас нет оргонизаций',
                 style: TextStyle(
                     color: mySet.main,
                     fontSize: 18,

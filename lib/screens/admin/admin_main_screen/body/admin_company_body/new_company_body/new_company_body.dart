@@ -40,10 +40,6 @@ class _NewCompanyAdminBodyState extends State<NewCompanyAdminBody> {
     }
   }
 
-  // void updateAllUsersCompany() {
-  //   MainAdminInherit.of(context)?.updateAllUsersCompany(widget.company?.companyId ?? 1);
-  // }
-
 
   void updateDropItems() async {
     int i = 0;
