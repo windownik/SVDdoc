@@ -145,6 +145,7 @@ class ApiSVD {
         companyTypeId: i['company_type_id'],
         name: i['company_name'],
         typeName: i['company_type_name'],
+        countObject: i['count_object'],
       ));
     }
     return companyList;

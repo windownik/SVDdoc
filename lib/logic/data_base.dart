@@ -142,13 +142,14 @@ class User {
 }
 
 class Company {
-  int companyId = 0, companyTypeId = 0;
+  int companyId = 0, companyTypeId = 0, countObject = 0;
   String name = '', typeName = '';
   Company({
     required this.companyId,
     required this.companyTypeId,
     required this.name,
-    required this.typeName
+    required this.typeName,
+    required this.countObject
   });
 }
 
