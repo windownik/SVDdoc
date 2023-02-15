@@ -74,7 +74,7 @@ class MainAdminModel extends ChangeNotifier {
   void setLineWidgetToBody() {
     pickWidget = const LineAdminBody();
     showBottomBar = true;
-    showLittleTopBar = true;
+    showLittleTopBar = false;
     backIcon = false;
     mainTitle = 'Документы\nна согласовании';
     assetsImageFont = 'assets/app_bar/admin_main.png';
@@ -90,7 +90,7 @@ class MainAdminModel extends ChangeNotifier {
     showBottomBar = true;
     showLittleTopBar = true;
     backIcon = false;
-    topActiveBtn = 1;
+    topActiveBtn = 0;
     mainTitle = 'Панель\nадминистратора';
     assetsImageFont = 'assets/app_bar/admin_main.png';
     notifyListeners();
@@ -105,7 +105,7 @@ class MainAdminModel extends ChangeNotifier {
     backOnPressed = () {
       setAllCompanyListWidgetToBody();
     };
-    topActiveBtn = 1;
+    topActiveBtn = 0;
     mainTitle = 'Новое\nюридическое лицо';
     assetsImageFont = 'assets/app_bar/admin_main.png';
     notifyListeners();
@@ -123,7 +123,7 @@ class MainAdminModel extends ChangeNotifier {
     showBottomBar = true;
     showLittleTopBar = true;
     backIcon = false;
-    topActiveBtn = 3;
+    topActiveBtn = 2;
     mainTitle = 'Панель объектов';
     assetsImageFont = 'assets/app_bar/admin_main.png';
     notifyListeners();
@@ -138,7 +138,7 @@ class MainAdminModel extends ChangeNotifier {
     backOnPressed = () {
       setObjectAdminWidgetToBody();
     };
-    topActiveBtn = 3;
+    topActiveBtn = 2;
     mainTitle = 'Панель объектов';
     assetsImageFont = 'assets/app_bar/admin_main.png';
     notifyListeners();
@@ -154,7 +154,7 @@ class MainAdminModel extends ChangeNotifier {
   //------------------------
   // Активируем Элементы верхнего бара
   //------------------------
-  void pickTopItem(int index) {
+  void updateTopItem(int index) {
     topActiveBtn = index;
     mainTitle = 'Панель\nадминистратора';
     notifyListeners();
@@ -169,16 +169,18 @@ class MainAdminModel extends ChangeNotifier {
       setLineWidgetToBody();
     }
     if (index == 1) {
+      showLittleTopBar = false;
       mainTitle = 'Архив\nсогласованных докуметов';
       pickWidget = const Text('Архив\nсогласованных докуметов');
     }
     if (index == 2) {
+      showLittleTopBar = false;
       mainTitle = 'Новый документ';
       pickWidget = const Text('Новый документ');
     }
     if (index == 3) {
       mainTitle = 'Панель\nадминистратора';
-      pickWidget = const AdminUsersMainInfo();
+      setNewUsersWidgetToBody();
     }
     notifyListeners();
   }

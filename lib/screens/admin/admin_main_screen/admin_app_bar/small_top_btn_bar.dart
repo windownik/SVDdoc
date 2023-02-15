@@ -15,6 +15,7 @@ class _SmallAdminBarState extends State<SmallAdminBar> {
 
   @override
   Widget build(BuildContext context) {
+    pickBtn = (MainAdminInherit.of(context)?.topActiveBtn ?? pickBtn);
     return Container(
       height: 70,
       color: mySet.background,
