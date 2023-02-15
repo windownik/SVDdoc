@@ -17,7 +17,7 @@ class _SmallAdminBarState extends State<SmallAdminBar> {
   Widget build(BuildContext context) {
     pickBtn = (MainAdminInherit.of(context)?.topActiveBtn ?? pickBtn);
     return Container(
-      height: 70,
+      height: 50,
       color: mySet.background,
       alignment: Alignment.center,
       child: Row(
@@ -69,7 +69,7 @@ class _LittleAppBarBtnState extends State<LittleAppBarBtn> {
       onTap: widget.onTap,
       child: Container(
         alignment: Alignment.center,
-        height: 70,
+        height: 40,
         color: Colors.transparent,
         child: Text(widget.text,
           style: TextStyle(

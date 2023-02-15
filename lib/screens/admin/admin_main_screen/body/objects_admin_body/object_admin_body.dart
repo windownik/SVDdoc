@@ -1,3 +1,5 @@
+
+import 'dart:io' show Platform;
 import 'package:flutter/material.dart';
 import 'package:svd_doc/custom_widgets/default_btn.dart';
 import 'package:svd_doc/logic/api.dart';
@@ -31,6 +33,11 @@ class _ObjectAdminBodyState extends State<ObjectAdminBody> {
 
   @override
   Widget build(BuildContext context) {
+    double delHeight = 390;
+    if (Platform.isIOS) {
+      delHeight = 415;
+    }
+
     final double width = MediaQuery.of(context).size.width;
     final double height = MediaQuery.of(context).size.height;
     if (allCompany.isNotEmpty ||
@@ -40,10 +47,10 @@ class _ObjectAdminBodyState extends State<ObjectAdminBody> {
           children: [
             Container(
                   width: width,
-                  alignment: Alignment.center,
+                  alignment: Alignment.topCenter,
                   padding: const EdgeInsets.only(left: 20, right: 20),
                   child: SizedBox(
-                    height: height - 410,
+                    height: height - delHeight,
                     child: SingleChildScrollView(
                       keyboardDismissBehavior: ScrollViewKeyboardDismissBehavior.onDrag,
                       child: Column(children: [
@@ -222,7 +229,7 @@ class _ObjectAdminBodyState extends State<ObjectAdminBody> {
             ),
             Container(
               alignment: Alignment.center,
-              height: 100,
+              height: 80,
               width: width,
               child: UniversalBtn(
                 text: 'Создать новый объект',

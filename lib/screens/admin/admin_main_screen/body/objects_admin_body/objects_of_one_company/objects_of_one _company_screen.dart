@@ -1,4 +1,5 @@
 
+import 'dart:io' show Platform;
 import 'package:flutter/material.dart';
 import 'package:svd_doc/custom_widgets/default_btn.dart';
 import 'package:svd_doc/logic/api.dart';
@@ -33,6 +34,12 @@ class _AllObjectOfOneCompanyBodyState extends State<AllObjectOfOneCompanyBody> {
 
   @override
   Widget build(BuildContext context) {
+
+    double delHeight = 320;
+    if (Platform.isIOS) {
+      delHeight = 345;
+    }
+
     final double width = MediaQuery.of(context).size.width;
     final double height = MediaQuery.of(context).size.height;
     if (allObjects.isNotEmpty ||
@@ -42,10 +49,10 @@ class _AllObjectOfOneCompanyBodyState extends State<AllObjectOfOneCompanyBody> {
           children: [
             Container(
               width: width,
-              alignment: Alignment.center,
+              alignment: Alignment.topCenter,
               padding: const EdgeInsets.only(left: 20, right: 20),
               child: SizedBox(
-                height: height - 340,
+                height: height - delHeight,
                 child: SingleChildScrollView(
                   keyboardDismissBehavior: ScrollViewKeyboardDismissBehavior.onDrag,
                   child: Column(children: [
@@ -183,7 +190,7 @@ class _AllObjectOfOneCompanyBodyState extends State<AllObjectOfOneCompanyBody> {
               color: mySet.input,
             ),
             Container(
-              height: 100,
+              height: 80,
               width: width,
               alignment: Alignment.center,
               child: UniversalBtn(
