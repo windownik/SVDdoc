@@ -240,4 +240,36 @@ class ApiSVD {
     }
     return allUsers;
   }
+
+  Future<List<CompanyObject>> objectsInCompany (int companyId) async {
+    Map<String, dynamic> params = {
+      "company_id": companyId.toString(),
+      "access_token": access,
+    };
+    var url = Uri.http(urlAddress, "/object", params);
+    var res = await http.get(url);
+    if (res.statusCode == 401) {
+      await updateAccess();
+      res = await http.get(url);
+    }
+    if (res.statusCode != 200) {
+      throw Exception("${res.statusCode}");
+    }
+    Map<String, dynamic> response = jsonDecode(res.body);
+    var objects = response['objects'];
+    List<CompanyObject> allObjects = [];
+    for (var i in objects) {
+      allObjects.add(CompanyObject(
+          name: i['name'],
+          objectId: i['object_id'],
+          creatorId: i['creator_id'],
+          companyId: i['company_id'],
+          status: i['status'],
+          createDate: i['create_date'],
+          lustUpdate: i['lust_update']
+      )
+      );
+    }
+    return allObjects;
+  }
 }

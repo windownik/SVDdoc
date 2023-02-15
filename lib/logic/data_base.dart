@@ -183,3 +183,18 @@ class Profession {
     required this.name,
   });
 }
+
+class CompanyObject {
+  int objectId = 0, companyId = 0, creatorId = 0, status = 0;
+  String name = '';
+  String? lustUpdate = '', createDate = '';
+  CompanyObject({
+    required this.objectId,
+    required this.companyId,
+    required this.creatorId,
+    required this.name,
+    required this.status,
+    required this.lustUpdate,
+    required this.createDate,
+  });
+}

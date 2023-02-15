@@ -42,113 +42,119 @@ class _ObjectAdminBodyState extends State<ObjectAdminBody> {
                   width: width,
                   alignment: Alignment.center,
                   padding: const EdgeInsets.only(left: 20, right: 20),
-                  child: Column(children: [
-                      const SizedBox(
-                        height: 10,
-                      ),
-                      const Text('Выберите юридическое лицо',
-                          style: TextStyle(
-                              color: mySet.second,
-                              fontSize: 16,
-                              fontFamily: "Italic",
-                              fontWeight: FontWeight.w300)),
-                      const SizedBox(
-                        height: 10,
-                      ),
-                      Row(
-                        children: [
-                          SizedBox(
-                            width: width - 70,
-                            child: TextField(
-                              onChanged: (text) {
-                                allCompany = allCompanyConst;
-                                if (text.isEmpty) {
-                                  setState(() {});
-                                } else {
-                                  text = text.toLowerCase();
-                                  List<Company> newAllCompany = [];
-                                  for (Company company in allCompany) {
-                                    if (company.name.toLowerCase().contains(text)) {
-                                      newAllCompany.add(company);
+                  child: SizedBox(
+                    height: height - 410,
+                    child: SingleChildScrollView(
+                      keyboardDismissBehavior: ScrollViewKeyboardDismissBehavior.onDrag,
+                      child: Column(children: [
+                          const SizedBox(
+                            height: 5,
+                          ),
+                          const Text('Выберите юридическое лицо',
+                              style: TextStyle(
+                                  color: mySet.second,
+                                  fontSize: 16,
+                                  fontFamily: "Italic",
+                                  fontWeight: FontWeight.w300)),
+                          const SizedBox(
+                            height: 10,
+                          ),
+                          Row(
+                            children: [
+                              SizedBox(
+                                width: width - 70,
+                                child: TextField(
+                                  onChanged: (text) {
+                                    allCompany = allCompanyConst;
+                                    if (text.isEmpty) {
+                                      setState(() {});
+                                    } else {
+                                      text = text.toLowerCase();
+                                      List<Company> newAllCompany = [];
+                                      for (Company company in allCompany) {
+                                        if (company.name.toLowerCase().contains(text)) {
+                                          newAllCompany.add(company);
+                                        }
+                                      }
+                                      allCompany = newAllCompany;
+                                      setState(() {});
                                     }
-                                  }
-                                  allCompany = newAllCompany;
-                                  setState(() {});
-                                }
-                              },
-                              controller: controller,
-                              cursorColor: mySet.main,
-                              decoration: const InputDecoration(
-                                contentPadding: EdgeInsets.all(10),
-                                focusColor: mySet.main,
-                                hintText: 'Поиск',
-                                hintStyle: TextStyle(color: mySet.input),
-                                focusedBorder: OutlineInputBorder(
-                                  borderSide:
-                                      BorderSide(width: 1, color: Colors.transparent),
-                                ),
-                                disabledBorder: OutlineInputBorder(
-                                  borderSide:
-                                      BorderSide(width: 1, color: Colors.transparent),
-                                ),
-                                enabledBorder: OutlineInputBorder(
-                                  borderSide:
-                                      BorderSide(width: 1, color: Colors.transparent),
+                                  },
+                                  controller: controller,
+                                  cursorColor: mySet.main,
+                                  decoration: const InputDecoration(
+                                    contentPadding: EdgeInsets.all(10),
+                                    focusColor: mySet.main,
+                                    hintText: 'Поиск',
+                                    hintStyle: TextStyle(color: mySet.input),
+                                    focusedBorder: OutlineInputBorder(
+                                      borderSide:
+                                          BorderSide(width: 1, color: Colors.transparent),
+                                    ),
+                                    disabledBorder: OutlineInputBorder(
+                                      borderSide:
+                                          BorderSide(width: 1, color: Colors.transparent),
+                                    ),
+                                    enabledBorder: OutlineInputBorder(
+                                      borderSide:
+                                          BorderSide(width: 1, color: Colors.transparent),
+                                    ),
+                                  ),
                                 ),
                               ),
-                            ),
-                          ),
-                          const Icon(
-                            Icons.search_outlined,
-                            color: mySet.second,
-                          ),
-                        ],
-                      ),
-                      Container(
-                        width: width,
-                        height: 1,
-                        color: mySet.input,
-                      ),
-                      allCompany.isEmpty && allCompanyConst.isNotEmpty
-                          ? (Container(
-                              height: height - 520,
-                              width: width,
-                              alignment: Alignment.center,
-                              child: Column(
-                                children: const [
-                                  SizedBox(
-                                    height: 30,
-                                  ),
-                                  Text('Ничего не смог найти',
-                                      style: TextStyle(
-                                          color: mySet.input,
-                                          fontSize: 20,
-                                          fontFamily: "Italic",
-                                          fontWeight: FontWeight.w400)),
-                                  SizedBox(
-                                    height: 20,
-                                  ),
-                                  Icon(
-                                    Icons.search_off,
-                                    color: mySet.input,
-                                    size: 110,
-                                  )
-                                ],
+                              const Icon(
+                                Icons.search_outlined,
+                                color: mySet.second,
                               ),
-                            ))
-                          : Column(
-                                  children: [
-                                    for (Company company in allCompany)
-                                      (ObjectCompanyCard(
-                                        company: company,
-                                      ))
-                                  ],
-                                ),
-                      const SizedBox(
-                        height: 18,
-                      ),
+                            ],
+                          ),
+                          Container(
+                            width: width,
+                            height: 1,
+                            color: mySet.input,
+                          ),
+                          allCompany.isEmpty && allCompanyConst.isNotEmpty
+                              ? (Container(
+                                  height: height - 520,
+                                  width: width,
+                                  alignment: Alignment.center,
+                                  child: Column(
+                                    children: const [
+                                      SizedBox(
+                                        height: 30,
+                                      ),
+                                      Text('Ничего не смог найти',
+                                          style: TextStyle(
+                                              color: mySet.input,
+                                              fontSize: 20,
+                                              fontFamily: "Italic",
+                                              fontWeight: FontWeight.w400)),
+                                      SizedBox(
+                                        height: 20,
+                                      ),
+                                      Icon(
+                                        Icons.search_off,
+                                        color: mySet.input,
+                                        size: 110,
+                                      )
+                                    ],
+                                  ),
+                                ))
+                              : Column(
+                                      children: [
+                                        for (Company company in allCompany)
+                                          (ObjectCompanyCard(
+                                            company: company,
+                                          ))
+                                      ],
+                                    ),
+                          const SizedBox(
+                            height: 18,
+                          ),
 
-                    ]),
+                        ]),
+                    ),
+                  ),
                 ),
             Container(
               height: 1,

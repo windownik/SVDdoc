@@ -2,6 +2,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:svd_doc/logic/data_base.dart';
 import 'package:svd_doc/logic/global_const.dart';
+import 'package:svd_doc/screens/admin/admin_main_screen/main_admin_inherit.dart';
 
 class ObjectCompanyCard extends StatefulWidget{
   final Company company;
@@ -29,7 +30,9 @@ class _ObjectCompanyCardState extends State<ObjectCompanyCard> {
         pres = false;
         setState(() {});
       },
-      onTap: () {},
+      onTap: () {
+        MainAdminInherit.of(context)?.setObjectsOfOneCompanyWidgetToBody(widget.company);
+      },
       child: Container(
         margin: const EdgeInsets.only(top: 18),
         padding: const EdgeInsets.only(left: 6, right: 6),

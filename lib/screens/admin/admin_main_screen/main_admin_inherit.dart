@@ -9,6 +9,7 @@ import 'body/admin_company_body/company_dody.dart';
 import 'body/admin_company_body/new_company_body/new_company_body.dart';
 import 'body/admin_line_body/admin_line_body.dart';
 import 'body/objects_admin_body/object_admin_body.dart';
+import 'body/objects_admin_body/objects_of_one_company/objects_of_one _company_screen.dart';
 
 class MainAdminModel extends ChangeNotifier {
   final ApiSVD api = ApiSVD();
@@ -113,13 +114,31 @@ class MainAdminModel extends ChangeNotifier {
     }
   }
 
-  // Объекты
+  //-----------------------
+  // Работаем с объектами
+  //-----------------------
+  // Стартовый объекты
   void setObjectAdminWidgetToBody() {
     pickWidget = const ObjectAdminBody();
     showBottomBar = true;
     showLittleTopBar = true;
     backIcon = false;
-    topActiveBtn = 2;
+    topActiveBtn = 3;
+    mainTitle = 'Панель объектов';
+    assetsImageFont = 'assets/app_bar/admin_main.png';
+    notifyListeners();
+  }
+
+  // Стартовый объекты поиск по компании
+  void setObjectsOfOneCompanyWidgetToBody(Company company) {
+    pickWidget = AllObjectOfOneCompanyBody(company: company);
+    showBottomBar = true;
+    showLittleTopBar = false;
+    backIcon = true;
+    backOnPressed = () {
+      setObjectAdminWidgetToBody();
+    };
+    topActiveBtn = 3;
     mainTitle = 'Панель объектов';
     assetsImageFont = 'assets/app_bar/admin_main.png';
     notifyListeners();
