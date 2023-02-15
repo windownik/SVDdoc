@@ -3,7 +3,7 @@ import 'dart:io' show Platform;
 import 'package:flutter/material.dart';
 import 'package:svd_doc/logic/global_const.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:svd_doc/screens/admin/admin_main_screen/main_admin_inherit.dart';
+import 'package:svd_doc/screens/admin/main_admin_inherit.dart';
 
 
 class AdminMainBottomNavigationBar extends StatefulWidget {

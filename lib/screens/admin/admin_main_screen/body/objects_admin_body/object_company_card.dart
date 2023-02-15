@@ -2,7 +2,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:svd_doc/logic/data_base.dart';
 import 'package:svd_doc/logic/global_const.dart';
-import 'package:svd_doc/screens/admin/admin_main_screen/main_admin_inherit.dart';
+import 'package:svd_doc/screens/admin/main_admin_inherit.dart';
 
 class ObjectCompanyCard extends StatefulWidget{
   final Company company;

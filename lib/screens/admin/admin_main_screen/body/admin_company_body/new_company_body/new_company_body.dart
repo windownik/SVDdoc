@@ -5,7 +5,7 @@ import 'package:svd_doc/custom_widgets/text_field_without_top_hint.dart';
 import 'package:svd_doc/logic/api.dart';
 import 'package:svd_doc/logic/data_base.dart';
 import 'package:svd_doc/logic/global_const.dart';
-import 'package:svd_doc/screens/admin/admin_main_screen/main_admin_inherit.dart';
+import 'package:svd_doc/screens/admin/main_admin_inherit.dart';
 import 'package:svd_doc/screens/auth_registration/pop_ups/func_chow_pop_ups.dart';
 
 import '../user_in_company_card.dart';

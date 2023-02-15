@@ -252,7 +252,10 @@ class _AllObjectOfOneCompanyBodyState extends State<AllObjectOfOneCompanyBody> {
                     fontSize: 14,
                     fontFamily: "Italic",
                     fontWeight: FontWeight.w400),
-                onTap: () {},
+                onTap: () {
+                  print(1);
+                  Navigator.of(context).pushNamed('/new_doc');
+                },
                 width: width - 40,
                 height: 44,
               ),
