@@ -4,6 +4,7 @@ import 'package:svd_doc/custom_widgets/default_btn.dart';
 import 'package:svd_doc/logic/api.dart';
 import 'package:svd_doc/logic/data_base.dart';
 import 'package:svd_doc/logic/global_const.dart';
+import 'package:svd_doc/screens/admin/admin_main_screen/screens/new_object_screen/create_new_object.dart';
 import 'object_card.dart';
 
 class AllObjectOfOneCompanyBody extends StatefulWidget {
@@ -67,7 +68,8 @@ class _AllObjectOfOneCompanyBodyState extends State<AllObjectOfOneCompanyBody> {
                                     fontFamily: "Italic",
                                     fontWeight: FontWeight.w500)),
                           ),)
-                      ],),),
+                      ],),
+                    ),
                     const SizedBox(
                       height: 18,
                     ),
@@ -193,7 +195,14 @@ class _AllObjectOfOneCompanyBodyState extends State<AllObjectOfOneCompanyBody> {
                     fontSize: 16,
                     fontFamily: "Italic",
                     fontWeight: FontWeight.w400),
-                onTap: () {},
+                onTap: () async {
+                  await Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => CreateNewObjectScreen(company: widget.company,),
+                    ),
+                  );
+                },
                 width: width - 40,
                 height: 44,
               ),
@@ -252,9 +261,13 @@ class _AllObjectOfOneCompanyBodyState extends State<AllObjectOfOneCompanyBody> {
                     fontSize: 14,
                     fontFamily: "Italic",
                     fontWeight: FontWeight.w400),
-                onTap: () {
-                  print(1);
-                  Navigator.of(context).pushNamed('/new_doc');
+                onTap: () async {
+                  await Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => CreateNewObjectScreen(company: widget.company,),
+                    ),
+                  );
                 },
                 width: width - 40,
                 height: 44,

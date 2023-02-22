@@ -10,7 +10,7 @@ import 'admin_main_screen/body/admin_company_body/new_company_body/new_company_b
 import 'admin_main_screen/body/admin_line_body/admin_line_body.dart';
 import 'admin_main_screen/body/objects_admin_body/object_admin_body.dart';
 import 'admin_main_screen/body/objects_admin_body/objects_of_one_company/objects_of_one _company_screen.dart';
-import 'create_new_doc_screen/new_doc_start_screen/new_doc_start_screen.dart';
+import 'create_new_doc_screen/new_doc_start_body/new_doc_start_screen.dart';
 
 class MainAdminModel extends ChangeNotifier {
   final ApiSVD api = ApiSVD();
@@ -162,10 +162,9 @@ class MainAdminModel extends ChangeNotifier {
     backIcon = false;
     topActiveBtn = 2;
     mainTitle = 'Панель объектов';
-    assetsImageFont = 'assets/app_bar/admin_main.png';
+    assetsImageFont = 'assets/app_bar/new_doc.png';
     notifyListeners();
   }
-
 
   //------------------------
   // Активируем Элементы верхнего бара

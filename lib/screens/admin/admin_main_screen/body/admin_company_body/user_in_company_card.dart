@@ -95,9 +95,7 @@ class _UsersCompanyCardState extends State<UsersCompanyCard> {
                   setState(() {});
                 },
                 onTap: () async {
-                  await api.updateProfession(widget.user.userId,
-                      0,
-                      0);
+                  await api.updateProfession(widget.user.userId, 0,0);
                   MainAdminInherit.of(context)?.updateAllUsersCompany(widget.company.companyId);
                 },
                 child: Container(

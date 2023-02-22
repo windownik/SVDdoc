@@ -5,6 +5,8 @@ import 'package:flutter/services.dart';
 import 'package:hive_flutter/adapters.dart';
 import 'package:svd_doc/firebase_options.dart';
 import 'package:svd_doc/screens/admin/admin_main_screen.dart';
+import 'package:svd_doc/screens/admin/admin_main_screen/screens/new_object_screen/create_new_object.dart';
+import 'package:svd_doc/screens/admin/create_new_doc_screen/new_bill.dart';
 import 'package:svd_doc/screens/auth_registration/login/login_screen.dart';
 import 'package:svd_doc/screens/auth_registration/login_start/login_main.dart';
 import 'package:svd_doc/screens/auth_registration/sign_up/sign_up_main.dart';
@@ -32,16 +34,16 @@ void main() async {
   FirebaseMessaging.onBackgroundMessage(_firebaseMessagingBackgroundHandler);
 
   // FirebaseMessaging messaging = FirebaseMessaging.instance;
-  //
-  // NotificationSettings settings = await messaging.requestPermission(
-  //   alert: true,
-  //   announcement: false,
-  //   badge: true,
-  //   carPlay: false,
-  //   criticalAlert: false,
-  //   provisional: false,
-  //   sound: true,
-  // );
+  //   //
+  //   // NotificationSettings settings = await messaging.requestPermission(
+  //   //   alert: true,
+  //   //   announcement: false,
+  //   //   badge: true,
+  //   //   carPlay: false,
+  //   //   criticalAlert: false,
+  //   //   provisional: false,
+  //   //   sound: true,
+  //   // );
 
   await Hive.initFlutter();
   await Hive.openBox('user');
@@ -71,7 +73,7 @@ class MyApp extends StatelessWidget {
         '/sign_up_next': (context) => const SignUpSecond(),
         // Admins routes
         '/admin_start': (context) => const AdminMainScreen(),
-        // '/new_doc': (context) => const NewDocStartScreen(),
+        '/new_contract': (context) => const CreateNewContract(),
       },
     );
   }

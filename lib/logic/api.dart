@@ -167,7 +167,6 @@ class ApiSVD {
     if (res.statusCode != 200) {
       throw Exception("${res.statusCode}");
     }
-    print(1);
     return true;
   }
 
@@ -271,5 +270,17 @@ class ApiSVD {
       );
     }
     return allObjects;
+  }
+  Future<void> getFile (int fileId) async {
+    Map<String, dynamic> params = {
+      "file_id": fileId.toString()
+    };
+    var url = Uri.http(urlAddress, "/file_download", params);
+    var res = await http.get(url);
+    print(res.statusCode);
+
+    if (res.statusCode != 200) {
+      throw Exception("${res.statusCode}");
+    }
   }
 }

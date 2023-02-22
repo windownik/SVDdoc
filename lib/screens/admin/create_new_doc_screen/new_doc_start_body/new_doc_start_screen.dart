@@ -16,25 +16,33 @@ class NewDocStartScreen extends StatelessWidget{
             child: Image.asset('assets/background/new_doc.png', width: width,)
         ),
         Column(
-          children: const [
-            SizedBox(height: 16,),
-            Text('Выберите тип нового\nдокумента',
+          children: [
+            const SizedBox(height: 16,),
+            const Text('Выберите тип нового\nдокумента',
                 textAlign: TextAlign.center,
                 style: TextStyle(
                 color: mySet.main,
                 fontSize: 18,
                 fontFamily: "Italic",
                 fontWeight: FontWeight.w300)),
-            SizedBox(height: 16,),
+            const SizedBox(height: 16,),
             CustomBtn(assetsName: 'assets/svg/new_act.svg',
-              btnText: 'Счет на оплату',),
-            SizedBox(height: 16,),
+              btnText: 'Счет на оплату',
+              onTap: () {
+              Navigator.pushNamed(context, '/new_contract');
+              },
+            ),
+            const SizedBox(height: 16,),
             CustomBtn(assetsName: 'assets/svg/new_bill.svg',
-              btnText: 'Акт выполненных работ',),
-            SizedBox(height: 16,),
+              btnText: 'Акт выполненных работ',
+              onTap: () {},
+            ),
+            const SizedBox(height: 16,),
             CustomBtn(
               assetsName: 'assets/svg/new_contract.svg',
-              btnText: 'Договор/приложение',),
+              btnText: 'Договор/приложение',
+              onTap: () {},
+            ),
           ],
         ),
 
@@ -44,11 +52,13 @@ class NewDocStartScreen extends StatelessWidget{
 }
 
 class CustomBtn extends StatefulWidget{
+  final GestureTapCallback onTap;
   final String assetsName;
   final String btnText;
   const CustomBtn({super.key,
     required this.assetsName,
-    required this.btnText});
+    required this.btnText,
+    required this.onTap});
 
   @override
   State<CustomBtn> createState() => _CustomBtnState();
@@ -72,7 +82,7 @@ class _CustomBtnState extends State<CustomBtn> {
         pres = false;
         setState(() { });
       },
-      onTap: () {},
+      onTap: widget.onTap,
       child: Container(
         margin: const EdgeInsets.only(left: 20, right: 20),
         height: 124,
