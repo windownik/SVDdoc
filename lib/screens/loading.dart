@@ -1,4 +1,5 @@
 
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:loading_animation_widget/loading_animation_widget.dart';
 import 'package:svd_doc/logic/data_base.dart';
@@ -39,8 +40,20 @@ class LoadingState extends State<Loading> {
     setState(() {});
   }
 
+  Future<void> updatePush (int userid) async {
+    FirebaseMessaging messaging = FirebaseMessaging.instance;
+    String pushToken = await messaging.getToken() ?? '0';
+    if (pushToken != '0') {
+      await api.updatePush(pushToken);
+    }
+  }
+
+
   @override
   Widget build(BuildContext context) {
+
+    if (user != null) updatePush(user!.userId);
+
     if (user == null) {
       return const LoadingScreen();
     }

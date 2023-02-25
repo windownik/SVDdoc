@@ -25,6 +25,20 @@ class ApiSVD {
     return true;
   }
 
+  Future<bool> updatePush(String push) async {
+    var url = Uri.http(urlAddress, "/update_push", {"access_token": access, 'push_token': push});
+    var res = await http.put(url);
+    if (res.statusCode != 200) {
+      if (res.statusCode == 401) {
+        await updateAccess();
+        res = await http.get(url);
+      } else {
+        return false;
+      }
+    }
+    return true;
+  }
+
   Future<Map<String, dynamic>> userCreate(
     String email, {
     required String name,
