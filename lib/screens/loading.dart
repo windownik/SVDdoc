@@ -1,13 +1,11 @@
 
-import 'dart:async';
-
 import 'package:flutter/material.dart';
 import 'package:loading_animation_widget/loading_animation_widget.dart';
 import 'package:svd_doc/logic/data_base.dart';
 import 'package:svd_doc/logic/global_const.dart';
 
 import '../logic/api.dart';
-import 'admin/admin_main_screen/admin_main_screen.dart';
+import 'admin/admin_main_screen.dart';
 import 'auth_registration/login_start/login_main.dart';
 
 class Loading extends StatefulWidget{

@@ -2,7 +2,7 @@ import 'package:svd_doc/logic/global_const.dart';
 import 'package:flutter/material.dart';
 import 'package:svd_doc/logic/data_base.dart';
 
-import '../main_admin_inherit.dart';
+import '../../main_admin_inherit.dart';
 
 
 class FontTopBar extends StatefulWidget {
@@ -52,7 +52,8 @@ class _FontTopBarState extends State<FontTopBar> {
           child: Image.asset(
             MainAdminInherit.of(context)?.assetsImageFont ?? 'assets/app_bar/admin_main.png',
             height: 140,
-          )),
+          )
+      ),
       Container(
           alignment: Alignment.center,
           margin: const EdgeInsets.only(top: 20),
@@ -63,7 +64,7 @@ class _FontTopBarState extends State<FontTopBar> {
                 color: mySet.white,
                 fontSize: 26,
                 fontFamily: "Italic",
-                fontWeight: FontWeight.w300),
+                fontWeight: FontWeight.w400),
             maxLines: 2,
             textAlign: TextAlign.center,
           )

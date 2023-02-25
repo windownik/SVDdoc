@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
 
-import 'admin_app_bar/bottom_admin_bar.dart';
-import 'admin_app_bar/small_top_btn_bar.dart';
-import 'body/admin_body_users/admin_new_users.dart';
-import 'admin_app_bar/font_top_bar.dart';
-import 'main_admin_inherit.dart';
+import 'admin_main_screen/admin_app_bar/bottom_admin_bar.dart';
+import 'admin_main_screen/admin_app_bar/small_top_btn_bar.dart';
+import 'admin_main_screen/body/admin_body_users/admin_new_users.dart';
+import 'admin_main_screen/admin_app_bar/font_top_bar.dart';
 import 'package:svd_doc/logic/global_const.dart';
+
+import 'main_admin_inherit.dart';
 
 class AdminMainScreen extends StatelessWidget {
   const AdminMainScreen({super.key});

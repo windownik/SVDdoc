@@ -1,7 +1,7 @@
 import 'package:svd_doc/logic/global_const.dart';
 import 'package:flutter/material.dart';
+import 'package:svd_doc/screens/admin/main_admin_inherit.dart';
 
-import '../main_admin_inherit.dart';
 
 class SmallAdminBar extends StatefulWidget{
   const SmallAdminBar({super.key});
@@ -53,7 +53,13 @@ class _SmallAdminBarState extends State<SmallAdminBar> {
 }
 
 class LittleAppBarBtn extends StatefulWidget{
-  const LittleAppBarBtn({super.key, required this.pres, required this.onTap, required this.text, this.rightAlign = false});
+  const LittleAppBarBtn({
+    super.key,
+    required this.pres,
+    required this.onTap,
+    required this.text,
+    this.rightAlign = false
+  });
   final String text;
   final bool pres, rightAlign;
   final GestureTapCallback onTap;

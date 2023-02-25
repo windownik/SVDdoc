@@ -1,5 +1,6 @@
 import 'dart:convert';
 import 'package:http/http.dart' as http;
+import 'package:http_parser/http_parser.dart';
 
 import 'data_base.dart';
 
@@ -167,7 +168,6 @@ class ApiSVD {
     if (res.statusCode != 200) {
       throw Exception("${res.statusCode}");
     }
-    print(1);
     return true;
   }
 
@@ -271,5 +271,52 @@ class ApiSVD {
       );
     }
     return allObjects;
+  }
+  Future<void> getFile (int fileId) async {
+    Map<String, dynamic> params = {
+      "file_id": fileId.toString()
+    };
+    var url = Uri.http(urlAddress, "/file_download", params);
+    var res = await http.get(url);
+
+    if (res.statusCode != 200) {
+      throw Exception("${res.statusCode}");
+    }
+  }
+  Future<void> sendFileObject (int objectId, int companyId, String filePath) async {
+    Map<String, dynamic> params = {
+      "object_id": objectId.toString(),
+      'company_id': companyId.toString(),
+      'access_token': access
+    };
+    var url = Uri.http(urlAddress, "/spending_const", params);
+    var request = http.MultipartRequest('POST', url)
+      ..files.add(await http.MultipartFile.fromPath(
+          'file', filePath,
+          contentType: MediaType('application', 'x-tar')));
+    var res = await request.send();
+
+    if (res.statusCode != 200) {
+      throw Exception("${res.statusCode}");
+    }
+  }
+  Future<int> createObject (String name, int companyId) async {
+    User user = await userGet();
+
+    Map<String, dynamic> params = {
+      "name": name,
+      'company_id': companyId.toString(),
+      'creator_id': user.userId.toString(),
+      'access_token': access
+    };
+
+    var url = Uri.http(urlAddress, "/object", params);
+    var res = await http.post(url);
+
+    if (res.statusCode != 200) {
+      throw Exception("${res.statusCode}");
+    }
+    Map<String, dynamic> response = jsonDecode(res.body);
+    return response['object_id'];
   }
 }

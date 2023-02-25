@@ -2,14 +2,15 @@ import 'package:flutter/cupertino.dart';
 import 'package:svd_doc/logic/api.dart';
 import 'package:svd_doc/logic/data_base.dart';
 
-import 'body/admin_body_users/admin_new_users.dart';
-import 'body/admin_body_users/new_user_screen.dart';
-import 'body/admin_company_body/add_user_to_company.dart';
-import 'body/admin_company_body/company_dody.dart';
-import 'body/admin_company_body/new_company_body/new_company_body.dart';
-import 'body/admin_line_body/admin_line_body.dart';
-import 'body/objects_admin_body/object_admin_body.dart';
-import 'body/objects_admin_body/objects_of_one_company/objects_of_one _company_screen.dart';
+import 'admin_main_screen/body/admin_body_users/admin_new_users.dart';
+import 'admin_main_screen/body/admin_body_users/new_user_screen.dart';
+import 'admin_main_screen/body/admin_company_body/add_user_to_company.dart';
+import 'admin_main_screen/body/admin_company_body/company_dody.dart';
+import 'admin_main_screen/body/admin_company_body/new_company_body/new_company_body.dart';
+import 'admin_main_screen/body/admin_line_body/admin_line_body.dart';
+import 'admin_main_screen/body/objects_admin_body/object_admin_body.dart';
+import 'admin_main_screen/body/objects_admin_body/objects_of_one_company/objects_of_one _company_screen.dart';
+import 'create_new_doc_screen/new_doc_start_body/new_doc_start_screen.dart';
 
 class MainAdminModel extends ChangeNotifier {
   final ApiSVD api = ApiSVD();
@@ -150,6 +151,20 @@ class MainAdminModel extends ChangeNotifier {
     notifyListeners();
   }
 
+  //-----------------------
+  // Работаем с объектами
+  //-----------------------
+  // Стартовый объекты
+  void setNewDocStartWidgetToBody() {
+    pickWidget = const NewDocStartScreen();
+    showBottomBar = true;
+    showLittleTopBar = false;
+    backIcon = false;
+    topActiveBtn = 2;
+    mainTitle = 'Панель объектов';
+    assetsImageFont = 'assets/app_bar/new_doc.png';
+    notifyListeners();
+  }
 
   //------------------------
   // Активируем Элементы верхнего бара
@@ -176,7 +191,7 @@ class MainAdminModel extends ChangeNotifier {
     if (index == 2) {
       showLittleTopBar = false;
       mainTitle = 'Новый документ';
-      pickWidget = const Text('Новый документ');
+      setNewDocStartWidgetToBody();
     }
     if (index == 3) {
       mainTitle = 'Панель\nадминистратора';
