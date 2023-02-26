@@ -118,7 +118,7 @@ class MainAdminModel extends ChangeNotifier {
   //-----------------------
   // Работаем с объектами
   //-----------------------
-  // Стартовый объекты
+  // Стартовые объекты
   void setObjectAdminWidgetToBody() {
     pickWidget = const ObjectAdminBody();
     showBottomBar = true;
@@ -184,7 +184,7 @@ class MainAdminModel extends ChangeNotifier {
       setLineWidgetToBody();
     }
     if (index == 1) {
-      showLittleTopBar = false;
+      showLittleTopBar = true;
       mainTitle = 'Архив\nсогласованных докуметов';
       pickWidget = const Text('Архив\nсогласованных докуметов');
     }
