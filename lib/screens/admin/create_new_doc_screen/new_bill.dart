@@ -227,7 +227,88 @@ class _CreateNewContractState extends State<CreateNewContract> {
                   ),
                 ),
                 const SizedBox(
+                  height: 8,
+                ),
+                SizedBox(
+                  width: width,
+                  child: TextButton(
+                      onPressed: (){},
+                      child: const Text('Добавить статью затрат',
+                        style: TextStyle(fontSize: 16, color: mySet.main, decoration: TextDecoration.underline),)
+                  ),
+                ),
+                const SizedBox(
+                  height: 3,
+                ),
+                const Text(
+                  'Выберите контрагента',
+                  style: TextStyle(
+                      color: mySet.main,
+                      fontSize: 14,
+                      fontFamily: "Italic",
+                      fontWeight: FontWeight.w400),
+                ),
+                const SizedBox(
+                  height: 4,
+                ),
+                Container(
+                  padding: const EdgeInsets.only(left: 10, right: 10),
+                  decoration: const BoxDecoration(boxShadow: [
+                    BoxShadow(
+                        color: mySet.unSelect,
+                        blurRadius: 5,
+                        offset: Offset(-3, 3))
+                  ], color: mySet.white
+                    // border: Border.all(color: mySet.main, width: 1)
+                  ),
+                  width: width - 40,
+                  child: DropdownButton(
+                    underline: const SizedBox(),
+                    isExpanded: true,
+                    hint: Text(
+                      'Название организации',
+                      style: TextStyle(
+                        fontSize: 14,
+                        color: Theme.of(context).hintColor,
+                      ),
+                    ),
+                    items: dropCompanyItems,
+                    value: valueCompany,
+                    onChanged: (value) {
+                      valueCompany = value;
+                      valueObject = null;
+                      if (value != null) {
+                        pickCompany = allCompany[value];
+                        getObjectList(pickCompany!.companyId);
+                      }
+                      setState(() {});
+                    },
+                  ),
+                ),
+                const SizedBox(
                   height: 18,
+                ),
+                Text(
+                  'Ведите ваш комментарий',
+                  style: TextStyle(
+                    fontSize: 14,
+                    color: Theme.of(context).hintColor,
+                  ),
+                ),
+                const SizedBox(
+                  height: 6,
+                ),
+                TextFieldWithoutTopHint(
+                  textEmpty: textHintEmpty,
+                  hintText: 'Коментарий (необязательно)',
+                  onChanged: (text) {
+                    textHintEmpty = text.isEmpty ? true : false;
+
+                    setState(() {});
+                  },
+                ),
+                const SizedBox(
+                  height: 6,
                 ),
                 UniversalBtn(
                     width: width - 40,
