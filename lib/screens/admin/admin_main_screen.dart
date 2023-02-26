@@ -68,7 +68,7 @@ class MainAdminWidget extends StatelessWidget{
     return Scaffold(
       backgroundColor: mySet.background,
       appBar: PreferredSize(
-        preferredSize: const Size.fromHeight(160),
+        preferredSize: Size.fromHeight(showLittleTopBar ? 173 : 122),
         child: showLittleTopBar ?
         Column(
           children: const [

@@ -201,7 +201,7 @@ class _AddUserToCompanyState extends State<AddUserToCompany> {
                     UniversalBtn(
                       width: width,
                       enable: enableProfession,
-                      text: 'Добавить сотрудника ',
+                      text: 'Добавить сотрудника',
                       textStyle: const TextStyle(
                           color: mySet.white,
                           fontSize: 16,
@@ -211,10 +211,17 @@ class _AddUserToCompanyState extends State<AddUserToCompany> {
                         api.updateProfession(pickUser!.userId,
                             pickProfession.professionId,
                             widget.company.companyId);
-
-                        // Timer(const Duration(milliseconds: 50), () {
-                        //   MainAdminInherit.of(context)?.updateAllUsersCompany(widget.company.companyId);
-                        // });
+                        api.sendPush(
+                            'Обновление статуса',
+                            'Поздравляем! Модератор успешно обработал вашу '
+                                'заявку на регистрацию и назначил вас в '
+                                '${widget.company.name} на должность ${pickProfession.name}.',
+                            'Поздравляем! Модератор успешно обработал вашу '
+                                'заявку на регистрацию и назначил вас в '
+                                '${widget.company.name} на должность ${pickProfession.name}.',
+                            'update profession',
+                            pickUser!.userId
+                        );
                         Timer(const Duration(milliseconds: 100), () {
                           MainAdminInherit.of(context)?.setNewCompanyWidgetToBody(widget.company);
                         });

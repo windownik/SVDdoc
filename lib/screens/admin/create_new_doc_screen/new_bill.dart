@@ -308,7 +308,7 @@ class _CreateNewContractState extends State<CreateNewContract> {
                   },
                 ),
                 const SizedBox(
-                  height: 6,
+                  height: 10,
                 ),
                 UniversalBtn(
                     width: width - 40,

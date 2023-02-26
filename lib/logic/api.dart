@@ -333,4 +333,28 @@ class ApiSVD {
     Map<String, dynamic> response = jsonDecode(res.body);
     return response['object_id'];
   }
+
+  Future<void> sendPush (
+      String title,
+      String pushBody,
+      String mainText,
+      String pushType,
+      int userId
+      ) async {
+    Map<String, dynamic> params = {
+      "access_token": access,
+      'user_id': userId.toString(),
+      'title': title,
+      'push_body': pushBody,
+      'push_type': pushType,
+      'main_text': mainText
+    };
+
+    var url = Uri.http(urlAddress, "/send_push", params);
+    var res = await http.get(url);
+    if (res.statusCode != 200) {
+      throw Exception("${res.statusCode}");
+    }
+
+  }
 }

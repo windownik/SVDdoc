@@ -226,6 +226,13 @@ class _NewUserBodyState extends State<NewUserBody> {
                         api.updateProfession(widget.user.userId,
                             pickProfession.professionId,
                             pickCompany?.companyId ?? 0);
+                        api.sendPush(
+                            'Обновление статуса',
+                            'Поздравляем! Модератор успешно обработал вашу заявку на регистрацию и назначил вам организацию и должность.',
+                            'Поздравляем! Модератор успешно обработал вашу заявку на регистрацию и назначил вам организацию и должность.',
+                            'update profession',
+                            widget.user.userId
+                        );
                         Navigator.of(context).popAndPushNamed('/admin_start');
                       },
                     ),
