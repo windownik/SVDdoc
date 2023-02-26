@@ -5,7 +5,6 @@ import 'package:flutter/services.dart';
 import 'package:hive_flutter/adapters.dart';
 import 'package:svd_doc/firebase_options.dart';
 import 'package:svd_doc/screens/admin/admin_main_screen.dart';
-import 'package:svd_doc/screens/admin/admin_main_screen/screens/new_object_screen/create_new_object.dart';
 import 'package:svd_doc/screens/admin/create_new_doc_screen/new_bill.dart';
 import 'package:svd_doc/screens/auth_registration/login/login_screen.dart';
 import 'package:svd_doc/screens/auth_registration/login_start/login_main.dart';
@@ -34,7 +33,7 @@ void main() async {
   FirebaseMessaging.onBackgroundMessage(_firebaseMessagingBackgroundHandler);
 
   // FirebaseMessaging messaging = FirebaseMessaging.instance;
-  //   //
+  // print('push_token: ${await messaging.getToken()}');
   //   // NotificationSettings settings = await messaging.requestPermission(
   //   //   alert: true,
   //   //   announcement: false,
