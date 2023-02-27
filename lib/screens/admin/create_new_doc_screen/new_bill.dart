@@ -71,6 +71,7 @@ class _CreateNewContractState extends State<CreateNewContract> {
   @override
   Widget build(BuildContext context) {
     final double width = MediaQuery.of(context).size.width;
+    final double height = MediaQuery.of(context).size.height;
 
     return Scaffold(
       appBar: PreferredSize(
@@ -97,235 +98,244 @@ class _CreateNewContractState extends State<CreateNewContract> {
               )
             ],
           )),
-      body: Stack(
-        children: [
-          Positioned(
-              bottom: 0,
-              child: Image.asset(
-                'assets/background/new_bill.png',
+      body: SingleChildScrollView(
+        child: SizedBox(
+          height: height-160,
+          child: Stack(
+            children: [
+              Positioned(
+                  bottom: 0,
+                  child: Image.asset(
+                    'assets/background/new_bill.png',
+                    width: width,
+                  )),
+              Container(
+                padding: const EdgeInsets.only(left: 20, right: 20),
                 width: width,
-              )),
-          Container(
-            padding: const EdgeInsets.only(left: 20, right: 20),
-            width: width,
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              // mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                const SizedBox(
-                  height: 16,
-                ),
-                const Text(
-                  'Введите номер счёта',
-                  style: TextStyle(
-                      color: mySet.main,
-                      fontSize: 14,
-                      fontFamily: "Italic",
-                      fontWeight: FontWeight.w400),
-                ),
-                const SizedBox(
-                  height: 4,
-                ),
-                TextFieldWithoutTopHint(
-                  textEmpty: textHintEmpty,
-                  hintText: 'Номер счета',
-                  onChanged: (text) {
-                    textHintEmpty = text.isEmpty ? true : false;
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  // mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    const SizedBox(
+                      height: 16,
+                    ),
+                    const Text(
+                      'Введите номер счёта',
+                      style: TextStyle(
+                          color: mySet.main,
+                          fontSize: 14,
+                          fontFamily: "Italic",
+                          fontWeight: FontWeight.w400),
+                    ),
+                    const SizedBox(
+                      height: 4,
+                    ),
+                    TextFieldWithoutTopHint(
+                      textEmpty: textHintEmpty,
+                      hintText: 'Номер счета',
+                      onChanged: (text) {
+                        textHintEmpty = text.isEmpty ? true : false;
 
-                    setState(() {});
-                  },
-                ),
-                const SizedBox(
-                  height: 16,
-                ),
-                const Text(
-                  'Выберите юридическое лицо',
-                  style: TextStyle(
-                      color: mySet.main,
-                      fontSize: 14,
-                      fontFamily: "Italic",
-                      fontWeight: FontWeight.w400),
-                ),
-                const SizedBox(
-                  height: 4,
-                ),
-                Container(
-                  padding: const EdgeInsets.only(left: 10, right: 10),
-                  decoration: const BoxDecoration(boxShadow: [
-                    BoxShadow(
-                        color: mySet.unSelect,
-                        blurRadius: 5,
-                        offset: Offset(-3, 3))
-                  ], color: mySet.white
-                      // border: Border.all(color: mySet.main, width: 1)
+                        setState(() {});
+                      },
+                    ),
+                    const SizedBox(
+                      height: 16,
+                    ),
+                    const Text(
+                      'Выберите юридическое лицо',
+                      style: TextStyle(
+                          color: mySet.main,
+                          fontSize: 14,
+                          fontFamily: "Italic",
+                          fontWeight: FontWeight.w400),
+                    ),
+                    const SizedBox(
+                      height: 4,
+                    ),
+                    Container(
+                      padding: const EdgeInsets.only(left: 10, right: 10),
+                      decoration: const BoxDecoration(boxShadow: [
+                        BoxShadow(
+                            color: mySet.unSelect,
+                            blurRadius: 5,
+                            offset: Offset(-3, 3))
+                      ], color: mySet.white
+                          // border: Border.all(color: mySet.main, width: 1)
+                          ),
+                      width: width - 40,
+                      child: DropdownButton(
+                        underline: const SizedBox(),
+                        isExpanded: true,
+                        hint: Text(
+                          'Название организации',
+                          style: TextStyle(
+                            fontSize: 14,
+                            color: Theme.of(context).hintColor,
+                          ),
+                        ),
+                        items: dropCompanyItems,
+                        value: valueCompany,
+                        onChanged: (value) {
+                          valueCompany = value;
+                          valueObject = null;
+                          if (value != null) {
+                            pickCompany = allCompany[value];
+                            getObjectList(pickCompany!.companyId);
+                          }
+                          setState(() {});
+                        },
                       ),
-                  width: width - 40,
-                  child: DropdownButton(
-                    underline: const SizedBox(),
-                    isExpanded: true,
-                    hint: Text(
-                      'Название организации',
+                    ),
+                    const SizedBox(
+                      height: 16,
+                    ),
+                    const Text(
+                      'Выберите объект',
+                      style: TextStyle(
+                          color: mySet.main,
+                          fontSize: 14,
+                          fontFamily: "Italic",
+                          fontWeight: FontWeight.w400),
+                    ),
+                    const SizedBox(
+                      height: 4,
+                    ),
+                    Container(
+                      padding: const EdgeInsets.only(left: 10, right: 10),
+                      decoration: const BoxDecoration(boxShadow: [
+                        BoxShadow(
+                            color: mySet.unSelect,
+                            blurRadius: 5,
+                            offset: Offset(-3, 3))
+                      ], color: mySet.white
+                          // border: Border.all(color: mySet.main, width: 1)
+                          ),
+                      width: width - 40,
+                      child: DropdownButton(
+                        underline: const SizedBox(),
+                        isExpanded: true,
+                        hint: Text(
+                          'Название объекта',
+                          style: TextStyle(
+                            fontSize: 14,
+                            color: Theme.of(context).hintColor,
+                          ),
+                        ),
+                        items: dropObjectsItems,
+                        value: valueObject,
+                        onChanged: (value) {
+                          valueObject = value;
+                          setState(() {});
+                        },
+                      ),
+                    ),
+                    const SizedBox(
+                      height: 8,
+                    ),
+                    SizedBox(
+                      width: width,
+                      child: TextButton(
+                          onPressed: (){},
+                          child: const Text('Добавить статью затрат',
+                            style: TextStyle(fontSize: 16, color: mySet.main, decoration: TextDecoration.underline),)
+                      ),
+                    ),
+                    const SizedBox(
+                      height: 3,
+                    ),
+                    const Text(
+                      'Выберите контрагента',
+                      style: TextStyle(
+                          color: mySet.main,
+                          fontSize: 14,
+                          fontFamily: "Italic",
+                          fontWeight: FontWeight.w400),
+                    ),
+                    const SizedBox(
+                      height: 4,
+                    ),
+                    Container(
+                      padding: const EdgeInsets.only(left: 10, right: 10),
+                      decoration: const BoxDecoration(boxShadow: [
+                        BoxShadow(
+                            color: mySet.unSelect,
+                            blurRadius: 5,
+                            offset: Offset(-3, 3))
+                      ], color: mySet.white
+                        // border: Border.all(color: mySet.main, width: 1)
+                      ),
+                      width: width - 40,
+                      child: DropdownButton(
+                        underline: const SizedBox(),
+                        isExpanded: true,
+                        hint: Text(
+                          'Название организации',
+                          style: TextStyle(
+                            fontSize: 14,
+                            color: Theme.of(context).hintColor,
+                          ),
+                        ),
+                        items: dropCompanyItems,
+                        value: valueCompany,
+                        onChanged: (value) {
+                          valueCompany = value;
+                          valueObject = null;
+                          if (value != null) {
+                            pickCompany = allCompany[value];
+                            getObjectList(pickCompany!.companyId);
+                          }
+                          setState(() {});
+                        },
+                      ),
+                    ),
+                    const SizedBox(
+                      height: 18,
+                    ),
+                    Text(
+                      'Ведите ваш комментарий',
                       style: TextStyle(
                         fontSize: 14,
                         color: Theme.of(context).hintColor,
                       ),
                     ),
-                    items: dropCompanyItems,
-                    value: valueCompany,
-                    onChanged: (value) {
-                      valueCompany = value;
-                      valueObject = null;
-                      if (value != null) {
-                        pickCompany = allCompany[value];
-                        getObjectList(pickCompany!.companyId);
-                      }
-                      setState(() {});
-                    },
-                  ),
-                ),
-                const SizedBox(
-                  height: 16,
-                ),
-                const Text(
-                  'Выберите объект',
-                  style: TextStyle(
-                      color: mySet.main,
-                      fontSize: 14,
-                      fontFamily: "Italic",
-                      fontWeight: FontWeight.w400),
-                ),
-                const SizedBox(
-                  height: 4,
-                ),
-                Container(
-                  padding: const EdgeInsets.only(left: 10, right: 10),
-                  decoration: const BoxDecoration(boxShadow: [
-                    BoxShadow(
-                        color: mySet.unSelect,
-                        blurRadius: 5,
-                        offset: Offset(-3, 3))
-                  ], color: mySet.white
-                      // border: Border.all(color: mySet.main, width: 1)
-                      ),
-                  width: width - 40,
-                  child: DropdownButton(
-                    underline: const SizedBox(),
-                    isExpanded: true,
-                    hint: Text(
-                      'Название объекта',
-                      style: TextStyle(
-                        fontSize: 14,
-                        color: Theme.of(context).hintColor,
-                      ),
+                    const SizedBox(
+                      height: 6,
                     ),
-                    items: dropObjectsItems,
-                    value: valueObject,
-                    onChanged: (value) {
-                      valueObject = value;
-                      setState(() {});
-                    },
-                  ),
-                ),
-                const SizedBox(
-                  height: 8,
-                ),
-                SizedBox(
-                  width: width,
-                  child: TextButton(
-                      onPressed: (){},
-                      child: const Text('Добавить статью затрат',
-                        style: TextStyle(fontSize: 16, color: mySet.main, decoration: TextDecoration.underline),)
-                  ),
-                ),
-                const SizedBox(
-                  height: 3,
-                ),
-                const Text(
-                  'Выберите контрагента',
-                  style: TextStyle(
-                      color: mySet.main,
-                      fontSize: 14,
-                      fontFamily: "Italic",
-                      fontWeight: FontWeight.w400),
-                ),
-                const SizedBox(
-                  height: 4,
-                ),
-                Container(
-                  padding: const EdgeInsets.only(left: 10, right: 10),
-                  decoration: const BoxDecoration(boxShadow: [
-                    BoxShadow(
-                        color: mySet.unSelect,
-                        blurRadius: 5,
-                        offset: Offset(-3, 3))
-                  ], color: mySet.white
-                    // border: Border.all(color: mySet.main, width: 1)
-                  ),
-                  width: width - 40,
-                  child: DropdownButton(
-                    underline: const SizedBox(),
-                    isExpanded: true,
-                    hint: Text(
-                      'Название организации',
-                      style: TextStyle(
-                        fontSize: 14,
-                        color: Theme.of(context).hintColor,
-                      ),
-                    ),
-                    items: dropCompanyItems,
-                    value: valueCompany,
-                    onChanged: (value) {
-                      valueCompany = value;
-                      valueObject = null;
-                      if (value != null) {
-                        pickCompany = allCompany[value];
-                        getObjectList(pickCompany!.companyId);
-                      }
-                      setState(() {});
-                    },
-                  ),
-                ),
-                const SizedBox(
-                  height: 18,
-                ),
-                Text(
-                  'Ведите ваш комментарий',
-                  style: TextStyle(
-                    fontSize: 14,
-                    color: Theme.of(context).hintColor,
-                  ),
-                ),
-                const SizedBox(
-                  height: 6,
-                ),
-                TextFieldWithoutTopHint(
-                  textEmpty: textHintEmpty,
-                  hintText: 'Коментарий (необязательно)',
-                  onChanged: (text) {
-                    textHintEmpty = text.isEmpty ? true : false;
+                    TextFieldWithoutTopHint(
+                      expanded: true,
+                      height: 100,
+                      textEmpty: textHintEmpty,
+                      hintText: 'Коментарий (необязательно)',
+                      onChanged: (text) {
+                        textHintEmpty = text.isEmpty ? true : false;
 
-                    setState(() {});
-                  },
+                        setState(() {});
+                      },
+                    ),
+                    const SizedBox(
+                      height: 10,
+                    ),
+
+                  ],
                 ),
-                const SizedBox(
-                  height: 10,
-                ),
-                UniversalBtn(
-                    width: width - 40,
-                    text: 'Далее',
-                    textStyle: const TextStyle(
-                        color: mySet.white,
-                        fontSize: 16,
-                        fontFamily: "Italic",
-                        fontWeight: FontWeight.w400),
-                    onTap: () {}),
-                const SizedBox(
-                  height: 18,
-                ),
-              ],
-            ),
-          )
-        ],
+              ),
+              Positioned(
+                left: 20,
+                bottom: 20,
+                child:
+              UniversalBtn(
+                  width: width - 40,
+                  text: 'Далее',
+                  textStyle: const TextStyle(
+                      color: mySet.white,
+                      fontSize: 16,
+                      fontFamily: "Italic",
+                      fontWeight: FontWeight.w400),
+                  onTap: () {}),)
+            ],
+          ),
+        ),
       ),
     );
   }
