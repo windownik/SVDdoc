@@ -21,12 +21,8 @@ class _UsersCompanyCardState extends State<UsersCompanyCard> {
   @override
   Widget build(BuildContext context) {
     double width = MediaQuery.of(context).size.width;
-    return Column(
-      children: [
-        const SizedBox(
-          height: 18,
-        ),
-        Container(
+    return Container(
+      margin: const EdgeInsets.only(top: 15),
           decoration: const BoxDecoration(
             boxShadow: [
               BoxShadow(
@@ -38,22 +34,7 @@ class _UsersCompanyCardState extends State<UsersCompanyCard> {
           width: width,
           child: Row(
             children: [
-              GestureDetector(
-                onTapDown: (a) {
-                  presCard = true;
-                  setState(() {});
-                },
-                onTapCancel: () {
-                  presCard = false;
-                  setState(() {});
-                },
-                onTapUp: (a) {
-                  presCard = false;
-
-                  setState(() {});
-                },
-                onTap: () {},
-                child: Container(
+              Container(
                   height: 38,
                   width: width-78,
                   padding: const EdgeInsets.only(
@@ -79,7 +60,7 @@ class _UsersCompanyCardState extends State<UsersCompanyCard> {
                     ],
                   ),
                 ),
-              ),
+
               GestureDetector(
                 onTapDown: (a) {
                   presDelete = true;
@@ -111,8 +92,6 @@ class _UsersCompanyCardState extends State<UsersCompanyCard> {
               ),
             ],
           ),
-        ),
-      ],
-    );
+        );
   }
 }

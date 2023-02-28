@@ -377,6 +377,5 @@ class ApiSVD {
     if (res.statusCode != 200) {
       throw Exception("${res.statusCode}");
     }
-
   }
 }

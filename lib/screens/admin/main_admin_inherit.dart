@@ -1,6 +1,8 @@
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 import 'package:svd_doc/logic/api.dart';
 import 'package:svd_doc/logic/data_base.dart';
+import 'package:svd_doc/logic/global_const.dart';
 
 import 'admin_main_screen/body/admin_body_users/admin_new_users.dart';
 import 'admin_main_screen/body/admin_body_users/new_user_screen.dart';
@@ -184,9 +186,20 @@ class MainAdminModel extends ChangeNotifier {
       setLineWidgetToBody();
     }
     if (index == 1) {
+      List data = ['1', '2', '3', '4', '5', '6'];
       showLittleTopBar = true;
       mainTitle = 'Архив\nсогласованных докуметов';
-      pickWidget = const Text('Архив\nсогласованных докуметов');
+      pickWidget = ReorderableListView(
+          children: [
+            for (var one in data) Container(
+                key: ValueKey(one),
+                color: mySet.red,
+                child: Text(one)),
+          ],
+          onReorder: (oldWidget, newWidget) {
+
+          }
+      );
     }
     if (index == 2) {
       showLittleTopBar = false;

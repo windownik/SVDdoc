@@ -163,28 +163,44 @@ class _NewCompanyAdminBodyState extends State<NewCompanyAdminBody> {
                     ),
                   ),
                   const SizedBox(height: 30,),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Container(height: 1, width: screenWidth*0.32, color: mySet.main,),
-                      const Text('  Сотрудники  ',
-                          textAlign: TextAlign.left,
-                          style: TextStyle(
-                              color: mySet.main,
-                              fontSize: 14,
-                              fontFamily: "Italic",
-                              fontWeight: FontWeight.w500)),
-                      Container(height: 1, width: screenWidth*0.32, color: mySet.main,),
-                    ],
+                  SizedBox(
+                    width: screenWidth,
+                    height: 20,
+                    child: Stack(
+                      // mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Container(
+                          margin: const EdgeInsets.only(top: 10),
+                          height: 1, width: screenWidth, color: mySet.main,
+                        ),
+                        Center(
+                          child: Container(
+                            alignment: Alignment.center,
+                            color: mySet.background,
+                            width: 270,
+                            child: const Text('  Сотрудники в цепочке согласования  ',
+                                textAlign: TextAlign.left,
+                                style: TextStyle(
+                                    color: mySet.main,
+                                    fontSize: 14,
+                                    fontFamily: "Italic",
+                                    fontWeight: FontWeight.w500)),
+                          ),
+                        ),
+                        // Container(height: 1, width: screenWidth*0.12, color: mySet.main,),
+                      ],
+                    ),
                   ),
-                  const SizedBox(height: 15,),
-                  ListUsersCards(
-                    allUsers: MainAdminInherit.of(context)?.allUsersCompany ?? [],
-                    company: widget.company,
+                  const SizedBox(height: 5,),
+                  SizedBox(
+                    height: 255,
+                    child: ListUsersCards(
+                      allUsers: MainAdminInherit.of(context)?.allUsersCompany ?? [],
+                      company: widget.company,
+                    ),
                   ),
                   widget.company != null ? TextButton(
                     onPressed: () {
-                      print('Add user to company');
                       MainAdminInherit.of(context)?.setAddNewUserToCompanyWidgetToBody(widget.company!);
                     },
                     child: const Text('Добавить сотрудника',
@@ -240,15 +256,20 @@ class _NewCompanyAdminBodyState extends State<NewCompanyAdminBody> {
   }
 }
 
-class ListUsersCards extends StatelessWidget {
-  const ListUsersCards({super.key, required this.allUsers, required this.company});
-  final List<User> allUsers;
+class ListUsersCards extends StatefulWidget {
+  ListUsersCards({super.key, required this.allUsers, required this.company});
+  List<User> allUsers;
   final Company? company;
 
   @override
+  State<ListUsersCards> createState() => _ListUsersCardsState();
+}
+
+class _ListUsersCardsState extends State<ListUsersCards> {
+  @override
   Widget build(BuildContext context) {
 
-    if (allUsers.isEmpty) {
+    if (widget.allUsers.isEmpty) {
       return Column(
         children: [
           Image.asset('assets/big_icons/no_user_in_company.png', width: 200,),
@@ -264,13 +285,23 @@ class ListUsersCards extends StatelessWidget {
         ],
       );
     } else {
-      return Column(
-        children: [
-          for (var user in allUsers) (UsersCompanyCard(user: user, company: company!)),
-          const SizedBox(height: 20,),
-        ],
+      return ReorderableListView(
+          children: [
+            for (var user in widget.allUsers) UsersCompanyCard(
+                key: ValueKey(user.name),
+                user: user, company: widget.company!),
+          ],
+          onReorder: (oldIndex, newIndex) {
+            setState(() {
+              if (oldIndex < newIndex) {
+                newIndex -= 1;
+              }
+
+              final User user = widget.allUsers.removeAt(oldIndex);
+              widget.allUsers.insert(newIndex, user);
+            });
+          },
       );
     }
   }
-
 }
