@@ -32,17 +32,17 @@ void main() async {
 
   FirebaseMessaging.onBackgroundMessage(_firebaseMessagingBackgroundHandler);
 
-  // FirebaseMessaging messaging = FirebaseMessaging.instance;
-  // print('push_token: ${await messaging.getToken()}');
-  //   // NotificationSettings settings = await messaging.requestPermission(
-  //   //   alert: true,
-  //   //   announcement: false,
-  //   //   badge: true,
-  //   //   carPlay: false,
-  //   //   criticalAlert: false,
-  //   //   provisional: false,
-  //   //   sound: true,
-  //   // );
+  FirebaseMessaging messaging = FirebaseMessaging.instance;
+  print('push_token: ${await messaging.getToken()}');
+    NotificationSettings settings = await messaging.requestPermission(
+      alert: true,
+      announcement: false,
+      badge: true,
+      carPlay: false,
+      criticalAlert: false,
+      provisional: false,
+      sound: true,
+    );
 
   await Hive.initFlutter();
   await Hive.openBox('user');
