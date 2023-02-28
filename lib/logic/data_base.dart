@@ -198,3 +198,18 @@ class CompanyObject {
     required this.createDate,
   });
 }
+
+class SpendingConst {
+  int objectId = 0, companyId = 0, creatorId = 0, price = 0;
+  String name = '', spendingId = '';
+  SpendingConst();
+
+  void fromJSON (Map<String, dynamic> resp){
+    objectId = resp['object_id'];
+    companyId = resp['company_id'];
+    creatorId = resp['creator_id'];
+    price = resp['price'];
+    spendingId = resp['spending_id'];
+    name = resp['name'];
+  }
+}

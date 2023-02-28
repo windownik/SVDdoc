@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:svd_doc/custom_widgets/default_btn.dart';
 import 'package:svd_doc/custom_widgets/text_field_without_top_hint.dart';
+import 'package:svd_doc/global_pop_ups/please_pick_object.dart';
+import 'package:svd_doc/global_pop_ups/select_expenditure_items.dart';
 import 'package:svd_doc/logic/api.dart';
 import 'package:svd_doc/logic/data_base.dart';
 import 'package:svd_doc/logic/global_const.dart';
@@ -23,7 +25,7 @@ class _CreateNewContractState extends State<CreateNewContract> {
   List<DropdownMenuItem<int>> dropObjectsItems = [];
 
   Company? pickCompany;
-  Company? pickObject;
+  CompanyObject? pickObject;
 
   @override
   void initState() {
@@ -99,6 +101,7 @@ class _CreateNewContractState extends State<CreateNewContract> {
             ],
           )),
       body: SingleChildScrollView(
+        keyboardDismissBehavior: ScrollViewKeyboardDismissBehavior.onDrag,
         child: SizedBox(
           height: height-160,
           child: Stack(
@@ -226,6 +229,11 @@ class _CreateNewContractState extends State<CreateNewContract> {
                         value: valueObject,
                         onChanged: (value) {
                           valueObject = value;
+                          if (value != null) {
+                            pickObject = allObjects[value];
+                          } else {
+                            pickObject = null;
+                          }
                           setState(() {});
                         },
                       ),
@@ -236,7 +244,23 @@ class _CreateNewContractState extends State<CreateNewContract> {
                     SizedBox(
                       width: width,
                       child: TextButton(
-                          onPressed: (){},
+                          onPressed: (){
+                            if (pickObject == null) {
+                              showDialog(
+                                  context: (context),
+                                  builder: (BuildContext context) {
+                                    return const PleasePickObject();
+                                  });
+                            } else {
+                              showDialog(
+                                  context: context,
+                                  builder: (BuildContext context) {
+                                    return SelectExpenditureItems(pickObject: pickObject!,);
+                                  }
+                              );
+                            }
+
+                          },
                           child: const Text('Добавить статью затрат',
                             style: TextStyle(fontSize: 16, color: mySet.main, decoration: TextDecoration.underline),)
                       ),
@@ -332,7 +356,8 @@ class _CreateNewContractState extends State<CreateNewContract> {
                       fontSize: 16,
                       fontFamily: "Italic",
                       fontWeight: FontWeight.w400),
-                  onTap: () {}),)
+                  onTap: () {}),
+              )
             ],
           ),
         ),

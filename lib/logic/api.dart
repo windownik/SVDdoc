@@ -314,6 +314,28 @@ class ApiSVD {
       throw Exception("${res.statusCode}");
     }
   }
+
+  Future<List<SpendingConst>> getSpendingConst (int objectId) async {
+    Map<String, dynamic> params = {
+      "object_id": objectId.toString(),
+    };
+    var url = Uri.http(urlAddress, "/spending_const", params);
+    var res = await http.get(url);
+
+    if (res.statusCode != 200) {
+      throw Exception("${res.statusCode}");
+    }
+    Map<String, dynamic> response = jsonDecode(res.body);
+    var allSpendingJson = response['spending_const'];
+    List<SpendingConst> allSpendingConst = [];
+    for (var resp in allSpendingJson) {
+      SpendingConst spendingConst = SpendingConst();
+      spendingConst.fromJSON(resp);
+      allSpendingConst.add(spendingConst);
+    }
+    return allSpendingConst;
+  }
+
   Future<int> createObject (String name, int companyId) async {
     User user = await userGet();
 
