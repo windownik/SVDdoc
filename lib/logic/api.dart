@@ -144,6 +144,77 @@ class ApiSVD {
     return newUsers;
   }
 
+  Future<List<User>> getCompanyLineUsers(int companyId) async {
+    Map<String, dynamic> params = {
+      "access_token": access,
+      "company_id": companyId.toString(),
+    };
+    var url = Uri.http(urlAddress, "/users_line", params);
+    var res = await http.get(url);
+    if (res.statusCode == 401) {
+      await updateAccess();
+      res = await http.get(url);
+    }
+    if (res.statusCode != 200) {
+      throw Exception("${res.statusCode}");
+    }
+    Map<String, dynamic> response = jsonDecode(res.body);
+    var users = response['users_line'];
+    db.writeStringNewUsers(res.body);
+    List<User> newUsers = [];
+    for (var i in users) {
+      newUsers.add(User(
+          userId: i['user_id'],
+          phone: i['phone'],
+          name: i['name'],
+          surname: i['surname'],
+          companyId: companyId,
+          profession: i['position'],
+          companyName: '0',
+          email: i['email'],
+          status: i['status'],
+          createDate: i['create_date']));
+    }
+    return newUsers;
+  }
+
+  Future<void> updateCompanyLineUsers(int companyId, String usersLine) async {
+    Map<String, dynamic> params = {
+      "access_token": access,
+      'users_line': usersLine,
+      "company_id": companyId.toString(),
+    };
+
+    var url = Uri.http(urlAddress, "/users_line", params);
+    var res = await http.put(url);
+    if (res.statusCode == 401) {
+      await updateAccess();
+      res = await http.put(url);
+    }
+    if (res.statusCode != 200) {
+      throw Exception("${res.statusCode}");
+    }
+
+  }
+
+  Future<void> createCompanyLineUsers(int companyId, String usersLine) async {
+    Map<String, dynamic> params = {
+      "access_token": access,
+      'users_line': usersLine,
+      "company_id": companyId.toString(),
+    };
+    var url = Uri.http(urlAddress, "/users_line", params);
+    var res = await http.post(url);
+    if (res.statusCode == 401) {
+      await updateAccess();
+      res = await http.post(url);
+    }
+    if (res.statusCode != 200) {
+      throw Exception("${res.statusCode}");
+    }
+    print([res.statusCode, companyId, usersLine]);
+  }
+
   Future<List<Company>> getCompanyList() async {
     var url = Uri.http(urlAddress, "/company_all");
     var res = await http.get(url);

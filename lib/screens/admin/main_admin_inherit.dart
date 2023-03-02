@@ -30,6 +30,7 @@ class MainAdminModel extends ChangeNotifier {
   String assetsImageFont = 'assets/app_bar/admin_main.png';
   Widget pickWidget = const AdminUsersMainInfo();
   List<User> allUsersCompany = [];
+  List<User> usersCompanyLine = [];
 
   // Main App Bar Tittle
   void updateMainTitle(String title) {
@@ -149,7 +150,19 @@ class MainAdminModel extends ChangeNotifier {
 
   void updateAllUsersCompany(int companyId) async {
     allUsersCompany.clear();
-    allUsersCompany = await api.usersInCompany(companyId);
+    allUsersCompany = await api.getCompanyLineUsers(companyId);
+    notifyListeners();
+  }
+
+  void insertAllUsersCompany(List<User> allUsers) async {
+    allUsersCompany.clear();
+    allUsersCompany = allUsers;
+    notifyListeners();
+  }
+
+  void insertUsersCompanyLine(List<User> usersCompanyLine) async {
+    this.usersCompanyLine.clear();
+    this.usersCompanyLine = usersCompanyLine;
     notifyListeners();
   }
 

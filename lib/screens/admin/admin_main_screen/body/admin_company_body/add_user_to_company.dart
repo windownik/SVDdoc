@@ -27,7 +27,6 @@ class _AddUserToCompanyState extends State<AddUserToCompany> {
   User? pickUser;
   List<Profession> pickListPro = ListProfession.professionSvd;
   Profession pickProfession = ListProfession.professionSvd.first;
-  bool enableProfession = false;
   final ApiSVD api = ApiSVD();
 
   @override
@@ -37,7 +36,7 @@ class _AddUserToCompanyState extends State<AddUserToCompany> {
   }
 
   void updateDropUsersItems() async {
-    freeUsersList = await api.getUsers();
+    freeUsersList = await api.usersInCompany(widget.company.companyId);
     dropUsersItems = [];
     int i = 0;
     for (User user in freeUsersList) {
@@ -83,6 +82,8 @@ class _AddUserToCompanyState extends State<AddUserToCompany> {
 
   @override
   Widget build(BuildContext context) {
+    List<User> usersCompanyLine = MainAdminInherit.of(context)?.usersCompanyLine ?? [];
+
     double width = MediaQuery.of(context).size.width;
     double height = MediaQuery.of(context).size.height;
     return Container(
@@ -152,55 +153,12 @@ class _AddUserToCompanyState extends State<AddUserToCompany> {
                     const SizedBox(
                       height: 18,
                     ),
-                    SizedBox(
-                      width: width - 40,
-                      child: const Text("Выберите должность",
-                          style: TextStyle(
-                              color: mySet.main,
-                              fontSize: 14,
-                              fontFamily: "Italic",
-                              fontWeight: FontWeight.w500)),
-                    ),
-                    const SizedBox(
-                      height: 6,
-                    ),
-                    Container(
-                      decoration: const BoxDecoration(
-                          color: mySet.white,
-                          boxShadow: [BoxShadow(
-                              color: mySet.unSelect,
-                              blurRadius: 5,
-                              offset: Offset(-3, 3)
-                          )]
-                      ),
-                      padding: const EdgeInsets.only(left: 10, right: 10),
-                      width: width - 40,
-                      child: DropdownButton<int>(
-                        items: dropProfessionItems,
-                        value: dropProfessionValue,
-                        hint: const Text('Должность'),
-                        style: const TextStyle(
-                            color: mySet.second,
-                            fontSize: 14,
-                            fontFamily: "Italic",
-                            fontWeight: FontWeight.w300),
-                        underline: const SizedBox(),
-                        isExpanded: true,
-                        menuMaxHeight: 300,
-                        onChanged: (value) {
-                          enableProfession = value != null && dropUserValue != null ? true : false;
-                          dropProfessionValue = value;
-                          pickProfession = pickListPro[value ?? 0];
-                          setState(() {});
-                        },
-                      ),
-                    ),
                     const SizedBox(
                       height: 30,
                     ),
                     UniversalBtn(
                       width: width,
-                      enable: enableProfession,
+                      enable: pickUser != null ? true : false,
                       text: 'Добавить сотрудника',
                       textStyle: const TextStyle(
                           color: mySet.white,
@@ -208,20 +166,18 @@ class _AddUserToCompanyState extends State<AddUserToCompany> {
                           fontFamily: "Italic",
                           fontWeight: FontWeight.w400),
                       onTap: () {
-                        api.updateProfession(pickUser!.userId,
-                            pickProfession.professionId,
-                            widget.company.companyId);
-                        api.sendPush(
-                            'Обновление статуса',
-                            'Поздравляем! Модератор успешно обработал вашу '
-                                'заявку на регистрацию и назначил вас в '
-                                '${widget.company.name} на должность ${pickProfession.name}.',
-                            'Поздравляем! Модератор успешно обработал вашу '
-                                'заявку на регистрацию и назначил вас в '
-                                '${widget.company.name} на должность ${pickProfession.name}.',
-                            'update profession',
-                            pickUser!.userId
-                        );
+                        usersCompanyLine.add(pickUser!);
+                        String usersLine = '';
+                        for (User user in usersCompanyLine) {
+                          usersLine = "$usersLine${user.userId},";
+                        }
+                        if (usersCompanyLine.length == 1) {
+                          api.createCompanyLineUsers(widget.company.companyId, usersLine.substring(0, usersLine.length-1));
+                        } else {
+                          api.updateCompanyLineUsers(widget.company.companyId, usersLine.substring(0, usersLine.length-1));
+                        }
+
+                        MainAdminInherit.of(context)?.insertUsersCompanyLine(usersCompanyLine);
                         Timer(const Duration(milliseconds: 100), () {
                           MainAdminInherit.of(context)?.setNewCompanyWidgetToBody(widget.company);
                         });

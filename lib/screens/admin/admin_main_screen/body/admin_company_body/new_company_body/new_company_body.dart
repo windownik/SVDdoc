@@ -238,6 +238,15 @@ class _NewCompanyAdminBodyState extends State<NewCompanyAdminBody> {
                     showPopDefault(e, context);
                   }
                 } else {
+                  List<User> allUsersCompany = MainAdminInherit.of(context)?.allUsersCompany ?? [];
+                  if (allUsersCompany.isNotEmpty) {
+                    String usersLine = '';
+                    for (User user in allUsersCompany) {
+                      usersLine = '$usersLine${user.userId},';
+                    }
+                    api.updateCompanyLineUsers(widget.company!.companyId, usersLine.substring(0, usersLine.length-1));
+                  }
+
                   bool status = await api.updateCompany(name, widget.company?.companyId ?? 1);
                   if (status) {
                     MainAdminInherit.of(context)?.setAllCompanyListWidgetToBody();
@@ -266,6 +275,7 @@ class ListUsersCards extends StatefulWidget {
 }
 
 class _ListUsersCardsState extends State<ListUsersCards> {
+  ApiSVD api = ApiSVD();
   @override
   Widget build(BuildContext context) {
 
@@ -298,7 +308,15 @@ class _ListUsersCardsState extends State<ListUsersCards> {
               }
 
               final User user = widget.allUsers.removeAt(oldIndex);
+
               widget.allUsers.insert(newIndex, user);
+
+              String usersLine = '';
+              for (User user in widget.allUsers) {
+                usersLine = '$usersLine${user.userId},';
+              }
+              // api.updateCompanyLineUsers(widget.company!.companyId, usersLine.substring(0, usersLine.length-1));
+              MainAdminInherit.of(context)?.insertUsersCompanyLine(widget.allUsers);
             });
           },
       );
