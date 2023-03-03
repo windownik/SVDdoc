@@ -1,11 +1,11 @@
 
 import 'package:flutter/material.dart';
 import 'package:svd_doc/custom_widgets/text_field_search.dart';
+import 'package:svd_doc/global_pop_ups/spending_const_input_price.dart';
 import 'package:svd_doc/logic/api.dart';
 import 'package:svd_doc/logic/data_base.dart';
 import 'package:svd_doc/logic/global_const.dart';
 
-import '../custom_widgets/default_btn.dart';
 
 class SelectExpenditureItems extends StatefulWidget{
   final CompanyObject pickObject;
@@ -104,46 +104,91 @@ class _SelectExpenditureItemsState extends State<SelectExpenditureItems> {
                   style: TextStyle(color: mySet.main),
             )) :
             SizedBox(
-              height: 180,
+              height: 240,
               width: 315,
               child: ListView(
               children: [
-                for (SpendingConst one in allSpendingConst) (
-                    Container(
-                      margin: const EdgeInsets.only(bottom: 10, left: 20, right: 20),
-                      padding: const EdgeInsets.only(left: 10),
-                      width: 275,
-                      height: 38,
+                for (SpendingConst one in allSpendingConst)
+                    SpendingConstCard(one: one,
+                      onTap: () async {
 
-                      alignment: Alignment.centerLeft,
-                      decoration: const BoxDecoration(
-                        color: mySet.white,
-                        boxShadow: [BoxShadow(
-                            color: mySet.input,
-                            blurRadius: 5,
-                            offset: Offset(-3, 3)
-                        )]
-                      ),
-                      child: Text('${one.spendingId} ${one.name}',
-                      overflow: TextOverflow.ellipsis,
-                      style: const TextStyle(color: mySet.main, fontSize: 14),),
+                      int price = await showDialog(
+                          context: context,
+                          builder: (BuildContext context) {
+                            return SpendingConstInputPrice(
+                              pickObject: widget.pickObject,
+                              spendingConst: one,
+                            );
+                          }
+                      );
+                      one.updatePriceInDoc(price);
+                      Navigator.pop(context, one);
+                      },
+                      pickObject: widget.pickObject,
                     )
-                )
+
               ],
             ),
             ),
-            const SizedBox(height: 20,),
-            UniversalBtn(
-                width: 275,
-                text: 'Далее',
-                textStyle: const TextStyle(
-                    color: mySet.white,
-                    fontSize: 16,
-                    fontFamily: "Italic",
-                    fontWeight: FontWeight.w400),
-                onTap: () {}),
           ],
         ),
+      ),
+    );
+  }
+}
+
+
+class SpendingConstCard extends StatefulWidget{
+  const SpendingConstCard({
+    super.key,
+    required this.one,
+    required this.onTap, required this.pickObject,
+  });
+  final SpendingConst one;
+  final CompanyObject pickObject;
+  final GestureTapCallback onTap;
+
+  @override
+  State<SpendingConstCard> createState() => _SpendingConstCardState();
+}
+
+class _SpendingConstCardState extends State<SpendingConstCard> {
+  bool pres = false;
+  @override
+  Widget build(BuildContext context) {
+    return GestureDetector(
+      onTap: widget.onTap,
+      onTapDown: (tap) {
+        pres = true;
+        setState(() { });
+      },
+      onTapUp: (tap) {
+        pres = false;
+        setState(() { });
+      },
+      onTapCancel: () {
+        pres = false;
+        setState(() { });
+      },
+
+      child: Container(
+        margin: const EdgeInsets.only(bottom: 10, left: 20, right: 20),
+        padding: const EdgeInsets.only(left: 10),
+        width: 275,
+        height: 38,
+
+        alignment: Alignment.centerLeft,
+        decoration: BoxDecoration(
+            color: pres ? mySet.shadow : mySet.white,
+            boxShadow: const [BoxShadow(
+                color: mySet.input,
+                blurRadius: 5,
+                offset: Offset(-3, 3)
+            )]
+        ),
+        child: Text('${widget.one.spendingId} ${widget.one.name}',
+          overflow: TextOverflow.ellipsis,
+          style: const TextStyle(color: mySet.main, fontSize: 14),),
       ),
     );
   }

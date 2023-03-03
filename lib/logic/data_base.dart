@@ -200,7 +200,7 @@ class CompanyObject {
 }
 
 class SpendingConst {
-  int objectId = 0, companyId = 0, creatorId = 0, price = 0;
+  int objectId = 0, companyId = 0, creatorId = 0, price = 0, priceInDoc = 0;
   String name = '', spendingId = '';
   SpendingConst();
 
@@ -212,4 +212,24 @@ class SpendingConst {
     spendingId = resp['spending_id'];
     name = resp['name'];
   }
+
+  void updatePriceInDoc(priceInDoc) {
+    this.priceInDoc = priceInDoc;
+  }
+}
+
+class BillDocument {
+  String billNumber, comment;
+  Company? investor, contRAgent, techCustomer;
+  CompanyObject? pickObject;
+  List<SpendingConst> spendingConstList;
+
+  BillDocument(
+      {required this.billNumber,
+        required this.comment,
+        required this.investor,
+        required this.contRAgent,
+        required this.techCustomer,
+      required this.spendingConstList,
+      required this.pickObject});
 }

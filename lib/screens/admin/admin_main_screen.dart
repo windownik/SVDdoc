@@ -41,8 +41,6 @@ class _MainAdminScaffoldState extends State<MainAdminScaffold> {
 
   @override
   Widget build(BuildContext context) {
-    // double width = MediaQuery.of(context).size.width;
-    // MainAdminInherit.of(context)?.updateScreenWidth(width);
     return MainAdminWidget(
       bodyWidget: MainAdminInherit.of(context)?.pickWidget ?? const AdminUsersMainInfo(),
       showBottomBar: MainAdminInherit.of(context)?.showBottomBar ?? true,

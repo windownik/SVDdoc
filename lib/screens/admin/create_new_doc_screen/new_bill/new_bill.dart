@@ -17,28 +17,35 @@ class CreateNewContract extends StatefulWidget {
 class _CreateNewContractState extends State<CreateNewContract> {
   bool textHintEmpty = true;
   ApiSVD api = ApiSVD();
-  int? valueCompany, valueObject;
-  List<Company> allCompany = [];
-  List<DropdownMenuItem<int>> dropCompanyItems = [];
+  TextEditingController commentController = TextEditingController();
+  TextEditingController numberController = TextEditingController();
+  int? valueInvestorCompany, valueObject, valueContrAgentCompany;
+  List<Company> investorCompany = [], contrAgentCompany = [];
+  List<DropdownMenuItem<int>> dropInvestorCompanyItems = [];
+  List<DropdownMenuItem<int>> dropContrAgentCompanyItems = [];
 
   List<CompanyObject> allObjects = [];
   List<DropdownMenuItem<int>> dropObjectsItems = [];
 
-  Company? pickCompany;
+  Company? pickInvestorCompany, pickContrAgentCompany, svdCompany;
   CompanyObject? pickObject;
+
+  List<SpendingConst> spendingConstList = [];
 
   @override
   void initState() {
     super.initState();
-    getApiCompanyList();
+    getInvestorCompanyList();
+    getContragentCompanyList();
   }
 
-  void getApiCompanyList() async {
-    allCompany = await api.getCompanyList();
-    dropCompanyItems.clear();
-    for (Company company in allCompany) {
-      dropCompanyItems.add(DropdownMenuItem(
-        value: company.companyId,
+  void getInvestorCompanyList() async {
+    investorCompany = await api.getCompanyListType(2);
+    dropInvestorCompanyItems.clear();
+    int i = 0;
+    for (Company company in investorCompany) {
+      dropInvestorCompanyItems.add(DropdownMenuItem(
+        value: i,
         child: Text(company.name,
             style: const TextStyle(
                 color: mySet.main,
@@ -46,6 +53,27 @@ class _CreateNewContractState extends State<CreateNewContract> {
                 fontFamily: "Italic",
                 fontWeight: FontWeight.w400)),
       ));
+      i += 1;
+    }
+    setState(() {});
+  }
+
+  void getContragentCompanyList() async {
+    contrAgentCompany = await api.getCompanyListType(3);
+    svdCompany = (await api.getCompanyListType(1))[0];
+    dropContrAgentCompanyItems.clear();
+    int i = 0;
+    for (Company company in contrAgentCompany) {
+      dropContrAgentCompanyItems.add(DropdownMenuItem(
+        value: i,
+        child: Text(company.name,
+            style: const TextStyle(
+                color: mySet.main,
+                fontSize: 14,
+                fontFamily: "Italic",
+                fontWeight: FontWeight.w400)),
+      ));
+      i += 1;
     }
     setState(() {});
   }
@@ -134,6 +162,7 @@ class _CreateNewContractState extends State<CreateNewContract> {
                       height: 4,
                     ),
                     TextFieldWithoutTopHint(
+                      fieldController: numberController,
                       textEmpty: textHintEmpty,
                       hintText: 'Номер счета',
                       onChanged: (text) {
@@ -177,14 +206,14 @@ class _CreateNewContractState extends State<CreateNewContract> {
                             color: Theme.of(context).hintColor,
                           ),
                         ),
-                        items: dropCompanyItems,
-                        value: valueCompany,
+                        items: dropInvestorCompanyItems,
+                        value: valueInvestorCompany,
                         onChanged: (value) {
-                          valueCompany = value;
-                          valueObject = null;
+                          valueInvestorCompany = value;
+
                           if (value != null) {
-                            pickCompany = allCompany[value];
-                            getObjectList(pickCompany!.companyId);
+                            pickInvestorCompany = investorCompany[value];
+                            getObjectList(pickInvestorCompany!.companyId);
                           }
                           setState(() {});
                         },
@@ -244,7 +273,7 @@ class _CreateNewContractState extends State<CreateNewContract> {
                     SizedBox(
                       width: width,
                       child: TextButton(
-                          onPressed: (){
+                          onPressed: () async {
                             if (pickObject == null) {
                               showDialog(
                                   context: (context),
@@ -252,19 +281,30 @@ class _CreateNewContractState extends State<CreateNewContract> {
                                     return const PleasePickObject();
                                   });
                             } else {
-                              showDialog(
+                              SpendingConst data = await showDialog(
                                   context: context,
                                   builder: (BuildContext context) {
                                     return SelectExpenditureItems(pickObject: pickObject!,);
                                   }
                               );
+                              spendingConstList.add(data);
+                              setState(() {});
                             }
 
                           },
                           child: const Text('Добавить статью затрат',
-                            style: TextStyle(fontSize: 16, color: mySet.main, decoration: TextDecoration.underline),)
+                            style: TextStyle(fontSize: 16,
+                                color: mySet.main,
+                                decoration: TextDecoration.underline),)
                       ),
                     ),
+                    for (SpendingConst spendingConst in spendingConstList)
+                      SpendingConstCard(spendingConst: spendingConst,
+                        onTap: () {
+                        spendingConstList.remove(spendingConst);
+                        setState(() { });
+                        },
+                      ),
                     const SizedBox(
                       height: 3,
                     ),
@@ -300,14 +340,12 @@ class _CreateNewContractState extends State<CreateNewContract> {
                             color: Theme.of(context).hintColor,
                           ),
                         ),
-                        items: dropCompanyItems,
-                        value: valueCompany,
+                        items: dropContrAgentCompanyItems,
+                        value: valueContrAgentCompany,
                         onChanged: (value) {
-                          valueCompany = value;
-                          valueObject = null;
+                          valueContrAgentCompany = value;
                           if (value != null) {
-                            pickCompany = allCompany[value];
-                            getObjectList(pickCompany!.companyId);
+                            pickContrAgentCompany = contrAgentCompany[value];
                           }
                           setState(() {});
                         },
@@ -331,9 +369,9 @@ class _CreateNewContractState extends State<CreateNewContract> {
                       height: 100,
                       textEmpty: textHintEmpty,
                       hintText: 'Коментарий (необязательно)',
+                      fieldController: numberController,
                       onChanged: (text) {
                         textHintEmpty = text.isEmpty ? true : false;
-
                         setState(() {});
                       },
                     ),
@@ -356,11 +394,86 @@ class _CreateNewContractState extends State<CreateNewContract> {
                       fontSize: 16,
                       fontFamily: "Italic",
                       fontWeight: FontWeight.w400),
-                  onTap: () {}),
+                  onTap: () {
+                    if (pickInvestorCompany != null || pickContrAgentCompany != null || pickObject != null) {
+                      BillDocument billDoc = BillDocument(
+                        billNumber: commentController.text,
+                        comment: numberController.text,
+                        investor: pickInvestorCompany,
+                        contRAgent: pickContrAgentCompany,
+                        techCustomer: svdCompany,
+                        spendingConstList: spendingConstList,
+                          pickObject: pickObject
+                    );
+                    }
+                    Navigator.push(context, MaterialPageRoute(builder: (context) => ),
+                    );
+                  }),
               )
             ],
           ),
         ),
+      ),
+    );
+  }
+}
+
+
+class SpendingConstCard extends StatefulWidget{
+  final SpendingConst spendingConst;
+  final GestureTapCallback onTap;
+  const SpendingConstCard({super.key, required this.spendingConst, required this.onTap});
+
+  @override
+  State<SpendingConstCard> createState() => _SpendingConstCardState();
+}
+
+class _SpendingConstCardState extends State<SpendingConstCard> {
+  bool pres = false;
+
+  @override
+  Widget build(BuildContext context) {
+
+    String name = "${widget.spendingConst.spendingId} ${widget.spendingConst.name}";
+    name = name.length > 25 ? name.substring(0, 25) : name;
+
+    return GestureDetector(
+      onTap: widget.onTap,
+      onTapUp: (tap) {
+        pres = false;
+        setState(() { });
+      },
+      onTapCancel: () {
+        pres = false;
+        setState(() { });
+      },
+      onTapDown: (tap) {
+        pres = true;
+        setState(() { });
+      },
+      child: Container(
+        color: pres ? mySet.shadow : Colors.transparent,
+        padding: const EdgeInsets.only(top: 10, bottom: 5),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+          Text(
+            name,
+            style: const TextStyle(
+                color: mySet.main,
+                fontSize: 14,
+                fontFamily: "Italic",
+                fontWeight: FontWeight.w500),
+          ),
+          Text(
+            "Сумма ${widget.spendingConst.priceInDoc} руб.",
+            style: const TextStyle(
+                color: mySet.main,
+                fontSize: 14,
+                fontFamily: "Italic",
+                fontWeight: FontWeight.w500),
+          ),
+        ]),
       ),
     );
   }

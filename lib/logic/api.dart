@@ -237,6 +237,33 @@ class ApiSVD {
     return companyList;
   }
 
+  Future<List<Company>> getCompanyListType(int companyTypeId) async {
+    Map<String, dynamic> params = {
+      "company_type_id": companyTypeId.toString(),
+      "access_token": access,
+    };
+
+    var url = Uri.http(urlAddress, "/company_by_type", params);
+    var res = await http.get(url);
+    if (res.statusCode != 200) {
+      throw Exception("${res.statusCode}");
+    }
+    Map<String, dynamic> response = jsonDecode(res.body);
+    var companyS = response['company_list'];
+    db.writeStringNewUsers(res.body);
+    List<Company> companyList = [];
+    for (var i in companyS) {
+      companyList.add(Company(
+        companyId: i['id'],
+        companyTypeId: i['company_type_id'],
+        name: i['company_name'],
+        typeName: i['company_type_name'],
+        countObject: i['count_object'],
+      ));
+    }
+    return companyList;
+  }
+
   Future<bool> updateProfession (int userId, int positionId, int companyId, ) async {
     Map<String, dynamic> params = {
       "position_id": positionId.toString(),
