@@ -139,6 +139,10 @@ class User {
     required this.createDate,
     this.activeDate = ''
   });
+
+  void updateCoName(String coName) {
+    companyName = coName;
+  }
 }
 
 class Company {
@@ -199,6 +203,21 @@ class CompanyObject {
   });
 }
 
+class DbFile {
+  int creatorId = 0, fileId = 0;
+  String name = '', url = '', fileType = '';
+
+  DbFile();
+
+  void fromCreateJson(Map<String, dynamic> resp) {
+    creatorId = resp['creator_id'];
+    name = resp['file_name'];
+    fileId = resp['file_id'];
+    fileType = resp['file_type'];
+    url = resp['url'];
+  }
+}
+
 class SpendingConst {
   int objectId = 0, companyId = 0, creatorId = 0, price = 0, priceInDoc = 0;
   String name = '', spendingId = '';
@@ -220,9 +239,13 @@ class SpendingConst {
 
 class BillDocument {
   String billNumber, comment;
-  Company? investor, contRAgent, techCustomer;
-  CompanyObject? pickObject;
+  User creator;
+  Company investor, contRAgent, techCustomer;
+  CompanyObject pickObject;
   List<SpendingConst> spendingConstList;
+  List<DbFile> filesPhoto = [];
+  List<DbFile> filesDoc = [];
+  List<User> usersLine = [];
 
   BillDocument(
       {required this.billNumber,
@@ -231,5 +254,38 @@ class BillDocument {
         required this.contRAgent,
         required this.techCustomer,
       required this.spendingConstList,
-      required this.pickObject});
+      required this.pickObject,
+      required this.creator});
+
+  void updateFilesPhoto(List<DbFile> filesPhoto) {
+    this.filesPhoto = filesPhoto;
+  }
+
+  void updateFilesDoc(List<DbFile> filesDoc) {
+    this.filesDoc = filesDoc;
+  }
+
+  void addFile(DbFile file) {
+    if (file.fileType == 'image') {
+      filesPhoto.add(file);
+    } else {
+      filesDoc.add(file);
+    }
+  }
+
+  void updateUsersLine(List<User> usersLine) {
+    List<User> newLine = [];
+    for (User user in usersLine) {
+      if (user.companyId == investor.companyId) {
+        user.updateCoName(investor.name);
+      } else if (user.companyId == contRAgent.companyId) {
+        user.updateCoName(contRAgent.name);
+      } else if (user.companyId == techCustomer.companyId) {
+        user.updateCoName(techCustomer.name);
+      }
+      newLine.add(user);
+    }
+
+    this.usersLine = newLine;
+  }
 }

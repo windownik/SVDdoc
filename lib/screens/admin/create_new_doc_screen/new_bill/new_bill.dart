@@ -6,6 +6,7 @@ import 'package:svd_doc/global_pop_ups/select_expenditure_items.dart';
 import 'package:svd_doc/logic/api.dart';
 import 'package:svd_doc/logic/data_base.dart';
 import 'package:svd_doc/logic/global_const.dart';
+import 'package:svd_doc/screens/admin/create_new_doc_screen/new_bill_upload_photo/new_bill_%20upload_photo.dart';
 
 class CreateNewContract extends StatefulWidget {
   const CreateNewContract({super.key});
@@ -16,6 +17,7 @@ class CreateNewContract extends StatefulWidget {
 
 class _CreateNewContractState extends State<CreateNewContract> {
   bool textHintEmpty = true;
+  UserDataBase  db = UserDataBase();
   ApiSVD api = ApiSVD();
   TextEditingController commentController = TextEditingController();
   TextEditingController numberController = TextEditingController();
@@ -84,9 +86,10 @@ class _CreateNewContractState extends State<CreateNewContract> {
       return dropObjectsItems.clear();
     }
     dropObjectsItems.clear();
+    int i = 0;
     for (CompanyObject object in allObjects) {
       dropObjectsItems.add(DropdownMenuItem(
-        value: object.objectId,
+        value: i,
         child: Text(object.name,
             style: const TextStyle(
                 color: mySet.main,
@@ -94,6 +97,7 @@ class _CreateNewContractState extends State<CreateNewContract> {
                 fontFamily: "Italic",
                 fontWeight: FontWeight.w400)),
       ));
+      i += 1;
     }
     setState(() {});
   }
@@ -131,7 +135,7 @@ class _CreateNewContractState extends State<CreateNewContract> {
       body: SingleChildScrollView(
         keyboardDismissBehavior: ScrollViewKeyboardDismissBehavior.onDrag,
         child: SizedBox(
-          height: height-160,
+          // height: height-160,
           child: Stack(
             children: [
               Positioned(
@@ -369,14 +373,14 @@ class _CreateNewContractState extends State<CreateNewContract> {
                       height: 100,
                       textEmpty: textHintEmpty,
                       hintText: 'Коментарий (необязательно)',
-                      fieldController: numberController,
+                      fieldController: commentController,
                       onChanged: (text) {
                         textHintEmpty = text.isEmpty ? true : false;
                         setState(() {});
                       },
                     ),
                     const SizedBox(
-                      height: 10,
+                      height: 110,
                     ),
 
                   ],
@@ -395,19 +399,25 @@ class _CreateNewContractState extends State<CreateNewContract> {
                       fontFamily: "Italic",
                       fontWeight: FontWeight.w400),
                   onTap: () {
-                    if (pickInvestorCompany != null || pickContrAgentCompany != null || pickObject != null) {
+                    if (pickInvestorCompany != null || pickContrAgentCompany != null || pickObject != null || commentController.text.isNotEmpty || spendingConstList.isNotEmpty) {
+
+                      User user = db.getUser();
+
                       BillDocument billDoc = BillDocument(
-                        billNumber: commentController.text,
-                        comment: numberController.text,
-                        investor: pickInvestorCompany,
-                        contRAgent: pickContrAgentCompany,
-                        techCustomer: svdCompany,
-                        spendingConstList: spendingConstList,
-                          pickObject: pickObject
-                    );
+                          billNumber: numberController.text,
+                          comment: commentController.text,
+                          investor: pickInvestorCompany!,
+                          contRAgent: pickContrAgentCompany!,
+                          techCustomer: svdCompany!,
+                          spendingConstList: spendingConstList,
+                          pickObject: pickObject!,
+                          creator: user
+                      );
+                      Navigator.push(context,
+                        MaterialPageRoute(builder: (context) =>
+                            CreateNewBillDoc(billDocument: billDoc,)),
+                      );
                     }
-                    Navigator.push(context, MaterialPageRoute(builder: (context) => ),
-                    );
                   }),
               )
             ],

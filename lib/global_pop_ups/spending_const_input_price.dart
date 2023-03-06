@@ -23,6 +23,8 @@ class SpendingConstInputPrice extends StatefulWidget{
 class _SpendingConstInputPriceState extends State<SpendingConstInputPrice> {
   List<SpendingConst> allSpendingConst = [];
   List<SpendingConst> allSpendingConstDb = [];
+  final TextEditingController controller = TextEditingController();
+  bool textEmpty = false;
   int price = 0;
   final ApiSVD api = ApiSVD();
 
@@ -75,13 +77,27 @@ class _SpendingConstInputPriceState extends State<SpendingConstInputPrice> {
                     fontWeight: FontWeight.w300)),
                 const SizedBox(height: 5,),
                 TextFieldWithoutTopHint(
+                  fieldController: controller,
+                  keyboardType: TextInputType.number,
+                  textEmpty: textEmpty,
                   hintText: '10 000',
                   onChanged: (text) {
+                    if (text.isNotEmpty) (textEmpty = false);
+                    if (text.isEmpty) (textEmpty = true);
+                    String lustNumb = text.substring(text.length - 1, text.length);
+                    if ('0123456789'.contains(lustNumb) == false) {
+                      controller.text = text.substring(0, text.length-1);
+                      controller.selection =
+                          TextSelection.fromPosition(
+                              TextPosition(
+                                  offset: controller.text.length));
+                    }
+
                     price = int.parse(text);
+                    setState(() { });
                   },
                   width: 275,
                 ),
-
               ],
             ),
 

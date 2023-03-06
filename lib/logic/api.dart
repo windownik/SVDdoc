@@ -178,6 +178,42 @@ class ApiSVD {
     return newUsers;
   }
 
+  Future<List<User>> getPreBillLineUsers(
+      {required int investorId, required int techCustomerId, required int contRAgent}) async {
+    Map<String, dynamic> params = {
+      "investor_id": investorId.toString(),
+      "tech_customer_id": techCustomerId.toString(),
+      "contr_agent": contRAgent.toString(),
+    };
+    var url = Uri.http(urlAddress, "/get_bill_line", params);
+    var res = await http.get(url);
+    if (res.statusCode == 401) {
+      await updateAccess();
+      res = await http.get(url);
+    }
+    if (res.statusCode != 200) {
+      throw Exception("${res.statusCode}");
+    }
+    Map<String, dynamic> response = jsonDecode(res.body);
+    var users = response['users_line'];
+    db.writeStringNewUsers(res.body);
+    List<User> newUsers = [];
+    for (var i in users) {
+      newUsers.add(User(
+          userId: i['user_id'],
+          phone: i['phone'],
+          name: i['name'],
+          surname: i['surname'],
+          companyId: i['company_id'],
+          profession: i['position'],
+          companyName: '0',
+          email: i['email'],
+          status: i['status'],
+          createDate: i['create_date']));
+    }
+    return newUsers;
+  }
+
   Future<void> updateCompanyLineUsers(int companyId, String usersLine) async {
     Map<String, dynamic> params = {
       "access_token": access,
@@ -276,6 +312,23 @@ class ApiSVD {
     if (res.statusCode == 401) {
       await updateAccess();
       res = await http.put(url);
+    }
+    if (res.statusCode != 200) {
+      throw Exception("${res.statusCode}");
+    }
+    return true;
+  }
+
+  Future<bool> deleteUserFromUsersLine (int userId) async {
+    Map<String, dynamic> params = {
+      "user_id": userId.toString(),
+      "access_token": access,
+    };
+    var url = Uri.http(urlAddress, "/user_info", params);
+    var res = await http.delete(url);
+    if (res.statusCode == 401) {
+      await updateAccess();
+      res = await http.delete(url);
     }
     if (res.statusCode != 200) {
       throw Exception("${res.statusCode}");
@@ -411,6 +464,35 @@ class ApiSVD {
     if (res.statusCode != 200) {
       throw Exception("${res.statusCode}");
     }
+  }
+
+  Future<DbFile> sendFile (String filePath) async {
+    Map<String, dynamic> params = {
+      'access_token': access
+    };
+    var url = Uri.http(urlAddress, "/file_upload", params);
+    var request = http.MultipartRequest('POST', url)
+      ..files.add(await http.MultipartFile.fromPath(
+          'file', filePath,
+          contentType: MediaType('application', 'x-tar')));
+
+    var res = await request.send();
+
+    if (res.statusCode == 401) {
+      updateAccess();
+      res = await request.send();
+    }
+
+    if (res.statusCode != 200) {
+      throw Exception("${res.statusCode}");
+    }
+    var result = await http.Response.fromStream(res);
+
+    Map<String, dynamic> response = jsonDecode(result.body);
+
+    DbFile file = DbFile();
+    file.fromCreateJson(response);
+    return file;
   }
 
   Future<List<SpendingConst>> getSpendingConst (int objectId) async {
