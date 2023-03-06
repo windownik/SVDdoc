@@ -26,7 +26,6 @@ class _CreateNewContractState extends State<CreateNewBillDoc> {
   @override
   Widget build(BuildContext context) {
     final double width = MediaQuery.of(context).size.width;
-    final double height = MediaQuery.of(context).size.height;
 
     return Scaffold(
       backgroundColor: mySet.background,
@@ -98,7 +97,7 @@ class _CreateNewContractState extends State<CreateNewBillDoc> {
                     const TitleCard(text: 'Инвестор',),
                     const SizedBox(height: 12,),
                     Text(
-                      widget.billDocument.investor?.name ?? 'Инвестор',
+                      widget.billDocument.investor.name,
                       style: const TextStyle(
                           color: mySet.main,
                           fontSize: 14,
@@ -113,7 +112,7 @@ class _CreateNewContractState extends State<CreateNewBillDoc> {
                     const TitleCard(text: 'Объект',),
                     const SizedBox(height: 12,),
                     Text(
-                      widget.billDocument.pickObject?.name ?? 'Объект',
+                      widget.billDocument.pickObject.name,
                       style: const TextStyle(
                           color: mySet.main,
                           fontSize: 14,
@@ -138,7 +137,7 @@ class _CreateNewContractState extends State<CreateNewBillDoc> {
                     const TitleCard(text: 'Контрагент',),
                     const SizedBox(height: 12,),
                     Text(
-                      widget.billDocument.contRAgent?.name ?? 'Контрагент',
+                      widget.billDocument.contRAgent.name,
                       style: const TextStyle(
                           color: mySet.main,
                           fontSize: 14,
@@ -153,7 +152,7 @@ class _CreateNewContractState extends State<CreateNewBillDoc> {
                     const TitleCard(text: 'Технический заказчик',),
                     const SizedBox(height: 12,),
                     Text(
-                      widget.billDocument.techCustomer?.name ?? 'Технический заказчик',
+                      widget.billDocument.techCustomer.name,
                       style: const TextStyle(
                           color: mySet.main,
                           fontSize: 14,
@@ -235,9 +234,9 @@ class _CreateNewContractState extends State<CreateNewBillDoc> {
                   onTap: () async {
 
                     List<User> usersLine = await api.getPreBillLineUsers(
-                        investorId: widget.billDocument.investor?.companyId ?? 0,
-                        techCustomerId: widget.billDocument.techCustomer?.companyId ?? 0,
-                        contRAgent: widget.billDocument.contRAgent?.companyId ?? 0);
+                        investorId: widget.billDocument.investor.companyId,
+                        techCustomerId: widget.billDocument.techCustomer.companyId,
+                        contRAgent: widget.billDocument.contRAgent.companyId);
                     widget.billDocument.updateUsersLine(usersLine);
 
                     Navigator.push(context,
