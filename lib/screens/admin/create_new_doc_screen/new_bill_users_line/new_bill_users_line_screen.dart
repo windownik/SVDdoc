@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:svd_doc/custom_widgets/custome_icon_button.dart';
 import 'package:svd_doc/custom_widgets/default_btn.dart';
+import 'package:svd_doc/global_pop_ups/success_create_bill.dart';
 import 'package:svd_doc/logic/api.dart';
 import 'package:svd_doc/logic/data_base.dart';
 import 'package:svd_doc/logic/global_const.dart';
@@ -34,7 +35,7 @@ class _NewBillUsersLineScreenState extends State<NewBillUsersLineScreen> {
                 color: mySet.main,
                 child: Image.asset(
                   'assets/app_bar/new_doc.png',
-                  height: 120,
+                  width: width,
                 ),
               ),
               Container(
@@ -126,8 +127,37 @@ class _NewBillUsersLineScreenState extends State<NewBillUsersLineScreen> {
                 fontSize: 16,
                 fontFamily: "Italic",
                 fontWeight: FontWeight.w400),
-            onTap: () {
+            onTap: () async {
+              // String usersIdLine = '';
+              // String filesIdLine = '';
+              // for (User user in widget.billDocument.usersLine) {
+              //   usersIdLine = "$usersIdLine,${user.userId}";
+              // }
+              // for (DbFile file in widget.billDocument.filesDoc) {
+              //   filesIdLine = "$filesIdLine,${file.fileId}";
+              // }
+              // for (DbFile file in widget.billDocument.filesPhoto) {
+              //   filesIdLine = "$filesIdLine,${file.fileId}";
+              // }
+              // if (usersIdLine.isNotEmpty) {
+              //   usersIdLine = usersIdLine.substring(1, usersIdLine.length);
+              // }
+              // if (filesIdLine.isNotEmpty) {
+              //   filesIdLine = filesIdLine.substring(1, filesIdLine.length);
+              // }
+              // List<String> spendingOrdersList = [];
+              // for (SpendingConst one in widget.billDocument.spendingConstList) {
+              //   spendingOrdersList.add('{"spend_id": ${one.mainId},"money": ${one.price}}');
+              // }
 
+              String? status = await showDialog(
+                  context: (context),
+                  builder: (BuildContext context) {
+                    return CreateNewBill(billDocument: widget.billDocument,);
+                  });
+              if (status != null) {
+                Navigator.of(context).pushNamedAndRemoveUntil('/admin_start', (route) => false);
+              }
             }
         ),
       ),

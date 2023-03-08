@@ -38,7 +38,7 @@ class _CreateNewContractState extends State<CreateNewBillDoc> {
                 color: mySet.main,
                 child: Image.asset(
                   'assets/app_bar/new_doc.png',
-                  height: 120,
+                  width: width,
                 ),
               ),
               Container(

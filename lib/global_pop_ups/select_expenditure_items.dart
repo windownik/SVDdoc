@@ -46,6 +46,7 @@ class _SelectExpenditureItemsState extends State<SelectExpenditureItems> {
 
   @override
   Widget build(BuildContext context) {
+    print(widget.pickObject.objectId);
     return AlertDialog(
       backgroundColor: mySet.background,
       contentPadding: EdgeInsets.zero,

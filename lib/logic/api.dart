@@ -57,6 +57,7 @@ class ApiSVD {
     };
     var url = Uri.http(urlAddress, "/user", params);
     var res = await http.post(url);
+    print([1, res.statusCode, res.body]);
     if (res.statusCode != 200) {
       throw Exception("${res.statusCode}");
     }
@@ -534,6 +535,38 @@ class ApiSVD {
     }
     Map<String, dynamic> response = jsonDecode(res.body);
     return response['object_id'];
+  }
+
+  Future<int> createBill ({
+    required String numberId,
+    required int companyId,
+    required int objectId,
+    required String comment,
+    required String usersIdLine,
+    required String filesIdLine,
+    required String spendingOrdersList,
+  }) async {
+    User user = await userGet();
+
+    Map<String, dynamic> params = {
+      "number_str_id": numberId,
+      'company_id': companyId.toString(),
+      'object_id': companyId.toString(),
+      'creator_id': user.userId.toString(),
+      'comment': comment,
+      'users_id_line': usersIdLine,
+      'files_id_line': filesIdLine,
+      'spending_orders_list': spendingOrdersList,
+      'access_token': access
+    };
+
+    var url = Uri.http(urlAddress, "/bill", params);
+    var res = await http.post(url);
+    if (res.statusCode != 200) {
+      throw Exception("${res.statusCode}");
+    }
+    Map<String, dynamic> response = jsonDecode(res.body);
+    return response['bill_id'];
   }
 
   Future<void> sendPush (

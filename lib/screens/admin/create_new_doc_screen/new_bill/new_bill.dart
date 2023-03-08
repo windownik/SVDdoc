@@ -285,14 +285,16 @@ class _CreateNewContractState extends State<CreateNewContract> {
                                     return const PleasePickObject();
                                   });
                             } else {
-                              SpendingConst data = await showDialog(
+                              SpendingConst? data = await showDialog(
                                   context: context,
                                   builder: (BuildContext context) {
                                     return SelectExpenditureItems(pickObject: pickObject!,);
                                   }
                               );
-                              spendingConstList.add(data);
-                              setState(() {});
+                              if (data != null) {
+                                spendingConstList.add(data);
+                                setState(() {});
+                              }
                             }
 
                           },

@@ -51,7 +51,7 @@ class _FileCardState extends State<FileCard> {
                     fontFamily: "Italic",
                     fontWeight: FontWeight.w500),
               ),
-              const Icon(Icons.delete_forever, color: mySet.red,)
+              const Icon(Icons.delete_forever, color: mySet.softRed,)
             ]),
       ),
     );
