@@ -128,27 +128,6 @@ class _NewBillUsersLineScreenState extends State<NewBillUsersLineScreen> {
                 fontFamily: "Italic",
                 fontWeight: FontWeight.w400),
             onTap: () async {
-              // String usersIdLine = '';
-              // String filesIdLine = '';
-              // for (User user in widget.billDocument.usersLine) {
-              //   usersIdLine = "$usersIdLine,${user.userId}";
-              // }
-              // for (DbFile file in widget.billDocument.filesDoc) {
-              //   filesIdLine = "$filesIdLine,${file.fileId}";
-              // }
-              // for (DbFile file in widget.billDocument.filesPhoto) {
-              //   filesIdLine = "$filesIdLine,${file.fileId}";
-              // }
-              // if (usersIdLine.isNotEmpty) {
-              //   usersIdLine = usersIdLine.substring(1, usersIdLine.length);
-              // }
-              // if (filesIdLine.isNotEmpty) {
-              //   filesIdLine = filesIdLine.substring(1, filesIdLine.length);
-              // }
-              // List<String> spendingOrdersList = [];
-              // for (SpendingConst one in widget.billDocument.spendingConstList) {
-              //   spendingOrdersList.add('{"spend_id": ${one.mainId},"money": ${one.price}}');
-              // }
 
               String? status = await showDialog(
                   context: (context),
