@@ -551,7 +551,7 @@ class ApiSVD {
     Map<String, dynamic> params = {
       "number_str_id": numberId,
       'company_id': companyId.toString(),
-      'object_id': companyId.toString(),
+      'object_id': objectId.toString(),
       'creator_id': user.userId.toString(),
       'comment': comment,
       'users_id_line': usersIdLine,
