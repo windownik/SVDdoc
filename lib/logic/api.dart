@@ -591,4 +591,25 @@ class ApiSVD {
       throw Exception("${res.statusCode}");
     }
   }
+
+  Future<List<ActiveMsg>> getActive () async {
+
+    Map<String, dynamic> params = {
+      'access_token': access
+    };
+
+    var url = Uri.http(urlAddress, "/active", params);
+    var res = await http.get(url);
+    if (res.statusCode != 200) {
+      throw Exception("${res.statusCode}");
+    }
+    List<ActiveMsg> activeList = [];
+    Map<String, dynamic> response = jsonDecode(res.body);
+    for (var one in response['active']) {
+      ActiveMsg msg = ActiveMsg();
+      msg.fromJSON(one);
+      activeList.add(msg);
+    }
+    return activeList;
+  }
 }

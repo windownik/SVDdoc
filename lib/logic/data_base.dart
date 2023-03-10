@@ -291,3 +291,22 @@ class BillDocument {
     this.usersLine = newLine;
   }
 }
+
+class ActiveMsg {
+  int activeId = 0, userId = 0, docId = 0;
+  String typeDoc = '', typeActive = '', title = '', description = '',
+      status = '', createDate = '';
+  ActiveMsg();
+
+  void fromJSON (Map<String, dynamic> resp){
+    activeId = resp['active_id'];
+    userId = resp['user_id'];
+    typeDoc = resp['type_doc'];
+    typeActive = resp['type_active'];
+    docId = resp['doc_id'];
+    title = resp['title'];
+    description = resp['description'];
+    status = resp['status'];
+    createDate = resp['create_date'];
+  }
+}

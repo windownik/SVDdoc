@@ -56,5 +56,4 @@ class AppBarNewObject extends StatelessWidget{
       ],
     );
   }
-
 }
