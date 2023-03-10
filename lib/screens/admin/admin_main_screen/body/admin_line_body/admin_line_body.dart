@@ -1,5 +1,4 @@
 
-import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:svd_doc/logic/global_const.dart';
 import 'package:flutter/cupertino.dart';
 
@@ -29,7 +28,7 @@ class _LineAdminBodyState extends State<LineAdminBody> {
             const SizedBox(
               height: 13,
             ),
-            const Text('У вас на рассмотрении\nнет новых документов.',
+            const Text('У вас на рассмотрении\nнет новых документов',
                 style: TextStyle(
                     color: mySet.main,
                     fontSize: 18,
