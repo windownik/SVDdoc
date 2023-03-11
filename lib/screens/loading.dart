@@ -2,6 +2,7 @@
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:loading_animation_widget/loading_animation_widget.dart';
+import 'package:svd_doc/global_pop_ups/account_not_moderated.dart';
 import 'package:svd_doc/logic/data_base.dart';
 import 'package:svd_doc/logic/global_const.dart';
 
@@ -51,7 +52,7 @@ class LoadingState extends State<Loading> {
 
   @override
   Widget build(BuildContext context) {
-
+    print(user?.profession);
     if (user != null) updatePush(user!.userId);
 
     if (user == null) {
@@ -65,6 +66,8 @@ class LoadingState extends State<Loading> {
       return const LoginScreen();
     } else if (user?.status == 'creator') {
       return const LoginScreen();
+    } else if (user?.profession == 'no') {
+      return AccountNotModerated();
     }
     return const LoadingScreen();
   }

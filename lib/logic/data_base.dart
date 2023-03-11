@@ -239,8 +239,8 @@ class SpendingConst {
     mainId = resp['id'];
     objectId = resp['object_id'];
     companyId = resp['company_id'];
-    priceInDoc = resp['const_price'];
-    price = resp['price'];
+    priceInDoc = resp['price'];
+    price = resp['const_price'];
     name = resp['spending_text'];
   }
 

@@ -105,7 +105,7 @@ class _CreateNewContractState extends State<CreateNewContract> {
   @override
   Widget build(BuildContext context) {
     final double width = MediaQuery.of(context).size.width;
-    final double height = MediaQuery.of(context).size.height;
+    // final double height = MediaQuery.of(context).size.height;
 
     return Scaffold(
       appBar: PreferredSize(
@@ -117,7 +117,7 @@ class _CreateNewContractState extends State<CreateNewContract> {
                 color: mySet.main,
                 child: Image.asset(
                   'assets/app_bar/new_doc.png',
-                  height: 120,
+                  width: width,
                 ),
               ),
               Container(
