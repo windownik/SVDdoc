@@ -46,7 +46,7 @@ class _CreateNewBillState extends State<CreateNewBill> {
     }
     List<String> spendingOrdersList = [];
     for (SpendingConst one in widget.billDocument.spendingConstList) {
-      spendingOrdersList.add('{"spend_id": ${one.mainId},"money": ${one.price}}');
+      spendingOrdersList.add('{"spend_id": ${one.mainId},"money": ${one.priceInDoc}}');
     }
     try {
       billId = await api.createBill(

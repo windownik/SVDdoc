@@ -232,7 +232,9 @@ class _CreateNewContractState extends State<CreateNewBillDoc> {
                       fontFamily: "Italic",
                       fontWeight: FontWeight.w400),
                   onTap: () async {
-
+                    if (widget.billDocument.filesDoc.isEmpty) {
+                      return;
+                    }
                     List<User> usersLine = await api.getPreBillLineUsers(
                         investorId: widget.billDocument.investor.companyId,
                         techCustomerId: widget.billDocument.techCustomer.companyId,
