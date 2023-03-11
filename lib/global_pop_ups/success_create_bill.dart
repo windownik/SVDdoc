@@ -56,7 +56,9 @@ class _CreateNewBillState extends State<CreateNewBill> {
           comment: widget.billDocument.comment,
           usersIdLine: usersIdLine,
           filesIdLine: filesIdLine,
-          spendingOrdersList: spendingOrdersList.toString()
+          spendingOrdersList: spendingOrdersList.toString(),
+          contRAgentId: widget.billDocument.contRAgent.companyId,
+          techCustomerId: widget.billDocument.techCustomer.companyId,
       );
       error = false;
     } catch (e) {

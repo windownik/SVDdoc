@@ -234,6 +234,15 @@ class SpendingConst {
     name = resp['name'];
   }
 
+  void getFromJSON (Map<String, dynamic> resp){
+    mainId = resp['id'];
+    objectId = resp['object_id'];
+    companyId = resp['company_id'];
+    priceInDoc = resp['const_price'];
+    price = resp['price'];
+    name = resp['name'];
+  }
+
   void updatePriceInDoc(priceInDoc) {
     this.priceInDoc = priceInDoc;
   }

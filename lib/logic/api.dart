@@ -57,7 +57,7 @@ class ApiSVD {
     };
     var url = Uri.http(urlAddress, "/user", params);
     var res = await http.post(url);
-    print([1, res.statusCode, res.body]);
+
     if (res.statusCode != 200) {
       throw Exception("${res.statusCode}");
     }
@@ -249,7 +249,6 @@ class ApiSVD {
     if (res.statusCode != 200) {
       throw Exception("${res.statusCode}");
     }
-    print([res.statusCode, companyId, usersLine]);
   }
 
   Future<List<Company>> getCompanyList() async {
@@ -541,6 +540,8 @@ class ApiSVD {
     required String numberId,
     required int companyId,
     required int objectId,
+    required int contRAgentId,
+    required int techCustomerId,
     required String comment,
     required String usersIdLine,
     required String filesIdLine,
@@ -551,6 +552,8 @@ class ApiSVD {
     Map<String, dynamic> params = {
       "number_str_id": numberId,
       'company_id': companyId.toString(),
+      'contr_agent_id': contRAgentId.toString(),
+      'tech_customer_id': techCustomerId.toString(),
       'object_id': objectId.toString(),
       'creator_id': user.userId.toString(),
       'comment': comment,
@@ -567,6 +570,98 @@ class ApiSVD {
     }
     Map<String, dynamic> response = jsonDecode(res.body);
     return response['bill_id'];
+  }
+
+  Future<BillDocument> getBill ({
+    required int billId,
+  }) async {
+    Map<String, dynamic> params = {
+      'bill_id': billId.toString(),
+      'access_token': access
+    };
+
+    var url = Uri.http(urlAddress, "/bill", params);
+    var res = await http.get(url);
+    if (res.statusCode != 200) {
+      throw Exception("${res.statusCode}");
+    }
+    Map<String, dynamic> response = jsonDecode(res.body);
+    User creator = User(
+        userId: response['creator']['user_id'],
+        phone: response['creator']['phone'],
+        name: response['creator']['name'],
+        surname: response['creator']['surname'],
+        companyId: response['creator']['company_id'],
+        profession: response['creator']['position'],
+        companyName: response['creator']['company_name'],
+        email: response['creator']['email'],
+        status: response['creator']['status'],
+        createDate: response['creator']['create_date']);
+
+    Company investor = Company(
+        companyId: response['investor']['id'],
+        companyTypeId: response['investor']['company_type_id'],
+        name: response['investor']['company_name'],
+        typeName: response['investor']['company_type_name'],
+        countObject: response['investor']['count_object']);
+
+    Company contRAgent = Company(
+        companyId: response['contr_agent']['id'],
+        companyTypeId: response['contr_agent']['company_type_id'],
+        name: response['contr_agent']['company_name'],
+        typeName: response['contr_agent']['company_type_name'],
+        countObject: response['contr_agent']['count_object']);
+
+    Company techCustomer = Company(
+        companyId: response['tech_customer']['id'],
+        companyTypeId: response['tech_customer']['company_type_id'],
+        name: response['tech_customer']['company_name'],
+        typeName: response['tech_customer']['company_type_name'],
+        countObject: response['tech_customer']['count_object']);
+
+    List<User> usersLine = [];
+    for (var one in response['users_line']) {
+      User oneUser = User(
+          userId: one['user_id'],
+          phone: one['phone'],
+          name: one['name'],
+          surname: one['surname'],
+          companyId: one['company_id'],
+          profession: one['position'],
+          companyName: one['company'],
+          email: one['email'],
+          status: one['status'],
+          createDate: one['create_date']);
+      usersLine.add(oneUser);
+    }
+    CompanyObject pickObject = CompanyObject(
+        objectId: response['object']['object_id'],
+        companyId: response['object']['company_id'],
+        creatorId: response['object']['creator_id'],
+        name: response['object']['name'],
+        status: response['object']['status'],
+        lustUpdate: response['object']['lust_update'],
+        createDate: response['object']['create_date']);
+
+    List<SpendingConst> spendLine = [];
+    for (var one in response['spending_list']) {
+      SpendingConst spend = SpendingConst();
+      spend.getFromJSON(one);
+      spendLine.add(spend);
+    }
+
+    BillDocument bill = BillDocument(
+        billNumber: response['bill_number'],
+        comment: response['comment'],
+        investor: investor,
+        contRAgent: contRAgent,
+        techCustomer: techCustomer,
+        spendingConstList: spendLine,
+        pickObject: pickObject,
+        creator: creator
+    );
+    bill.updateUsersLine(usersLine);
+    return bill;
   }
 
   Future<void> sendPush (

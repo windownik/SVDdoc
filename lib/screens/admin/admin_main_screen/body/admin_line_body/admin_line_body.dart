@@ -88,7 +88,8 @@ class _LineAdminBodyState extends State<LineAdminBody> {
                     fontWeight: FontWeight.w300)),
             const SizedBox(height: 18,),
             for (ActiveMsg one in activeList) ActiveMsgCard(
-              onTap: () {
+              onTap: () async {
+                BillDocument bill = await api.getBill(billId: one.docId);
                 Navigator.push(context, MaterialPageRoute(builder: (context) => ActiveBillScreen(activeBill: one,),),
                 );
               },

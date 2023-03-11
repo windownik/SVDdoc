@@ -48,7 +48,7 @@ class _CreateNewObjectScreenState extends State<ActiveBillScreen> {
               const SizedBox(height: 16,),
               Container(
                 width: width-40,
-                decoration: BoxDecoration(
+                decoration: const BoxDecoration(
                   color: mySet.white,
                 ),
                 child: Column(
@@ -61,6 +61,17 @@ class _CreateNewObjectScreenState extends State<ActiveBillScreen> {
       ),
     );
   }
+}
+
+class TopBillCard extends StatelessWidget{
+  const TopBillCard({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    // TODO: implement build
+    throw UnimplementedError();
+  }
+
 }
 
 class AppBarBillActive extends StatelessWidget{
