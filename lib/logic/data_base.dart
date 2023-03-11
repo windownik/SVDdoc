@@ -235,12 +235,13 @@ class SpendingConst {
   }
 
   void getFromJSON (Map<String, dynamic> resp){
+    spendingId = resp['name'];
     mainId = resp['id'];
     objectId = resp['object_id'];
     companyId = resp['company_id'];
     priceInDoc = resp['const_price'];
     price = resp['price'];
-    name = resp['name'];
+    name = resp['spending_text'];
   }
 
   void updatePriceInDoc(priceInDoc) {

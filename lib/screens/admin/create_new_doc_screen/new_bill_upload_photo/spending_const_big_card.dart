@@ -14,7 +14,6 @@ class SpendingConstBigCard extends StatefulWidget{
 class _SpendingConstCardState extends State<SpendingConstBigCard> {
   @override
   Widget build(BuildContext context) {
-
     String name = "${widget.spendingConst.spendingId} ${widget.spendingConst.name}";
     // name = name.length > 30 ? name.substring(0, 30) : name;
 

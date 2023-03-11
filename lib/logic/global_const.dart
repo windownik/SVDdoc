@@ -10,7 +10,8 @@ class mySet{
   static const Color input = Color.fromRGBO(187, 187, 190, 1);
   static const Color red = Color.fromRGBO(184, 14, 14, 1);
   static const Color softRed = Color.fromRGBO(215, 143, 143, 1);
+  static const Color liteGreen = Color.fromRGBO(131, 207, 38, 1);
   static const Color white = Color.fromRGBO(255, 255, 255, 1);
-  static const Color shadow = Color.fromRGBO(232, 232, 232, 1.0);
+  static const Color shadow = Color.fromRGBO(220, 220, 220, 1.0);
   static const Color background = Color.fromRGBO(242, 242, 242, 1.0);
 }

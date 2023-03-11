@@ -90,7 +90,9 @@ class _LineAdminBodyState extends State<LineAdminBody> {
             for (ActiveMsg one in activeList) ActiveMsgCard(
               onTap: () async {
                 BillDocument bill = await api.getBill(billId: one.docId);
-                Navigator.push(context, MaterialPageRoute(builder: (context) => ActiveBillScreen(activeBill: one,),),
+                Navigator.push(context,
+                  MaterialPageRoute(builder: (context) =>
+                      ActiveBillScreen(activeMsg: one, bill: bill,),),
                 );
               },
               activeMsg: one,
