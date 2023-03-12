@@ -86,7 +86,6 @@ class _LineAdminBodyState extends State<LineAdminBody> {
                     fontSize: 18,
                     fontFamily: "Italic",
                     fontWeight: FontWeight.w300)),
-            const SizedBox(height: 18,),
             for (ActiveMsg one in activeList) ActiveMsgCard(
               onTap: () async {
                 BillDocument bill = await api.getBill(billId: one.docId);
@@ -141,7 +140,7 @@ class _ActiveMsgCardState extends State<ActiveMsgCard> {
       },
       onTap: widget.onTap,
       child: Container(
-
+        margin: const EdgeInsets.only(top: 18),
         padding: const EdgeInsets.only(bottom: 8, top: 8, left: 6, right: 6),
         decoration: BoxDecoration(
             boxShadow: const [BoxShadow(

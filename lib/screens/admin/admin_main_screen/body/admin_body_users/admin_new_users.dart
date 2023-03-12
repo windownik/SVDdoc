@@ -4,6 +4,7 @@ import 'package:svd_doc/logic/api.dart';
 import 'package:svd_doc/logic/global_const.dart';
 import 'package:svd_doc/screens/auth_registration/pop_ups/func_chow_pop_ups.dart';
 
+import 'admin_all_users.dart';
 import 'new_user_card.dart';
 
 //-----------------
@@ -37,6 +38,8 @@ class _AdminMainInfoState extends State<AdminUsersMainInfo> {
 
   @override
   Widget build(BuildContext context) {
+    double width = MediaQuery.of(context).size.width;
+
     if (newUsers.isNotEmpty) {
       return Padding(
           padding: const EdgeInsets.only(left: 20, right: 20),
@@ -62,7 +65,12 @@ class _AdminMainInfoState extends State<AdminUsersMainInfo> {
               const SizedBox(height: 20,),
               UniversalBtn(
                 text: 'Все пользователи',
-                onTap: () {  },
+                onTap: () {
+                  Navigator.push(context,
+                    MaterialPageRoute(builder: (context) =>
+                        const AdminAllUsersInfo(),),
+                  );
+                },
                 textStyle: const TextStyle(color: mySet.white),
                 width: double.infinity,
               ),
@@ -88,7 +96,7 @@ class _AdminMainInfoState extends State<AdminUsersMainInfo> {
             const SizedBox(
               height: 13,
             ),
-            const Text('Все документы согласованы',
+            const Text('У вас нет новых пользователей.',
                 style: TextStyle(
                     color: mySet.main,
                     fontSize: 18,
@@ -101,7 +109,22 @@ class _AdminMainInfoState extends State<AdminUsersMainInfo> {
               'assets/big_icons/active_empty.png',
               height: 200,
               width: 200,
-            )
+            ),
+            const SizedBox(height: 20,),
+            UniversalBtn(
+              width: width-40,
+              textStyle: const TextStyle(
+                color: mySet.white,
+                fontSize: 16,
+                fontFamily: "Italic",
+                fontWeight: FontWeight.w400),
+              text: 'Все пользователи', onTap: () {
+              Navigator.push(context,
+                MaterialPageRoute(builder: (context) =>
+                const AdminAllUsersInfo(),),
+              );
+            },),
+            const SizedBox(height: 20,),
           ],
         ),
       ),
