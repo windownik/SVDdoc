@@ -158,7 +158,7 @@ class _ActiveMsgCardState extends State<ActiveMsgCard> {
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             SizedBox(
-              width: width-140,
+              width: width-145,
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
@@ -184,7 +184,7 @@ class _ActiveMsgCardState extends State<ActiveMsgCard> {
                 Text("$hoursч $minutesмин",
                     style: const TextStyle(
                         color: mySet.second,
-                        fontSize: 14,
+                        fontSize: 13,
                         fontFamily: "Italic",
                         fontWeight: FontWeight.w400))
               ],

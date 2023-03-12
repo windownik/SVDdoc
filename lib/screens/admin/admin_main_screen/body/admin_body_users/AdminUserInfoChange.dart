@@ -63,14 +63,14 @@ class _ChangeUsersInfoState extends State<ChangeUsersInfo> {
       ));
       if (company.companyId == widget.user.companyId) {
         dropCompanyValue = i;
-        updateDropProfession(company.companyTypeId);
+        updateDropProfession(company.companyTypeId, widget.user.profession);
       }
       i += 1;
     }
     setState(() {});
   }
 
-  void updateDropProfession(int companyType) {
+  void updateDropProfession(int companyType, [String? first]) {
 
     if (companyType == 2) {
       pickListPro = ListProfession.professionRead;
@@ -91,6 +91,11 @@ class _ChangeUsersInfoState extends State<ChangeUsersInfo> {
                 fontFamily: "Italic",
                 fontWeight: FontWeight.w400)),
       ));
+      if (first != null) {
+        if (item.name == first) {
+          dropProfessionValue = i;
+        }
+      }
       i += 1;
     }
   }

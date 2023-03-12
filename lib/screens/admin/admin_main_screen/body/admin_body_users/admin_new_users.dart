@@ -2,8 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:svd_doc/custom_widgets/default_btn.dart';
 import 'package:svd_doc/logic/api.dart';
 import 'package:svd_doc/logic/global_const.dart';
-import 'package:svd_doc/screens/auth_registration/pop_ups/func_chow_pop_ups.dart';
-
 import 'admin_all_users.dart';
 import 'new_user_card.dart';
 
@@ -39,7 +37,7 @@ class _AdminMainInfoState extends State<AdminUsersMainInfo> {
   @override
   Widget build(BuildContext context) {
     double width = MediaQuery.of(context).size.width;
-
+    double height = MediaQuery.of(context).size.height;
     if (newUsers.isNotEmpty) {
       return Padding(
           padding: const EdgeInsets.only(left: 20, right: 20),
@@ -85,7 +83,7 @@ class _AdminMainInfoState extends State<AdminUsersMainInfo> {
         child: Column(
           children: [
             const SizedBox(
-              height: 50,
+              height: 20,
             ),
             const Text('Отличная работа!',
                 style: TextStyle(
@@ -110,7 +108,7 @@ class _AdminMainInfoState extends State<AdminUsersMainInfo> {
               height: 200,
               width: 200,
             ),
-            const SizedBox(height: 20,),
+            SizedBox(height: height-700,),
             UniversalBtn(
               width: width-40,
               textStyle: const TextStyle(

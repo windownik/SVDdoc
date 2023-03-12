@@ -144,7 +144,15 @@ class _AllUserCardState extends State<AllUserCard> {
           left: 10,
           right: 10,
         ),
-        color: pres ? mySet.shadow : mySet.white,
+        decoration: BoxDecoration(
+            color: pres ? mySet.shadow : mySet.white,
+            boxShadow: const [BoxShadow(
+                color: mySet.shadow,
+                blurRadius: 5,
+                offset: Offset(-3, 3)
+            )]
+        ),
+
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
